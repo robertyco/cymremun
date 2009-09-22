@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* Empleado Test cases generated on: 2008-09-16 22:09:10 : 1221615910*/
+/* Empleado Test cases generated on: 2008-09-28 22:09:49 : 1222652749*/
 App::import('Model', 'Empleado');
 
 class TestEmpleado extends Empleado {
@@ -10,7 +10,7 @@ class TestEmpleado extends Empleado {
 
 class EmpleadoTestCase extends CakeTestCase {
 	var $Empleado = null;
-	var $fixtures = array('app.empleado', 'app.empresa');
+	var $fixtures = array('app.empleado', 'app.empresa', 'app.prevision');
 
 	function start() {
 		parent::start();
@@ -22,7 +22,7 @@ class EmpleadoTestCase extends CakeTestCase {
 	}
 
 	function testEmpleadoFind() {
-		$results = $this->Empleado->recursive = -1;
+		$this->Empleado->recursive = -1;
 		$results = $this->Empleado->find('first');
 		$this->assertTrue(!empty($results));
 
@@ -38,8 +38,8 @@ class EmpleadoTestCase extends CakeTestCase {
 			'telefono'  => 1,
 			'celular'  => 1,
 			'empresa_id'  => 1,
-			'created'  => '2008-09-16 22:45:10',
-			'modified'  => '2008-09-16 22:45:10'
+			'created'  => '2008-09-28 22:45:45',
+			'modified'  => '2008-09-28 22:45:45'
 			));
 		$this->assertEqual($results, $expected);
 	}

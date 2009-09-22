@@ -18,13 +18,15 @@ class EmpresasController extends AppController {
 	}
 
 	function add() {
-		if (!empty($this->data)) {
+		if (!empty($this->data)) {			
 			$this->Empresa->create();
 			if ($this->Empresa->save($this->data)) {
-				$this->Session->setFlash(__('The Empresa has been saved', true));
+				$this->Session->setFlash('La empresa ha sido guardada');
+				$this->Session->write('Empresa.id', $this->Empresa->id);
+				$this->Session->write('Empresa.nombre', $this->data['Empresa']['nombre']);
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Empresa could not be saved. Please, try again.', true));
+				$this->Session->setFlash('La empresa no se ha guardado. Por favor, intente nuevamante.');
 			}
 		}
 	}

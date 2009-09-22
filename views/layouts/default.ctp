@@ -31,9 +31,7 @@
 	<title>
 		<?php 
 		echo 'Sistema de Remuneraciones:  [ '.$session->read('Empresa.nombre').' ]';
-		
-		?>
-		<?php echo $title_for_layout;?>
+		echo $title_for_layout;?>
 	</title>
 	<?php
 		echo $html->meta('icon');
@@ -53,6 +51,7 @@
 				<li><?php echo $html->link('Inicio', '/'); ?></li>
 				<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
 				<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
+				<li><?php echo $html->link('AFP', '/afps'); ?></li>
 			</ul>		
 		</div>
 		<div id="content">
