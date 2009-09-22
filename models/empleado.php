@@ -48,6 +48,21 @@ class Empleado extends AppModel {
 								'order' => ''
 			)
 	);
+	
+	var $hasMany = array(
+			'EmpleadosHaberesDescuento' => array('className' => 'EmpleadosHaberesDescuento',
+								'foreignKey' => 'empleado_id',
+								'dependent' => true,
+								'conditions' => '',
+								'fields' => '',
+								'order' => '',
+								'limit' => '',
+								'offset' => '',
+								'exclusive' => '',
+								'finderQuery' => '',
+								'counterQuery' => ''
+			)
+	);
 
 }
 ?>

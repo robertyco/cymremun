@@ -51,8 +51,12 @@
 				<li><?php echo $html->link('Inicio', '/'); ?></li>
 				<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
 				<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
-				<li><?php echo $html->link('AFP', '/afps'); ?></li>
-				<li><?php echo $html->link('Isapre', '/isapres'); ?></li>
+				<li><?php echo $html->link('Haberes descuentos', '/haberes_descuentos'); ?></li>
+				<br>
+				<ul><?php echo $html->link('Mantención:', ''); ?></li>
+					<li><?php echo $html->link('AFP', '/afps'); ?></li>
+					<li><?php echo $html->link('Isapre', '/isapres'); ?></li>
+				</ul>
 			</ul>		
 		</div>
 		<div id="content">
@@ -66,7 +70,7 @@
 
 		</div>
 		<div id="footer">
-			footer
+		<!--	footer -->
 		</div>
 	</div>
 	<?php echo $cakeDebug?>
