@@ -1,78 +1,77 @@
-<?php
-/* SVN FILE: $Id: default.ctp 7118 2008-06-04 20:49:29Z gwoo $ */
-/**
- *
- * PHP versions 4 and 5
- *
- * CakePHP(tm) :  Rapid Development Framework <http://www.cakephp.org/>
- * Copyright 2005-2008, Cake Software Foundation, Inc.
- *								1785 E. Sahara Avenue, Suite 490-204
- *								Las Vegas, Nevada 89104
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @filesource
- * @copyright		Copyright 2005-2008, Cake Software Foundation, Inc.
- * @link				http://www.cakefoundation.org/projects/info/cakephp CakePHP(tm) Project
- * @package			cake
- * @subpackage		cake.cake.console.libs.templates.skel.views.layouts
- * @since			CakePHP(tm) v 0.10.0.1076
- * @version			$Revision: 7118 $
- * @modifiedby		$LastChangedBy: gwoo $
- * @lastmodified	$Date: 2008-06-04 13:49:29 -0700 (Wed, 04 Jun 2008) $
- * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
- */
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo $html->charset(); ?>
-	<title>
-		<?php 
-		echo 'Sistema de Remuneraciones:  [ '.$session->read('Empresa.nombre').' ]';
-		echo $title_for_layout;?>
-	</title>
+	<title>CyMremun:  [ <?php echo $session->read('Empresa.nombre').' ]'.$title_for_layout?></title>
+
 	<?php
-		echo $html->meta('icon');
-
-		echo $html->css('cake.generic');
-
+		echo $html->meta('icon');		
+		echo $html->css('contented4');
+		//echo $html->css('cake.generic');
 		echo $scripts_for_layout;
 	?>
 </head>
 <body>
-	<div id="container">
-		<!--<div id="header">
-			<h1>Sistema de Remuneraciones</h1>
-		</div>-->
-		<div id="menu">
-			<ul>
-				<li><?php echo $html->link('Inicio', '/'); ?></li>
-				<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
-				<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
-				<li><?php echo $html->link('Haberes descuentos', '/haberes_descuentos'); ?></li>
-				<br>
-				<ul><?php echo $html->link('Mantención:', ''); ?></li>
-					<li><?php echo $html->link('AFP', '/afps'); ?></li>
-					<li><?php echo $html->link('Isapre', '/isapres'); ?></li>
-				</ul>
-			</ul>		
-		</div>
-		<div id="content">
-			<?php
-				if ($session->check('Message.flash')):
-						$session->flash();
-				endif;
-			?>
-			
-			<?php echo $content_for_layout;?>
+<div id="header">
+	<div id="contact"><a href="#">Contacto</a></div>
+	<div id="title">CyMremun</div>
+	<div id="slogan">Sistema de remuneraciones</div>
+</div>
 
-		</div>
-		<div id="footer">
-		<!--	footer -->
-		</div>
-	</div>
-	<?php echo $cakeDebug?>
+<div id="sidecontent">
+	<h2>Menú</h2>
+
+	<ul id="nav">
+	<li><?php echo $html->link('Inicio', '/'); ?></li>
+	<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
+	<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
+	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li>
+	</ul>	
+
+	<h2>Mantención</h2>
+
+	<ul>
+	<li><?php echo $html->link('AFP', '/afps'); ?></li>
+	<li><?php echo $html->link('Isapre', '/isapres'); ?></li>
+	</ul>
+</div>
+
+<div id="maincontent">
+	<?php
+		if ($session->check('Message.flash')):
+				$session->flash();
+		endif;
+	?>
+	<?php echo $content_for_layout?>
+
+	<!--
+	<div id="path">
+		<a href="#">Home</a>
+		&nbsp;>&nbsp;
+		<a href="#">Section Title</a>
+		&nbsp;>&nbsp;
+		<a href="#">Subsection Title</a>
+		&nbsp;>&nbsp;
+		<a href="#">Page Title</a>
+	</div> -->
+</div>
+
+<div id="footer">
+Eduardo Daniel Collado Cortés <br />
+Arlegui 440 - Oficina 215 - Viña del Mar | Fono - Fax: 688042
+<!--
+<div id="copyright">
+Copyright &copy; 2008 CyM Solutions |
+Design by <a href="http://ContentedDesigns.com">Contented Designs</a>
+</div>
+
+<div id="footercontact">
+<a href="#">Contact</a>
+</div>
+-->
+</div>
+
+<?php echo $cakeDebug?>
 </body>
 </html>

@@ -24,7 +24,7 @@ class AfpsController extends AppController {
 				$this->Session->setFlash('La AFP ha sido guardada');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('La AFP no se ha podido guardar. Por favor, intente nuevamente');
+				$this->Session->setFlash('Error, la AFP no se ha podido guardar.', 'default', array('class' => 'messageError'));
 			}
 		}
 	}
@@ -36,10 +36,10 @@ class AfpsController extends AppController {
 		}
 		if (!empty($this->data)) {
 			if ($this->Afp->save($this->data)) {
-				$this->Session->setFlash('La AFP ha sido guardada');
+				$this->Session->setFlash('La AFP ha sido modificada');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('La AFP no se ha podido guardar. Por favor, intente nuevamente');
+				$this->Session->setFlash('Error, la AFP no se ha podido modificar.', 'default', array('class' => 'messageError'));
 			}
 		}
 		if (empty($this->data)) {

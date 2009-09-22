@@ -1,17 +1,16 @@
 <div class="empleadosHaberesDescuentos index">
-<h2>Haberes y Descuentos</h2>
+<h2>Asignar haberes y descuentos</h2>
 <h3><?php echo $empleadoNombre['Empleado']['nombres'].' '.
 			$empleadoNombre['Empleado']['apell_paterno'].' '.
 			$empleadoNombre['Empleado']['apell_materno']?></h3>
 &nbsp;
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('fecha');?></th>
 	<th><?php echo $paginator->sort('Ítem', 'haberes_descuento_id');?></th>
 	<th><?php echo $paginator->sort('tipo', 'HaberesDescuento.tipo');?></th>
 	<th><?php echo $paginator->sort('valor');?></th>
-	<th class="actions"><?php __('Actions');?></th>
+	<th class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;
@@ -22,9 +21,6 @@ foreach ($empleadosHaberesDescuentos as $empleadosHaberesDescuento):
 	}
 ?>
 	<tr<?php echo $class;?>>
-		<td>
-			<?php echo $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id']; ?>
-		</td>
 		<td>
 			<?php echo $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['fecha']; ?>
 		</td>
@@ -38,9 +34,8 @@ foreach ($empleadosHaberesDescuentos as $empleadosHaberesDescuento):
 			<?php echo $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['valor']; ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(__('View', true), array('action'=>'view', $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id'])); ?>
-			<?php echo $html->link(__('Edit', true), array('action'=>'edit', $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id'])); ?>
-			<?php echo $html->link(__('Delete', true), array('action'=>'delete', $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id'])); ?>
+			<?php echo $html->link('E', array('action'=>'edit', $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id'])); ?>
+			<?php echo $html->link('B', array('action'=>'delete', $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id']), null, sprintf(__('¿Está seguro que desea borrar el ítem # %s?', true), $empleadosHaberesDescuento['EmpleadosHaberesDescuento']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -52,19 +47,11 @@ foreach ($empleadosHaberesDescuentos as $empleadosHaberesDescuento):
 	<fieldset>
  		<legend></legend>
 	<?php
-		echo $form->input('fecha', array('dateFormat' => 'DMY'));
-		echo $form->input('valor');
-		echo $form->input('haberes_descuento_id');
+		echo $form->input('haberes_descuento_id', array('label' => 'Ítem', 'div' => 'w25'));
+		echo $form->input('valor', array('div' => 'w25'));
+		echo '<br />';
+		echo $form->input('fecha', array('dateFormat' => 'DMY', 'div' => 'w50'));
 	?>
 	</fieldset>
-<?php echo $form->end('Submit');?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('List EmpleadosHaberesDescuentos', true), array('action'=>'index'));?></li>
-		<li><?php echo $html->link(__('List Empleados', true), array('controller'=> 'empleados', 'action'=>'index')); ?> </li>
-		<li><?php echo $html->link(__('New Empleado', true), array('controller'=> 'empleados', 'action'=>'add')); ?> </li>
-		<li><?php echo $html->link(__('List Haberes Descuentos', true), array('controller'=> 'haberes_descuentos', 'action'=>'index')); ?> </li>
-		<li><?php echo $html->link(__('New Haberes Descuento', true), array('controller'=> 'haberes_descuentos', 'action'=>'add')); ?> </li>
-	</ul>
+<?php echo $form->end('Asignar');?>
 </div>

@@ -26,10 +26,10 @@ class EmpleadosController extends AppController {
 			$this->data['Empleado']['empresa_id'] = $this->Session->read('Empresa.id');
 			$this->Empleado->create();
 			if ($this->Empleado->saveAll($this->data)) {
-				$this->Session->setFlash('El empleado ha sido guardado');
+				$this->Session->setFlash('El empleado ha sido guardado.');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('El empleado no se ha podido guardar. Por favor, intente nuevamente');
+				$this->Session->setFlash('Error, no se ha podido guardar el empleado.', 'default', array('class' => 'messageError'));
 			}
 		}
 		$afps = $this->Empleado->Prevision->Afp->find('list');
@@ -46,10 +46,10 @@ class EmpleadosController extends AppController {
 		if (!empty($this->data)) {
 			$this->data['Empleado']['empresa_id'] = $this->Session->read('Empresa.id');
 			if ($this->Empleado->saveAll($this->data)) {
-				$this->Session->setFlash('El empleado ha sido modificado');
+				$this->Session->setFlash('El empleado ha sido modificado.');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('El empleado no se ha podido modificar. Por favor, intente nuevamente');
+				$this->Session->setFlash('Error, el empleado no se ha podido modificar.', 'default', array('class' => 'messageError'));
 			}
 		}
 		if (empty($this->data)) {
@@ -67,7 +67,7 @@ class EmpleadosController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Empleado->del($id)) {
-			$this->Session->setFlash(__('Empleado deleted', true));
+			$this->Session->setFlash('El empleado ha sido eliminado.');
 			$this->redirect(array('action'=>'index'));
 		}
 	}

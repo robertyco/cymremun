@@ -1,16 +1,11 @@
 <div class="afps form">
 <?php echo $form->create('Afp');?>
 	<fieldset>
- 		<legend><?php __('Add Afp');?></legend>
+ 		<legend>AFP</legend>
 	<?php
-		echo $form->input('nombre');
-		echo $form->input('cotizacion');
+		echo $form->input('nombre', array('div' => 'w50'));
+		echo $form->input('cotizacion', array('label' => 'Cotización', 'div' => 'w25'));
 	?>
 	</fieldset>
-<?php echo $form->end('Submit');?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('List Afps', true), array('action'=>'index'));?></li>
-	</ul>
+<?php echo $form->end('Guardar');?>
 </div>
