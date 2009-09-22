@@ -103,9 +103,6 @@
 		<th><?php __('Ciudad'); ?></th>
 		<th><?php __('Telefono'); ?></th>
 		<th><?php __('Celular'); ?></th>
-		<th><?php __('Empresa Id'); ?></th>
-		<th><?php __('Created'); ?></th>
-		<th><?php __('Modified'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -127,9 +124,6 @@
 			<td><?php echo $empleado['ciudad'];?></td>
 			<td><?php echo $empleado['telefono'];?></td>
 			<td><?php echo $empleado['celular'];?></td>
-			<td><?php echo $empleado['empresa_id'];?></td>
-			<td><?php echo $empleado['created'];?></td>
-			<td><?php echo $empleado['modified'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('View', true), array('controller'=> 'empleados', 'action'=>'view', $empleado['id'])); ?>
 				<?php echo $html->link(__('Edit', true), array('controller'=> 'empleados', 'action'=>'edit', $empleado['id'])); ?>

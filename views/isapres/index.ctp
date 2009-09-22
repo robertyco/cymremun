@@ -28,9 +28,9 @@ foreach ($isapres as $isapre):
 			<?php echo $isapre['Isapre']['nombre']; ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(__('View', true), array('action'=>'view', $isapre['Isapre']['id'])); ?>
-			<?php echo $html->link(__('Edit', true), array('action'=>'edit', $isapre['Isapre']['id'])); ?>
-			<?php echo $html->link(__('Delete', true), array('action'=>'delete', $isapre['Isapre']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $isapre['Isapre']['id'])); ?>
+			<?php echo $html->link('Ver', array('action'=>'view', $isapre['Isapre']['id'])); ?>
+			<?php echo $html->link('Editar', array('action'=>'edit', $isapre['Isapre']['id'])); ?>
+			<?php echo $html->link('Borrar', array('action'=>'delete', $isapre['Isapre']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $isapre['Isapre']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -43,6 +43,6 @@ foreach ($isapres as $isapre):
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('New Isapre', true), array('action'=>'add')); ?></li>
+		<li><?php echo $html->link('Nueva Isapre', array('action'=>'add')); ?></li>
 	</ul>
 </div>

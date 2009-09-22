@@ -1,3 +1,5 @@
+<?php if ($session->check('Empresa.id')) { ?>
+
 <div class="empleados form">
 <?php echo $form->create('Empleado');?>
 	<fieldset>
@@ -13,6 +15,18 @@
 		echo $form->input('Empleado.ciudad');
 		echo $form->input('Empleado.telefono', array('label' => 'Teléfono'));
 		echo $form->input('Empleado.celular');		
+		?>
+	</fieldset>
+	<fieldset>
+ 		<legend>Datos Laborales</legend>
+		<?php
+		echo $form->input('Empleado.fecha_ingreso', array('label' => 'Fecha de ingreso',
+														'dateFormat' => 'DMY'));
+		echo $form->input('Empleado.fecha_retiro', array('label' => 'Fecha de retiro',
+														'dateFormat' => 'DMY',
+														'empty' => ' ',
+														'selected' => ' '));
+		echo $form->input('Empleado.sueldo_base', array('label' => 'Sueldo base'));
 		?>
 	</fieldset>
 	<fieldset>
@@ -37,9 +51,9 @@
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Delete', true), array('action'=>'delete', $form->value('Empleado.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('Empleado.id'))); ?></li>
-		<li><?php echo $html->link(__('List Empleados', true), array('action'=>'index'));?></li>
-		<li><?php echo $html->link(__('List Empresas', true), array('controller'=> 'empresas', 'action'=>'index')); ?> </li>
-		<li><?php echo $html->link(__('New Empresa', true), array('controller'=> 'empresas', 'action'=>'add')); ?> </li>
+		<li><?php echo $html->link('Borrar', array('action'=>'delete', $form->value('Empleado.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('Empleado.id'))); ?></li>
+		<li><?php echo $html->link('Listar empleados', array('action'=>'index'));?></li>
 	</ul>
 </div>
+
+<?php } ?>
