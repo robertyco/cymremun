@@ -21,15 +21,17 @@ class EmpleadosController extends AppController {
 		if (!empty($this->data)) {
 			$this->data['Empleado']['empresa_id'] = $this->Session->read('Empresa.id');
 			$this->Empleado->create();
-			if ($this->Empleado->save($this->data)) {
+			if ($this->Empleado->saveAll($this->data)) {
 				$this->Session->setFlash('El empleado ha sido guardado');
 				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('El empleado no se ha podido guardar. Por favor, intente nuevamente');
 			}
 		}
+		$afps = $this->Empleado->Prevision->Afp->find('list');
+		$isapres = $this->Empleado->Salud->Isapre->find('list');
 		$empresas = $this->Empleado->Empresa->find('list');
-		$this->set(compact('empresas'));
+		$this->set(compact('empresas', 'afps', 'isapres'));
 	}
 
 	function edit($id = null) {
@@ -39,7 +41,7 @@ class EmpleadosController extends AppController {
 		}
 		if (!empty($this->data)) {
 			$this->data['Empleado']['empresa_id'] = $this->Session->read('Empresa.id');
-			if ($this->Empleado->save($this->data)) {
+			if ($this->Empleado->saveAll($this->data)) {
 				$this->Session->setFlash('El empleado ha sido modificado');
 				$this->redirect(array('action'=>'index'));
 			} else {
@@ -49,8 +51,10 @@ class EmpleadosController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Empleado->read(null, $id);
 		}
+		$afps = $this->Empleado->Prevision->Afp->find('list');
+		$isapres = $this->Empleado->Salud->Isapre->find('list');
 		$empresas = $this->Empleado->Empresa->find('list');
-		$this->set(compact('empresas'));
+		$this->set(compact('empresas', 'afps', 'isapres'));
 	}
 
 	function delete($id = null) {

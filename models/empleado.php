@@ -3,6 +3,21 @@ class Empleado extends AppModel {
 
 	var $name = 'Empleado';
 	var $displayField = 'rut';
+	
+	var $validate = array(
+		'rut' => array(
+			'rule' => array('minLength', 1),
+			'message' => 'Debe ingresar el RUT del empleado'
+		),
+		'nombres' => array(
+			'rule' => array('minLength', 1),
+			'message' => 'Debe ingresar el nombre del empleado'
+		),
+		'apell_paterno' => array(
+			'rule' => array('minLength', 1),
+			'message' => 'Debe ingresar el apellido del empleado'
+		)
+	);	
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
@@ -16,6 +31,13 @@ class Empleado extends AppModel {
 
 	var $hasOne = array(
 			'Prevision' => array('className' => 'Prevision',
+								'foreignKey' => 'empleado_id',
+								'dependent' => false,
+								'conditions' => '',
+								'fields' => '',
+								'order' => ''
+			),
+			'Salud' => array('className' => 'Salud',
 								'foreignKey' => 'empleado_id',
 								'dependent' => false,
 								'conditions' => '',
