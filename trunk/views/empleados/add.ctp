@@ -1,3 +1,5 @@
+<?php if ($session->check('Empresa.id')) { ?>
+
 <div class="empleados form">
 <?php echo $form->create('Empleado');?>
 	<fieldset>
@@ -12,6 +14,18 @@
 		echo $form->input('Empleado.ciudad');
 		echo $form->input('Empleado.telefono', array('label' => 'Teléfono'));
 		echo $form->input('Empleado.celular');
+		?>
+	</fieldset>
+	<fieldset>
+ 		<legend>Datos Laborales</legend>
+		<?php
+		echo $form->input('Empleado.fecha_ingreso', array('label' => 'Fecha de ingreso',
+														'dateFormat' => 'DMY'));
+		echo $form->input('Empleado.fecha_retiro', array('label' => 'Fecha de retiro',
+														'dateFormat' => 'DMY',
+														'empty' => ' ',
+														'selected' => ' '));
+		echo $form->input('Empleado.sueldo_base', array('label' => 'Sueldo base'));
 		?>
 	</fieldset>
 	<fieldset>
@@ -39,3 +53,5 @@
 		<li><?php echo $html->link(__('New Empresa', true), array('controller'=> 'empresas', 'action'=>'add')); ?> </li>
 	</ul>
 </div>
+
+<?php } ?>

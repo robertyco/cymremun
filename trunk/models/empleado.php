@@ -16,6 +16,9 @@ class Empleado extends AppModel {
 		'apell_paterno' => array(
 			'rule' => array('minLength', 1),
 			'message' => 'Debe ingresar el apellido del empleado'
+		),
+		'sueldo_base' => array(
+			'rule' => array('money')
 		)
 	);	
 
@@ -32,14 +35,14 @@ class Empleado extends AppModel {
 	var $hasOne = array(
 			'Prevision' => array('className' => 'Prevision',
 								'foreignKey' => 'empleado_id',
-								'dependent' => false,
+								'dependent' => true,
 								'conditions' => '',
 								'fields' => '',
 								'order' => ''
 			),
 			'Salud' => array('className' => 'Salud',
 								'foreignKey' => 'empleado_id',
-								'dependent' => false,
+								'dependent' => true,
 								'conditions' => '',
 								'fields' => '',
 								'order' => ''

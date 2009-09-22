@@ -16,8 +16,6 @@
 	<th><?php echo $paginator->sort('email');?></th>
 	<th><?php echo $paginator->sort('rep_legal_rut');?></th>
 	<th><?php echo $paginator->sort('rep_legal_nombre');?></th>
-	<th><?php echo $paginator->sort('created');?></th>
-	<th><?php echo $paginator->sort('modified');?></th>
 	<th class="actions"><?php __('Acciones');?></th>
 </tr>
 <?php
@@ -67,12 +65,6 @@ foreach ($empresas as $empresa):
 		</td>
 		<td>
 			<?php echo $empresa['Empresa']['rep_legal_nombre']; ?>
-		</td>
-		<td>
-			<?php echo $empresa['Empresa']['created']; ?>
-		</td>
-		<td>
-			<?php echo $empresa['Empresa']['modified']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link('Act', array('action'=>'activar', $empresa['Empresa']['id'], $empresa['Empresa']['nombre'])); ?>

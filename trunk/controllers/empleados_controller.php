@@ -5,6 +5,9 @@ class EmpleadosController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function index() {
+		if (!$this->Session->check('Empresa.id')) {
+			$this->Session->setFlash('Debe activar una empresa');
+		} 
 		$this->Empleado->recursive = 0;
 		$this->set('empleados', $this->paginate(array('empresa_id' => $this->Session->read('Empresa.id'))));
 	}
@@ -14,6 +17,7 @@ class EmpleadosController extends AppController {
 			$this->Session->setFlash('Empleado no válido');
 			$this->redirect(array('action'=>'index'));
 		}
+		$this->Empleado->recursive = 2;
 		$this->set('empleado', $this->Empleado->read(null, $id));
 	}
 
