@@ -1,14 +1,21 @@
 <?php
-class Empresa extends AppModel {
+class Afp extends AppModel {
 
-	var $name = 'Empresa';
+	var $name = 'Afp';
 	var $displayField = 'nombre';
 
+	var $validate = array(
+		'nombre' => array(
+			'rule' => array('minLength', 1),
+			'message' => 'Debe ingresar el nombre de la AFP'
+		)
+	);
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $hasMany = array(
-			'Empleado' => array('className' => 'Empleado',
-								'foreignKey' => 'empresa_id',
-								'dependent' => true,
+			'Prevision' => array('className' => 'Prevision',
+								'foreignKey' => 'afp_id',
+								'dependent' => false,
 								'conditions' => '',
 								'fields' => '',
 								'order' => '',

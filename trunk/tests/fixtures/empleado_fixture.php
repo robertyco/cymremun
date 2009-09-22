@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* Empleado Fixture generated on: 2008-09-16 22:09:10 : 1221615910*/
+/* Empleado Fixture generated on: 2008-09-28 22:09:45 : 1222652745*/
 
 class EmpleadoFixture extends CakeTestFixture {
 	var $name = 'Empleado';
@@ -33,8 +33,8 @@ class EmpleadoFixture extends CakeTestFixture {
 			'telefono'  => 1,
 			'celular'  => 1,
 			'empresa_id'  => 1,
-			'created'  => '2008-09-16 22:45:10',
-			'modified'  => '2008-09-16 22:45:10'
+			'created'  => '2008-09-28 22:45:45',
+			'modified'  => '2008-09-28 22:45:45'
 			));
 }
 ?>
