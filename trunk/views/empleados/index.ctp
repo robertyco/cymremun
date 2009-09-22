@@ -55,6 +55,7 @@ foreach ($empleados as $empleado):
 			<?php echo $html->link('Ver', array('action'=>'view', $empleado['Empleado']['id'])); ?>
 			<?php echo $html->link('Editar', array('action'=>'edit', $empleado['Empleado']['id'])); ?>
 			<?php echo $html->link('Borrar', array('action'=>'delete', $empleado['Empleado']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $empleado['Empleado']['id'])); ?>
+			<?php echo $html->link('HD', array('controller' => 'empleados_haberes_descuentos', 'action'=>'add', $empleado['Empleado']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

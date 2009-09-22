@@ -36,6 +36,18 @@ class Empresa extends AppModel {
 								'exclusive' => '',
 								'finderQuery' => '',
 								'counterQuery' => ''
+			),
+			'HaberesDescuento' => array('className' => 'HaberesDescuento',
+								'foreignKey' => 'empresa_id',
+								'dependent' => true,
+								'conditions' => '',
+								'fields' => '',
+								'order' => '',
+								'limit' => '',
+								'offset' => '',
+								'exclusive' => '',
+								'finderQuery' => '',
+								'counterQuery' => ''
 			)
 	);
 
