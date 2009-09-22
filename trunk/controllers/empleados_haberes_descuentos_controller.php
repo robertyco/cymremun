@@ -68,8 +68,8 @@ class EmpleadosHaberesDescuentosController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->EmpleadosHaberesDescuento->del($id)) {
-			$this->Session->setFlash(__('EmpleadosHaberesDescuento deleted', true));
-			$this->redirect(array('action'=>'index'));
+			$this->Session->setFlash('El ítem ha sido eliminado.');
+			$this->redirect(array('action'=>'add', $this->Session->read('Empleado.id')));
 		}
 	}
 

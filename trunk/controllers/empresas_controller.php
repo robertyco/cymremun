@@ -26,7 +26,7 @@ class EmpresasController extends AppController {
 				$this->Session->write('Empresa.nombre', $this->data['Empresa']['nombre']);
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash('La empresa no se ha guardado. Por favor, intente nuevamante.');
+				$this->Session->setFlash('Error, no se ha podido guardar la empresa.', 'default', array('class' => 'messageError'));
 			}
 		}
 	}

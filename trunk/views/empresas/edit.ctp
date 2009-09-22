@@ -1,30 +1,37 @@
 <div class="empresas form">
 <?php echo $form->create('Empresa');?>
 	<fieldset>
- 		<legend><?php __('Edit Empresa');?></legend>
+ 		<legend>Empresa</legend>
 	<?php
-		echo $form->input('id');
-		echo $form->input('rut');
-		echo $form->input('nombre');
-		echo $form->input('actividad');
-		echo $form->input('direccion');
-		echo $form->input('comuna');
-		echo $form->input('ciudad');
-		echo $form->input('region');
-		echo $form->input('telefono');
-		echo $form->input('fax');
-		echo $form->input('email');
-		echo $form->input('rep_legal_rut');
-		echo $form->input('rep_legal_nombre');
+		echo $form->input('id');		
+		echo $form->input('rut', array('label' => 'R.U.T. *', 'div' => 'w25'));
+		echo $form->input('nombre', array('label' => 'Nombre *', 'div' => 'w50'));
+		echo '<br />';
+		echo $form->input('actividad', array('div' => 'w50'));
+		echo '<br />';
+		echo $form->input('direccion', array('label' => 'Dirección *', 'div' => 'w50'));
+		echo '<br />';
+		echo $form->input('comuna', array('div' => 'w25'));
+		echo $form->input('ciudad', array('label' => 'Ciudad *', 'div' => 'w25'));
+		echo $form->input('region', array('label' => 'Región', 'div' => 'w25'));
+		echo '<br />';
+		echo $form->input('telefono', array('label' => 'Teléfono', 'div' => 'w25'));
+		echo $form->input('fax', array('div' => 'w25'));
+		echo '<br />';
+		echo $form->input('email', array('div' => 'w50'));
+	?></fieldset>
+	<fieldset>
+ 		<legend>Representante Legal</legend>
+	<?php		
+		echo $form->input('rep_legal_rut', array('label' => 'R.U.T.', 'div' => 'w25'));
+		echo $form->input('rep_legal_nombre', array('label' => 'Nombre', 'div' => 'w50'));
 	?>
 	</fieldset>
-<?php echo $form->end('Submit');?>
+<?php echo $form->end('Guardar');?>
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Delete', true), array('action'=>'delete', $form->value('Empresa.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('Empresa.id'))); ?></li>
-		<li><?php echo $html->link(__('List Empresas', true), array('action'=>'index'));?></li>
-		<li><?php echo $html->link(__('List Empleados', true), array('controller'=> 'empleados', 'action'=>'index')); ?> </li>
-		<li><?php echo $html->link(__('New Empleado', true), array('controller'=> 'empleados', 'action'=>'add')); ?> </li>
+		<li><?php echo $html->link('Borrar', array('action'=>'delete', $form->value('Empresa.id')), null, sprintf(__('¿Está seguro que desea eliminar la empresa "%s"?', true), $form->value('Empresa.nombre'))); ?></li>
+		<li><?php echo $html->link('Listar empresas', array('action'=>'index'));?></li>
 	</ul>
 </div>

@@ -22,10 +22,10 @@ class HaberesDescuentosController extends AppController {
 			$this->data['HaberesDescuento']['empresa_id'] = $this->Session->read('Empresa.id');
 			$this->HaberesDescuento->create();
 			if ($this->HaberesDescuento->save($this->data)) {
-				$this->Session->setFlash('El ítem ha sido guardado');
-				$this->redirect(array('action'=>'index'));
+				$this->Session->setFlash('El ítem ha sido guardado', 'default', array('class' => 'messageExitoso'));
+				$this->redirect(array('action'=>'add'));
 			} else {
-				$this->Session->setFlash('El ítem no se ha podido guardar. Por favor, intente nuevamente');
+				$this->Session->setFlash('Error, el ítem no se ha podido guardar', 'default', array('class' => 'messageError'));
 			}
 		}
 	}

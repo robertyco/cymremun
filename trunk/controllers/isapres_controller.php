@@ -21,17 +21,17 @@ class IsapresController extends AppController {
 		if (!empty($this->data)) {
 			$this->Isapre->create();
 			if ($this->Isapre->save($this->data)) {
-				$this->Session->setFlash(__('The Isapre has been saved', true));
+				$this->Session->setFlash('La Isapre ha sido guardada.');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Isapre could not be saved. Please, try again.', true));
+				$this->Session->setFlash('Error, la Isapre no se ha podido guardar.', 'default', array('class' => 'messageError'));
 			}
 		}
 	}
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid Isapre', true));
+			$this->Session->setFlash('La Isapre ha sido modificada.');
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
@@ -39,7 +39,7 @@ class IsapresController extends AppController {
 				$this->Session->setFlash(__('The Isapre has been saved', true));
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Isapre could not be saved. Please, try again.', true));
+				$this->Session->setFlash('Error, la Isapre no se ha podido guardar.', 'default', array('class' => 'messageError'));
 			}
 		}
 		if (empty($this->data)) {
@@ -53,7 +53,7 @@ class IsapresController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Isapre->del($id)) {
-			$this->Session->setFlash(__('Isapre deleted', true));
+			$this->Session->setFlash('La Isapre ha sido eliminada.');
 			$this->redirect(array('action'=>'index'));
 		}
 	}

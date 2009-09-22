@@ -1,19 +1,16 @@
 <?php if ($session->check('Empresa.id')) { ?>
 
 <div class="empleados index">
-<h2><?php __('Empleados');?></h2>
+<h2>Empleados</h2>
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('RUT','rut');?></th>
-	<th><?php echo $paginator->sort('apell_paterno');?></th>
-	<th><?php echo $paginator->sort('apell_materno');?></th>
-	<th><?php echo $paginator->sort('nombres');?></th>
+	<th><?php echo $paginator->sort('Apellido', 'apell_paterno');?></th>
+	<th><?php echo $paginator->sort('Nombre', 'nombres');?></th>
 	<th><?php echo $paginator->sort('Dirección','direccion');?></th>
-	<th><?php echo $paginator->sort('comuna');?></th>
 	<th><?php echo $paginator->sort('ciudad');?></th>
 	<th><?php echo $paginator->sort('telefono');?></th>
-	<th><?php echo $paginator->sort('celular');?></th>
-	<th class="actions"><?php __('Actions');?></th>
+	<th class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;
@@ -31,16 +28,10 @@ foreach ($empleados as $empleado):
 			<?php echo $empleado['Empleado']['apell_paterno']; ?>
 		</td>
 		<td>
-			<?php echo $empleado['Empleado']['apell_materno']; ?>
-		</td>
-		<td>
 			<?php echo $empleado['Empleado']['nombres']; ?>
 		</td>
 		<td>
 			<?php echo $empleado['Empleado']['direccion']; ?>
-		</td>
-		<td>
-			<?php echo $empleado['Empleado']['comuna']; ?>
 		</td>
 		<td>
 			<?php echo $empleado['Empleado']['ciudad']; ?>
@@ -48,13 +39,10 @@ foreach ($empleados as $empleado):
 		<td>
 			<?php echo $empleado['Empleado']['telefono']; ?>
 		</td>
-		<td>
-			<?php echo $empleado['Empleado']['celular']; ?>
-		</td>
 		<td class="actions">
-			<?php echo $html->link('Ver', array('action'=>'view', $empleado['Empleado']['id'])); ?>
-			<?php echo $html->link('Editar', array('action'=>'edit', $empleado['Empleado']['id'])); ?>
-			<?php echo $html->link('Borrar', array('action'=>'delete', $empleado['Empleado']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $empleado['Empleado']['id'])); ?>
+			<?php echo $html->link('V', array('action'=>'view', $empleado['Empleado']['id'])); ?>
+			<?php echo $html->link('E', array('action'=>'edit', $empleado['Empleado']['id'])); ?>
+			<?php echo $html->link('B', array('action'=>'delete', $empleado['Empleado']['id']), null, sprintf(__('¿Está seguro que desea borrar el empleado "%s"?', true), $empleado['Empleado']['nombres'])); ?>
 			<?php echo $html->link('HD', array('controller' => 'empleados_haberes_descuentos', 'action'=>'add', $empleado['Empleado']['id'])); ?>
 		</td>
 	</tr>
