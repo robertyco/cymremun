@@ -52,6 +52,7 @@
 				<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
 				<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
 				<li><?php echo $html->link('AFP', '/afps'); ?></li>
+				<li><?php echo $html->link('Isapre', '/isapres'); ?></li>
 			</ul>		
 		</div>
 		<div id="content">

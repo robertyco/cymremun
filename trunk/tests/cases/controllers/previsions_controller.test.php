@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* PrevisionsController Test cases generated on: 2008-09-28 22:09:21 : 1222653261*/
+/* PrevisionsController Test cases generated on: 2008-10-04 21:10:14 : 1223164994*/
 App::import('Controller', 'Previsions');
 
 class TestPrevisions extends PrevisionsController {
