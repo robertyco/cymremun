@@ -15,7 +15,7 @@
 															'digitador' => 'Digitador', 
 															'administrador' => 'Administrador'), 
 																'div' => 'w25'));
-		echo $form->input('empresa_id', array('label' => 'Empresa', 'selected' => '0', 'div' => 'w50'));
+		echo $form->input('empresa_id', array('label' => 'Empresa', 'div' => 'w50'));
 	?>
 	</fieldset>
 <?php echo $form->end('Guardar');?>
