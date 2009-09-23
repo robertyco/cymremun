@@ -51,6 +51,7 @@ class AppController extends Controller {
 		}
 		if (!$this->Session->check('mes')) $this->Session->write('mes', date('m'));
 		if (!$this->Session->check('ano')) $this->Session->write('ano', date('Y'));
+		if (!$this->Session->check('fecha')) $this->Session->write('fecha', date('Y').'-'.date('m').'-00');
 	}
 }
 ?>
