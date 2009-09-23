@@ -37,5 +37,20 @@
  * @subpackage	cake.app
  */
 class AppController extends Controller {
+	var $components = array('Auth');
+
+	function beforeFilter() {
+		//$this->Auth->allow('*');		
+		$this->Auth->authorize = 'controller';
+		$this->Auth->logoutRedirect = '/'; 
+		Security::setHash('md5');		
+		$this->set('Auth',$this->Auth->user()); 
+		if ($this->Auth->user('tipo') == 'consultor') {
+			$this->Session->write('Empresa.id', $this->Auth->user('empresa_id'));
+			$this->Session->write('Empresa.nombre', $this->Auth->user('empresa_id'));
+		}
+		if (!$this->Session->check('mes')) $this->Session->write('mes', date('m'));
+		if (!$this->Session->check('ano')) $this->Session->write('ano', date('Y'));
+	}
 }
 ?>

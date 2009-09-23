@@ -4,6 +4,10 @@ class SaludsController extends AppController {
 	var $name = 'Saluds';
 	var $helpers = array('Html', 'Form');
 
+    function isAuthorized() {
+		return false;
+    }
+	
 	function index() {
 		$this->Salud->recursive = 0;
 		$this->set('saluds', $this->paginate());

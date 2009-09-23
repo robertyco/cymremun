@@ -4,6 +4,10 @@ class PrevisionsController extends AppController {
 	var $name = 'Previsions';
 	var $helpers = array('Html', 'Form');
 
+    function isAuthorized() {
+		return false;
+    }
+	
 	function index() {
 		$this->Prevision->recursive = 0;
 		$this->set('previsions', $this->paginate());

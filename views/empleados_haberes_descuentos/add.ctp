@@ -50,7 +50,14 @@ foreach ($empleadosHaberesDescuentos as $empleadosHaberesDescuento):
 		echo $form->input('haberes_descuento_id', array('label' => 'Ítem', 'div' => 'w25'));
 		echo $form->input('valor', array('div' => 'w25'));
 		echo '<br />';
-		echo $form->input('fecha', array('dateFormat' => 'DMY', 'div' => 'w50'));
+		echo '<div class="w25">';
+		echo $form->label('mes', 'Mes');
+		echo $form->month('mes', $session->read('mes'));
+		echo '</div>';
+		echo '<div class="w25">';
+		echo $form->label('ano', 'Año');
+		echo $form->year('ano', date('Y')-20, date('Y')+10, $session->read('ano'));
+		echo '</div>';
 	?>
 	</fieldset>
 <?php echo $form->end('Asignar');?>

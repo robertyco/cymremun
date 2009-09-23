@@ -4,6 +4,14 @@ class EmpresasController extends AppController {
 	var $name = 'Empresas';
 	var $helpers = array('Html', 'Form');
 
+    function isAuthorized() {
+		if ($this->Auth->user('tipo') == 'consultor') {
+			return false;
+		} else {
+			return true;
+		}
+    }	
+	
 	function index() {
 		$this->Empresa->recursive = 0;
 		$this->set('empresas', $this->paginate());

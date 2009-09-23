@@ -9,7 +9,7 @@ body {
 	font-family:Verdana,Tahoma,Arial,sans-serif;
 	font-size:83%;
 	margin:20px auto;
-	width:984px;
+	width:600px;
 	padding-left:10px;
 	padding-right:10px;
 }
@@ -104,23 +104,6 @@ a:hover {
 	width:100%;
 }
 
-#headinfo {
-	color:#CFE6CF;
-	background-color:#557955;
-	height:20px;
-	width:100%;
-}
-
-#headusuario {
-	margin-left: 20px;
-	float:left;
-}
-
-#headempresa {
-	float:right;
-	margin-right: 20px;
-}
-
 #sidecontent {
 	clear:both;
 	font-family:Arial, sans-serif;
@@ -132,15 +115,7 @@ a:hover {
 	width:200px;
 	float:left;
 }
-#sidecontent #fecha {
-	float:left;
-	margin: 15px 0px 20px 15px;
-}
-#sidecontent input[type=submit] {
-	width: auto;
-	margin: 13px 0px 20px 0px;
-	float:left;
-}
+
 #sidecontent a {
 	color:#009900;
 	background-color:#CFE6CF;
@@ -193,20 +168,20 @@ ul#nav li a:hover {
 
 #maincontent {
 	font-size:100%;
-	padding:0px 0px 5px 0px;
-	margin:5px 10px 10px 20px;
-	width:754px;
+	padding:10px 0px 10px 100px;
 	float:left;
+	background-color:#CFE6CF;
+	width:500px;
 }
 
 
 #footer {
-	color:#000000;
-	background-color:#EEEEEE;
+	color:#fff;
+	background-color:#72A372;
 	border-top:1px solid #009900;
 	font-size:80%;
 	line-height:1.5em;
-	width: 984px;
+	width: 600px;
 	clear:both;
 	text-align:center;
 }
@@ -388,7 +363,7 @@ input, textarea {
 }
 input[type=submit] {
 	width: auto;
-	margin-left: 100px;
+	margin-left: 50px;
 	margin-bottom: 20px;
 }
 .w25, .w50, .w75, .w100 {
