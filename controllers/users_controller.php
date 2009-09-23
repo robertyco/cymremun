@@ -1,6 +1,7 @@
 <?php
 class UsersController extends AppController {
 	var $name = 'Users';
+	var $paginate = array('order' => array('User.tipo' => 'asc', 'User.username' => 'asc'));
 
     function isAuthorized() {
         if ($this->action == 'index' || $this->action == 'add' || $this->action == 'edit' 

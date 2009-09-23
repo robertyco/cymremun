@@ -2,7 +2,13 @@
 class HaberesDescuentosController extends AppController {
 
 	var $name = 'HaberesDescuentos';
+	var $uses = array('HaberesDescuento', 'Empleado', 'EmpleadosHaberesDescuento');
 	var $helpers = array('Html', 'Form');
+	var $paginate = array(
+		'HaberesDescuento' => array('order' => array('HaberesDescuento.tipo' => 'asc', 'HaberesDescuento.nombre' => 'asc')),
+		'Empleado' => array('order' => array('Empleado.apell_paterno' => 'asc', 'Empleado.apell_materno' => 'asc'))		
+	);
+
 
     function isAuthorized() {
         if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete') {
@@ -15,7 +21,7 @@ class HaberesDescuentosController extends AppController {
 	
 	function index() {
 		$this->HaberesDescuento->recursive = 0;
-		$this->set('haberesDescuentos', $this->paginate(array('empresa_id' => $this->Session->read('Empresa.id'))));
+		$this->set('haberesDescuentos', $this->paginate('HaberesDescuento', array('empresa_id' => $this->Session->read('Empresa.id'))));
 	}
 
 	function view($id = null) {
@@ -68,6 +74,40 @@ class HaberesDescuentosController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 	}
+	
+	function asignar_hd($id = null) {
+		$this->Empleado->recursive = 0;	
+		$this->set('empleados', $this->paginate('Empleado', array('empresa_id' => $this->Session->read('Empresa.id'))));
+		$this->HaberesDescuento->id = $id;
+		$this->set('haberesDescuento', $this->HaberesDescuento->find());
+	}
 
+	function add_asignar_hd($id = null) {		
+		$this->Empleado->recursive = 0;
+		$empleados = $this->paginate('Empleado', array('empresa_id' => $this->Session->read('Empresa.id')));
+		$i = 0;
+		foreach ($empleados as $empleado):
+			$i++;
+			$repetido = $this->EmpleadosHaberesDescuento->find('first', array(
+				'conditions' => array('fecha' => $this->Session->read('fecha'), 
+					'empleado_id' => $empleado['Empleado']['id'],
+					'haberes_descuento_id' => $id))
+					);
+			if ($repetido) {
+				$this->EmpleadosHaberesDescuento->id = $repetido['EmpleadosHaberesDescuento']['id'];
+			} else {
+				$this->EmpleadosHaberesDescuento->create();
+			}
+			if ($this->EmpleadosHaberesDescuento->saveField('fecha', $this->Session->read('fecha')) && 
+				$this->EmpleadosHaberesDescuento->saveField('valor', $this->data['HaberesDescuento']['valor'.$i]) &&
+				$this->EmpleadosHaberesDescuento->saveField('empleado_id', $empleado['Empleado']['id']) &&
+				$this->EmpleadosHaberesDescuento->saveField('haberes_descuento_id', $id)) {
+					$this->Session->setFlash('Los valores han sido asignado correctamente.');
+			} else {
+				$this->Session->setFlash('Error, los datos no se han podido guardar.', 'default', array('class' => 'messageError'));
+			}
+		endforeach;		
+		$this->redirect(array('action'=>'asignar_hd', $id));
+	}
 }
 ?>

@@ -404,6 +404,9 @@ input[type=submit] {
 	width: 166px;
 	float: left;
 }
+.simple{
+	width: 100px;
+}
 .w50{
 	width: 352px;
 	float: left;
