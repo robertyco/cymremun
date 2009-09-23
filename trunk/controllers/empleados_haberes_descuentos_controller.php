@@ -28,12 +28,12 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		}
 		$this->Empleado->id = $this->Session->read('Empleado.id');		
 		$this->set('empleadoNombre', $this->Empleado->find());
-		$this->set('empleadosHaberesDescuentos', $this->paginate(array('empleado_id' => $this->Session->read('Empleado.id'))));
+		$this->set('empleadosHaberesDescuentos', $this->paginate(array('empleado_id' => $this->Session->read('Empleado.id'), 'fecha' => $this->Session->read('fecha'))));
 		if (!empty($this->data)) {
-			$this->data['EmpleadosHaberesDescuento']['fecha'] = $this->data['EmpleadosHaberesDescuento']['ano']['year'].$this->data['EmpleadosHaberesDescuento']['mes']['month'].'00';
+			$this->data['EmpleadosHaberesDescuento']['fecha'] = $this->Session->read('fecha');
 			$this->data['EmpleadosHaberesDescuento']['empleado_id'] = $this->Session->read('Empleado.id');
 			$this->EmpleadosHaberesDescuento->create();
-			if ($this->EmpleadosHaberesDescuento->save($this->data)) {
+			if ($this->EmpleadosHaberesDescuento->save($this->data)) {				
 				$this->Session->setFlash('El ítem ha sido asignado');
 				$this->redirect(array('action'=>'add', $this->Session->read('Empleado.id')));
 			} else {
