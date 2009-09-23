@@ -23,8 +23,7 @@
 		<?php echo 'Usuario: '.$Auth['User']['username']; ?>
 	</div>
 	<div id="headempresa">
-		<?php //echo 'Empresa: '.$session->read('Empresa.nombre'); 
-		echo $session->read('fecha');
+		<?php echo 'Empresa: '.$session->read('Empresa.nombre'); 
 		?>
 	</div>
 </div>

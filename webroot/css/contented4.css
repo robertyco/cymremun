@@ -324,23 +324,29 @@ div.actions li a:hover {
 
 /* Notices and Errors */
 div.message {
-	background: #ffeb9c;
-	color: #888;
-	display: block;
-	font-weight: bold;	
-	padding: 0.5em;
+	background: #ffffdd;
+	color: #000;	
+	background-image: url(../img/s_notice.png);
+	background-repeat: no-repeat;
+	background-position: 10px 50%;
 	margin: 1em 0;
+	border: 0.1em solid #ffd700;
+	display: block;
+	padding: 10px 10px 10px 36px;	
+}
+div.messageError {
+    background-color: #FFFFCC;
+    color: #ff0000;
+	background-image: url(../img/s_error.png);
+	background-repeat: no-repeat;
+    background-position: 10px 50%;
+  	margin: 1em 0;
+    border: 0.1em solid #ff0000;
+	display: block;
+	padding: 10px 10px 10px 36px;
 }
 div.messageExitoso {
 	background: #3b3;
-	color: #eee;
-	display: block;
-	font-weight: bold;	
-	padding: 0.5em;
-	margin: 1em 0;
-}
-div.messageError {
-	background: #f33;
 	color: #eee;
 	display: block;
 	font-weight: bold;	
