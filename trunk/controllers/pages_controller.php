@@ -83,6 +83,10 @@ class PagesController extends AppController {
 		$this->set(compact('page', 'subpage', 'title'));
 		$this->render(join('/', $path));
 	}
+	
+    function isAuthorized() {
+		return true;
+    }
 }
 
 ?>

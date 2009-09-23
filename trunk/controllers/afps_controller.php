@@ -3,6 +3,13 @@ class AfpsController extends AppController {
 
 	var $name = 'Afps';
 	var $helpers = array('Html', 'Form');
+	
+    function isAuthorized() {
+		if ($this->Auth->user('tipo') == 'consultor') {
+			return false;
+		} 
+		return true;
+    }	
 
 	function index() {
 		$this->Afp->recursive = 0;

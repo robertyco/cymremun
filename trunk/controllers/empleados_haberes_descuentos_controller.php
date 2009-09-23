@@ -4,7 +4,11 @@ class EmpleadosHaberesDescuentosController extends AppController {
 	var $name = 'EmpleadosHaberesDescuentos';
 	var $uses = array('EmpleadosHaberesDescuento', 'Empleado');
 	var $helpers = array('Html', 'Form');
-
+	
+    function isAuthorized() {
+		return true;
+    }
+	
 	function index() {
 		$this->EmpleadosHaberesDescuento->recursive = 0;
 		$this->set('empleadosHaberesDescuentos', $this->paginate());
@@ -26,10 +30,11 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		$this->set('empleadoNombre', $this->Empleado->find());
 		$this->set('empleadosHaberesDescuentos', $this->paginate(array('empleado_id' => $this->Session->read('Empleado.id'))));
 		if (!empty($this->data)) {
+			$this->data['EmpleadosHaberesDescuento']['fecha'] = $this->data['EmpleadosHaberesDescuento']['ano']['year'].$this->data['EmpleadosHaberesDescuento']['mes']['month'].'00';
 			$this->data['EmpleadosHaberesDescuento']['empleado_id'] = $this->Session->read('Empleado.id');
 			$this->EmpleadosHaberesDescuento->create();
 			if ($this->EmpleadosHaberesDescuento->save($this->data)) {
-				$this->Session->setFlash('El ítem ha sido asignado');				
+				$this->Session->setFlash('El ítem ha sido asignado');
 				$this->redirect(array('action'=>'add', $this->Session->read('Empleado.id')));
 			} else {
 				$this->Session->setFlash(__('The EmpleadosHaberesDescuento could not be saved. Please, try again.', true));

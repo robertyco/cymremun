@@ -4,6 +4,13 @@ class IsapresController extends AppController {
 	var $name = 'Isapres';
 	var $helpers = array('Html', 'Form');
 
+    function isAuthorized() {
+		if ($this->Auth->user('tipo') == 'consultor') {
+			return false;
+		} 
+		return true;
+    }		
+	
 	function index() {
 		$this->Isapre->recursive = 0;
 		$this->set('isapres', $this->paginate());

@@ -4,6 +4,15 @@ class HaberesDescuentosController extends AppController {
 	var $name = 'HaberesDescuentos';
 	var $helpers = array('Html', 'Form');
 
+    function isAuthorized() {
+        if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete') {
+            if ($this->Auth->user('tipo') == 'consultor') {
+                return false;
+            }
+        }
+        return true;
+    }
+	
 	function index() {
 		$this->HaberesDescuento->recursive = 0;
 		$this->set('haberesDescuentos', $this->paginate(array('empresa_id' => $this->Session->read('Empresa.id'))));

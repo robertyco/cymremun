@@ -8,7 +8,6 @@
 	<?php
 		echo $html->meta('icon');		
 		echo $html->css('contented4');
-		//echo $html->css('cake.generic');
 		echo $scripts_for_layout;
 	?>
 </head>
@@ -19,16 +18,47 @@
 	<div id="slogan">Sistema de remuneraciones</div>
 </div>
 
+<div id="headinfo">
+	<div id="headusuario">
+		<?php echo 'Usuario: '.$Auth['User']['username']; ?>
+	</div>
+	<div id="headempresa">
+		<?php //echo 'Empresa: '.$session->read('Empresa.nombre'); 
+		echo $session->read('fecha');
+		?>
+	</div>
+</div>
+
 <div id="sidecontent">
+
+<?php echo $form->create('Fecha', array('action' => 'setFecha'));?>
+	<div id="fecha">
+	<?php
+		echo $form->month('mes', $session->read('mes'));
+		echo $form->year('ano', date('Y')-20, date('Y')+10, $session->read('ano'));
+	?>
+	</div>
+<?php echo $form->end('Ir');?>
+
 	<h2>Menú</h2>
 
 	<ul id="nav">
 	<li><?php echo $html->link('Inicio', '/'); ?></li>
-	<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
+
+	<?php if ($Auth['User']['tipo'] != 'consultor') { ?>	
+		<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
+	<?php } ?>
+	
 	<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
 	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li>
-	</ul>	
-
+	
+	<?php if ($Auth['User']['tipo'] == 'administrador') { ?>
+		<li><?php echo $html->link('Usuarios', '/users'); ?></li>
+	<?php } ?>
+	
+	<li><?php echo $html->link('Salir', array('controller' => 'users', 'action' => 'logout')); ?></li>
+	</ul>
+	
 	<h2>Mantención</h2>
 
 	<ul>
@@ -44,32 +74,11 @@
 		endif;
 	?>
 	<?php echo $content_for_layout?>
-
-	<!--
-	<div id="path">
-		<a href="#">Home</a>
-		&nbsp;>&nbsp;
-		<a href="#">Section Title</a>
-		&nbsp;>&nbsp;
-		<a href="#">Subsection Title</a>
-		&nbsp;>&nbsp;
-		<a href="#">Page Title</a>
-	</div> -->
 </div>
 
 <div id="footer">
 Eduardo Daniel Collado Cortés <br />
 Arlegui 440 - Oficina 215 - Viña del Mar | Fono - Fax: 688042
-<!--
-<div id="copyright">
-Copyright &copy; 2008 CyM Solutions |
-Design by <a href="http://ContentedDesigns.com">Contented Designs</a>
-</div>
-
-<div id="footercontact">
-<a href="#">Contact</a>
-</div>
--->
 </div>
 
 <?php echo $cakeDebug?>

@@ -85,8 +85,19 @@ class Empresa extends AppModel {
 								'exclusive' => '',
 								'finderQuery' => '',
 								'counterQuery' => ''
+			),
+			'User' => array('className' => 'User',
+								'foreignKey' => 'empresa_id',
+								'dependent' => true,
+								'conditions' => '',
+								'fields' => '',
+								'order' => '',
+								'limit' => '',
+								'offset' => '',
+								'exclusive' => '',
+								'finderQuery' => '',
+								'counterQuery' => ''
 			)
 	);
-
 }
 ?>

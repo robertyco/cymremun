@@ -3,6 +3,15 @@ class EmpleadosController extends AppController {
 
 	var $name = 'Empleados';
 	var $helpers = array('Html', 'Form');
+	
+    function isAuthorized() {
+        if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete') {
+            if ($this->Auth->user('tipo') == 'consultor') {
+                return false;
+            }
+        }
+        return true;
+    }
 
 	function index() {
 		if (!$this->Session->check('Empresa.id')) {
