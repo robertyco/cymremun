@@ -16,7 +16,9 @@ foreach ($haberesDescuentos as $haberesDescuento):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $haberesDescuento['HaberesDescuento']['nombre']; ?>
+			<?php 
+			echo $html->link($haberesDescuento['HaberesDescuento']['nombre'], array('action'=>'asignar_hd', $haberesDescuento['HaberesDescuento']['id']));
+			?>
 		</td>
 		<td>
 			<?php echo $haberesDescuento['HaberesDescuento']['tipo']; ?>

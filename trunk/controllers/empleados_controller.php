@@ -3,6 +3,7 @@ class EmpleadosController extends AppController {
 
 	var $name = 'Empleados';
 	var $helpers = array('Html', 'Form');
+	var $paginate = array('order' => array('Empleado.apell_paterno' => 'asc', 'Empleado.apell_materno' => 'asc'));
 	
     function isAuthorized() {
         if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete') {
