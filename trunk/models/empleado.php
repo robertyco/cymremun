@@ -7,12 +7,16 @@ class Empleado extends AppModel {
 	var $validate = array(
 		'rut' => array(
 			'validarut' => array(
-				'rule' => array('validaRut'),
+				'rule' => 'validaRut',
 				'message' => 'El RUT ingresado no es válido'
 			),
 			'minlength' => array(
 				'rule' => array('minLength', 1),
 				'message' => 'El RUT no ha sido ingresado'
+			),
+			'isUnique' => array(
+				'rule' => 'isUnique',
+				'message' => 'El RUT ingresado ya existe'
 			)
 		),
 		'nombres' => array(
