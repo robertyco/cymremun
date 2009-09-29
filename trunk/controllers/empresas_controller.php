@@ -19,7 +19,7 @@ class EmpresasController extends AppController {
 
 	function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Empresa.', true));
+			$this->Session->setFlash('Empresa no válida');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('empresa', $this->Empresa->read(null, $id));
@@ -63,7 +63,7 @@ class EmpresasController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Empresa->del($id)) {
-			$this->Session->setFlash(__('Empresa deleted', true));
+			$this->Session->setFlash('La empresa ha sido eliminada.');
 			$this->redirect(array('action'=>'index'));
 		}
 	}
@@ -79,6 +79,11 @@ class EmpresasController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 	}
-
+	
+	function buscar() {
+		$rut = $this->data['Empresa']['rut'];
+		$empresa = $this->Empresa->find('first', array('conditions' => array('Empresa.rut' => $rut)));
+		$this->redirect(array('action'=>'view', $empresa['Empresa']['id']));
+	}
 }
 ?>

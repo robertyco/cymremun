@@ -62,3 +62,13 @@ foreach ($empresas as $empresa):
 		<li><?php echo $html->link('Nueva Empresa', array('action'=>'add')); ?></li>
 	</ul>
 </div>
+
+<div id="buscar">
+<?php 
+echo $form->create(array('action' => 'buscar'));
+		echo $form->label('rut', 'Búsqueda por RUT:');
+		echo $form->text('rut');
+		echo $form->end('Buscar');
+?>
+</div>
+

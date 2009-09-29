@@ -60,4 +60,13 @@ foreach ($empleados as $empleado):
 	</ul>
 </div>
 
+<div id="buscar">
+<?php 
+echo $form->create(array('action' => 'buscar'));
+		echo $form->label('rut', 'Búsqueda por RUT:');
+		echo $form->text('rut');
+		echo $form->end('Buscar');
+?>
+</div>
+
 <?php } ?>
