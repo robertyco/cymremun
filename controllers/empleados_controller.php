@@ -81,5 +81,11 @@ class EmpleadosController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 	}
+	
+	function buscar() {
+		$rut = $this->data['Empleado']['rut'];
+		$empleado = $this->Empleado->find('first', array('conditions' => array('Empleado.rut' => $rut)));
+		$this->redirect(array('action'=>'view', $empleado['Empleado']['id']));
+	}
 }
 ?>

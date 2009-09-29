@@ -422,3 +422,16 @@ input[type=submit] {
 form br {
 	clear: both;
 }
+#buscar {
+	float:right;	
+}
+#buscar input[type=text]{
+	float: left;
+	width: 150px;
+}
+#buscar input[type=submit] {
+	float: right;
+	width: auto;
+	margin-left: 0;
+	margin-bottom: 0;	
+}
