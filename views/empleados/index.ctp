@@ -49,9 +49,7 @@ foreach ($empleados as $empleado):
 				array('action'=>'delete', $empleado['Empleado']['id']), null, 
 				sprintf('¿Está seguro que desea borrar al empleado "%s"?', 
 					$empleado['Empleado']['nombres'].' '.$empleado['Empleado']['apell_paterno']), false
-			); ?>			
-			
-			<?php echo $html->link('HD', array('controller' => 'empleados_haberes_descuentos', 'action'=>'add', $empleado['Empleado']['id'])); ?>
+			); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

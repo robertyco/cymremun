@@ -6,7 +6,12 @@ class EmpleadosHaberesDescuentosController extends AppController {
 	var $helpers = array('Html', 'Form');
 	
     function isAuthorized() {
-		return true;
+		if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete' || $this->action == 'cargarHd') {
+            if ($this->Auth->user('tipo') == 'consultor') {
+                return false;
+            }
+        }
+        return true;
     }
 	
 	function index() {

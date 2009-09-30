@@ -1,3 +1,6 @@
+<?php
+$paginator->options(array('url' => $empleadoId));
+?>
 <h2>Haberes y Descuentos</h2>
 <h3><?php echo $empleadoNombre['Empleado']['nombres'].' '.
 			$empleadoNombre['Empleado']['apell_paterno'].' '.
@@ -7,7 +10,7 @@
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('fecha');?></th>
-	<th><?php echo $paginator->sort('Ítem', 'haberes_descuento_id');?></th>
+	<th><?php echo $paginator->sort('Ítem', 'HaberesDescuento.nombre');?></th>
 	<th><?php echo $paginator->sort('Imponible', 'HaberesDescuento.tipo');?></th>
 	<th><?php echo $paginator->sort('valor');?></th>
 	<th class="actions">Acciones</th>
