@@ -26,7 +26,7 @@ class EmpresasController extends AppController {
 	}
 
 	function add() {
-		if (!empty($this->data)) {			
+		if (!empty($this->data)) {
 			$this->Empresa->create();
 			if ($this->Empresa->save($this->data)) {
 				$this->Session->setFlash('La empresa ha sido guardada');
@@ -41,15 +41,15 @@ class EmpresasController extends AppController {
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid Empresa', true));
+			$this->Session->setFlash('Empresa no válida');
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->Empresa->save($this->data)) {
-				$this->Session->setFlash(__('The Empresa has been saved', true));
+				$this->Session->setFlash('La empresa ha sido modificada.');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Empresa could not be saved. Please, try again.', true));
+				$this->Session->setFlash('Error, no se ha podido modifcar la empresa.', 'default', array('class' => 'messageError'));
 			}
 		}
 		if (empty($this->data)) {
@@ -76,7 +76,7 @@ class EmpresasController extends AppController {
 		if ($this->Session->write('Empresa.id', $id)) {
 			$this->Session->write('Empresa.nombre', $nombre);
 			$this->Session->setFlash('Se ha activado la empresa '.$this->Session->read('Empresa.nombre'));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'view', $id));
 		}
 	}
 	
