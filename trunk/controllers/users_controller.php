@@ -37,6 +37,7 @@ class UsersController extends AppController {
 			$this->User->create();
 			if ($this->User->save($this->data)) {
 				$this->Session->setFlash('El usuario ha sido creado');
+				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash('Error, el usuario no se ha podido crear', 'default', array('class' => 'messageError'));
 			}
@@ -46,6 +47,9 @@ class UsersController extends AppController {
 	}
 	
 	function edit($id = null) {
+		if ($this->data['User']['password'] == 'd41d8cd98f00b204e9800998ecf8427e') {
+			$this->data['User']['password'] = '';
+		}
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash('Usuario no válido');
 			$this->redirect(array('action'=>'index'));

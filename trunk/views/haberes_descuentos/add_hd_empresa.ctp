@@ -1,3 +1,6 @@
+<?php
+$paginator->options(array('url' => $empresaId));
+?>
 <h2>Haberes y Descuentos</h2>
 <h3>Haberes</h3>
 <table cellpadding="0" cellspacing="0">

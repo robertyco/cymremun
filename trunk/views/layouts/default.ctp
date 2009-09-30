@@ -48,8 +48,10 @@
 		<li><?php echo $html->link('Empresas', '/empresas'); ?></li>
 	<?php } ?>
 	
-	<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
-	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li>
+	<?php if ($session->check('Empresa.id')) { ?>
+		<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
+	<?php } ?>
+<!--	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li> -->
 	
 	<?php if ($Auth['User']['tipo'] == 'administrador') { ?>
 		<li><?php echo $html->link('Usuarios', '/users'); ?></li>
