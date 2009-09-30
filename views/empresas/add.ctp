@@ -12,7 +12,26 @@
 		echo '<br />';
 		echo $form->input('comuna', array('div' => 'w25'));
 		echo $form->input('ciudad', array('label' => 'Ciudad *', 'div' => 'w25'));
-		echo $form->input('region', array('label' => 'Región', 'div' => 'w25'));
+		echo $form->input('region', array(
+									'options' => array(
+										'I',
+										'II',
+										'III',
+										'IV',
+										'V',
+										'VI',
+										'VII',
+										'VIII',
+										'IX',
+										'X',
+										'XI',
+										'XII',
+										'Metropolitana',
+										'XIV',
+										'XV'
+									),
+									'label' => 'Región', 'div' => 'w25')
+								);
 		echo '<br />';
 		echo $form->input('telefono', array('label' => 'Teléfono', 'div' => 'w25'));
 		echo $form->input('fax', array('div' => 'w25'));
