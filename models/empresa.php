@@ -40,7 +40,17 @@ class Empresa extends AppModel {
 			'rule' => 'validaRut',
 			'allowEmpty' => true,
 			'message' => 'El RUT ingresado no es válido'
-		)		
+		),
+		'telefono' => array(
+			'rule' => 'numeric',
+			'allowEmpty' => true,
+			'message' => 'Teléfono debe ser de tipo numérico'
+		),
+		'fax' => array(
+			'rule' => 'numeric',
+			'allowEmpty' => true,
+			'message' => 'Fax debe ser de tipo numérico'
+		)
 	);
 
 	function validaRut($data){
