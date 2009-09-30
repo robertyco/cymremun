@@ -36,6 +36,16 @@ class Empleado extends AppModel {
 				'rule' => array('minLength', 1),
 				'message' => 'El sueldo no ha sido ingresado'
 			)
+		),
+		'telefono' => array(
+			'rule' => 'numeric',
+			'allowEmpty' => true,
+			'message' => 'Teléfono debe ser de tipo numérico'
+		),
+		'celular' => array(
+			'rule' => 'numeric',
+			'allowEmpty' => true,
+			'message' => 'Celular debe ser de tipo numérico'
 		)
 	);	
 
