@@ -80,9 +80,17 @@
 </div>
 <div class="actions">
 	<ul>
+		<li><?php echo $html->link(
+				'Asignar haberes y descuentos', 
+				array('controller' => 'EmpleadosHaberesDescuentos', 'action'=>'addHdEmpleado', $empleado['Empleado']['id'])
+			); ?> </li>
+	</ul> <br /><br />
+	<ul>
 		<li><?php echo $html->link('Editar', array('action'=>'edit', $empleado['Empleado']['id'])); ?> </li>
-		<li><?php echo $html->link('Borrar', array('action'=>'delete', $empleado['Empleado']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $empleado['Empleado']['id'])); ?> </li>
-		<li><?php echo $html->link('Listar empleados', array('action'=>'index')); ?> </li>
+		<li><?php echo $html->link('Borrar', array('action'=>'delete', $empleado['Empleado']['id']), null, 
+			sprintf('¿Está seguro que desea borrar al empleado "%s"?', 
+			$empleado['Empleado']['nombres'].' '.$empleado['Empleado']['apell_paterno'])); ?> </li>		
+			
 		<li><?php echo $html->link('Agregar empleado', array('action'=>'add')); ?> </li>
 	</ul>
 </div>

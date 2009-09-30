@@ -67,15 +67,71 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		$this->set(compact('haberesDescuentos'));
 	}
 
-	function delete($id = null) {
+	function delete($id = null, $empleadoId = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for EmpleadosHaberesDescuento', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->EmpleadosHaberesDescuento->del($id)) {
 			$this->Session->setFlash('El ítem ha sido eliminado.');
-			$this->redirect(array('action'=>'add', $this->Session->read('Empleado.id')));
+			$this->redirect(array('action'=>'addHdEmpleado', $this->Session->read('Empleado.id')));
 		}
+	}
+	
+	function addHdEmpleado($id = null) {
+		$this->Empleado->id = $id;
+		$this->set('empleadoNombre', $this->Empleado->find());		
+		$this->set('empleadosHaberesDescuentos', $this->paginate(array('empleado_id' => $id, 'fecha' => $this->Session->read('fecha'))));
+		$this->set('haberesEmpleado', $this->paginate('EmpleadosHaberesDescuento', array(
+				'empleado_id' => $id, 
+				'fecha' => $this->Session->read('fecha'),
+				'HaberesDescuento.tipo' => array('I', 'N')
+		)));
+		$this->set('descuentosEmpleado', $this->paginate('EmpleadosHaberesDescuento', array(
+				'empleado_id' => $id, 
+				'fecha' => $this->Session->read('fecha'),
+				'HaberesDescuento.tipo' => 'D'
+		)));
+		
+		$empleado = $this->Empleado->find();
+		$this->set('empresaId', $empleado['Empleado']['empresa_id']);
+		$this->set('empleadoId', $empleado['Empleado']['id']);
+	}
+	
+	function cargarHd($empresaId = null, $empleadoId = null) {	
+		$haberesDescuentos = $this->paginate('HaberesDescuento', array(				
+				'Empresa.id' => $empresaId
+		));		
+		$empleado = $this->paginate('Empleado', array(		
+				'Empleado.id' => $empleadoId
+		));
+		
+		$this->EmpleadosHaberesDescuento->id = $empleadoId;
+		debug($this->EmpleadosHaberesDescuento->find('all'));
+		
+		$i = 0;
+		foreach ($haberesDescuentos as $haberDescuento):
+			$i++;
+			$repetido = $this->EmpleadosHaberesDescuento->find('first', array(
+				'conditions' => array('fecha' => $this->Session->read('fecha'), 
+					'empleado_id' => $empleadoId,
+					'haberes_descuento_id' => $haberDescuento['HaberesDescuento']['id']))
+					);
+			if ($repetido) {
+				$this->EmpleadosHaberesDescuento->id = $repetido['EmpleadosHaberesDescuento']['id'];
+			} else {
+				$this->EmpleadosHaberesDescuento->create();
+			}			
+			
+			if ($this->EmpleadosHaberesDescuento->saveField('fecha', $this->Session->read('fecha')) && 				
+				$this->EmpleadosHaberesDescuento->saveField('empleado_id', $empleadoId) &&
+				$this->EmpleadosHaberesDescuento->saveField('haberes_descuento_id', $haberDescuento['HaberesDescuento']['id'])) {
+					$this->Session->setFlash('Se han asignado los haberes y descuentos');
+			} else {
+				$this->Session->setFlash('Error, los datos no se han podido guardar.', 'default', array('class' => 'messageError'));
+			}
+		endforeach;
+		$this->redirect(array('action'=>'addHdEmpleado', $empleadoId));
 	}
 
 }

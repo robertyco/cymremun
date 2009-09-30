@@ -22,7 +22,7 @@ foreach ($empresas as $empresa):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $empresa['Empresa']['rut']; ?>
+			<?php echo $html->link($empresa['Empresa']['rut'], array('action'=>'view', $empresa['Empresa']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $empresa['Empresa']['nombre']; ?>
@@ -42,11 +42,16 @@ foreach ($empresas as $empresa):
 		<td>
 			<?php echo $empresa['Empresa']['rep_legal_nombre']; ?>
 		</td>
-		<td class="actions">
-			<?php echo $html->link('A', array('action'=>'activar', $empresa['Empresa']['id'], $empresa['Empresa']['nombre'])); ?>
-			<?php echo $html->link('V', array('action'=>'view', $empresa['Empresa']['id'])); ?>
-			<?php echo $html->link('E', array('action'=>'edit', $empresa['Empresa']['id'])); ?>
-			<?php echo $html->link('B', array('action'=>'delete', $empresa['Empresa']['id']), null, sprintf(__('¿Está seguro que quiere borrar la empresa "%s"?', true), $empresa['Empresa']['nombre'])); ?>
+		<td class="actions">			
+			<?php 
+			echo $html->image(
+				'b_edit.png', array('title' => 'Modificar', 'url' => array('action'=>'edit', $empresa['Empresa']['id']))
+			);
+			echo $html->link(
+				$html->image('b_drop.png', array('title' => 'Borrar')), 
+				array('action'=>'delete', $empresa['Empresa']['id']), null, 
+				sprintf('¿Está seguro que desea borrar la empresa "%s"?', $empresa['Empresa']['nombre']), false
+			); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

@@ -64,14 +64,14 @@ class HaberesDescuentosController extends AppController {
 		}
 	}
 
-	function delete($id = null) {
+	function delete($id = null, $empresaId = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for HaberesDescuento', true));
+			$this->Session->setFlash('El ítem seleccionado no es válido');
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->HaberesDescuento->del($id)) {
-			$this->Session->setFlash(__('HaberesDescuento deleted', true));
-			$this->redirect(array('action'=>'index'));
+			$this->Session->setFlash('El ítem ha sido eliminado');
+			$this->redirect(array('action'=>'addHdEmpresa', $empresaId));
 		}
 	}
 	
@@ -109,5 +109,69 @@ class HaberesDescuentosController extends AppController {
 		endforeach;		
 		$this->redirect(array('action'=>'asignar_hd', $id));
 	}
+	
+	function addHdEmpresa($id = null) {
+		$this->HaberesDescuento->recursive = 0;
+		$this->set('haberesDescuentos', $this->paginate());
+		$this->set('haberesEmpresa', $this->paginate('HaberesDescuento', array(
+										'empresa_id' => $id, 
+										'tipo' => array('I', 'N')
+									)));
+		$this->set('descuentosEmpresa', $this->paginate('HaberesDescuento', array(
+										'empresa_id' => $id, 
+										'tipo' => 'D'
+									)));
+		$this->set('empresaId', $id);
+	}
+
+	function addHaberEmpresa() {
+		if (!empty($this->data)) {
+			$this->HaberesDescuento->create();
+			if ($this->HaberesDescuento->save($this->data)) {
+				$this->Session->setFlash('Se ha agregado un haber');
+				$this->redirect(array('action'=>'addHdEmpresa', $this->data['HaberesDescuento']['empresa_id']));
+			} else {
+				$this->Session->setFlash('Error, el haber no se ha podido guardar', 'default', array('class' => 'messageError'));
+				$this->redirect(array('action'=>'addHdEmpresa', $this->data['HaberesDescuento']['empresa_id']));
+			}
+		}
+	}
+
+	function addDescuentoEmpresa() {
+		if (!empty($this->data)) {
+			$this->HaberesDescuento->create();
+			if ($this->HaberesDescuento->save($this->data)) {
+				$this->Session->setFlash('Se ha agregado un descuento');
+				$this->redirect(array('action'=>'addHdEmpresa', $this->data['HaberesDescuento']['empresa_id']));
+			} else {
+				$this->Session->setFlash('Error, el descuento no se ha podido guardar', 'default', array('class' => 'messageError'));
+				$this->redirect(array('action'=>'addHdEmpresa', $this->data['HaberesDescuento']['empresa_id']));
+			}
+		}
+	}
+	
+	function editHaberEmpresa($id = null, $empresaId = null) {
+		$this->editDescuentoEmpresa($id, $empresaId);
+	}
+	
+	function editDescuentoEmpresa($id = null, $empresaId = null) {
+		$this->set('empresaId', $empresaId);
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid HaberesDescuento', true));
+			$this->redirect(array('action'=>'addHdEmpresa', $empresaId));
+		}
+		if (!empty($this->data)) {			
+			if ($this->HaberesDescuento->save($this->data)) {
+				$this->Session->setFlash('El ítem ha sido modificado');
+				$this->redirect(array('action'=>'addHdEmpresa', $this->data['HaberesDescuento']['empresa_id']));
+			} else {
+				$this->Session->setFlash('El ítem no se ha podido modificar.');
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->HaberesDescuento->read(null, $id);
+		}
+	}	
+
 }
 ?>

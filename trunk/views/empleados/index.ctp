@@ -22,7 +22,7 @@ foreach ($empleados as $empleado):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $empleado['Empleado']['rut']; ?>
+			<?php echo $html->link($empleado['Empleado']['rut'], array('action'=>'view', $empleado['Empleado']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $empleado['Empleado']['apell_paterno']; ?>
@@ -39,10 +39,18 @@ foreach ($empleados as $empleado):
 		<td>
 			<?php echo $empleado['Empleado']['telefono']; ?>
 		</td>
-		<td class="actions">
-			<?php echo $html->link('V', array('action'=>'view', $empleado['Empleado']['id'])); ?>
-			<?php echo $html->link('E', array('action'=>'edit', $empleado['Empleado']['id'])); ?>
-			<?php echo $html->link('B', array('action'=>'delete', $empleado['Empleado']['id']), null, sprintf(__('¿Está seguro que desea borrar el empleado "%s"?', true), $empleado['Empleado']['nombres'])); ?>
+		<td class="actions">			
+			<?php 
+			echo $html->image(
+				'b_edit.png', array('title' => 'Modificar', 'url' => array('action'=>'edit', $empleado['Empleado']['id']))
+			);			
+			echo $html->link(
+				$html->image('b_drop.png', array('title' => 'Borrar')), 
+				array('action'=>'delete', $empleado['Empleado']['id']), null, 
+				sprintf('¿Está seguro que desea borrar al empleado "%s"?', 
+					$empleado['Empleado']['nombres'].' '.$empleado['Empleado']['apell_paterno']), false
+			); ?>			
+			
 			<?php echo $html->link('HD', array('controller' => 'empleados_haberes_descuentos', 'action'=>'add', $empleado['Empleado']['id'])); ?>
 		</td>
 	</tr>
