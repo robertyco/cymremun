@@ -17,10 +17,16 @@ foreach ($isapres as $isapre):
 		<td>
 			<?php echo $isapre['Isapre']['nombre']; ?>
 		</td>
-		<td class="actions">
-			<?php echo $html->link('V', array('action'=>'view', $isapre['Isapre']['id'])); ?>
-			<?php echo $html->link('E', array('action'=>'edit', $isapre['Isapre']['id'])); ?>
-			<?php echo $html->link('B', array('action'=>'delete', $isapre['Isapre']['id']), null, sprintf(__('¿Está seguro que desea borrar "%s"?', true), $isapre['Isapre']['nombre'])); ?>
+		<td class="actions">			
+			<?php echo $html->link(
+				$html->image('b_edit.png', array('title' => 'Editar')), 
+				array('action'=>'edit', $isapre['Isapre']['id']), null, null, false
+			); ?>
+			<?php echo $html->link(
+				$html->image('b_drop.png', array('title' => 'Borrar')), 
+				array('action'=>'delete', $isapre['Isapre']['id']), null, 
+				sprintf(__('¿Está seguro que desea borrar "%s"?', true), $isapre['Isapre']['nombre']), false
+			); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

@@ -30,8 +30,15 @@ foreach ($users as $user):
 			<?php echo $user['Empresa']['nombre']; ?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link('E', array('action'=>'edit', $user['User']['id'])); ?>
-			<?php echo $html->link('B', array('action'=>'delete', $user['User']['id']), null, sprintf(__('Está seguro que desea borrar el usuario "%s"?', true), $user['User']['username'])); ?>
+			<?php echo $html->link(
+				$html->image('b_edit.png', array('title' => 'Editar')), 
+				array('action'=>'edit', $user['User']['id']), null, null, false
+			); ?>
+			<?php echo $html->link(
+				$html->image('b_drop.png', array('title' => 'Borrar')), 
+				array('action'=>'delete', $user['User']['id']), null, 
+				sprintf(__('Está seguro que desea borrar el usuario "%s"?', true), $user['User']['username']), false
+			); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

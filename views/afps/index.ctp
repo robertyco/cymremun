@@ -21,10 +21,16 @@ foreach ($afps as $afp):
 		<td>
 			<?php echo $afp['Afp']['cotizacion']; ?>
 		</td>
-		<td class="actions">
-			<?php echo $html->link('V', array('action'=>'view', $afp['Afp']['id'])); ?>
-			<?php echo $html->link('E', array('action'=>'edit', $afp['Afp']['id'])); ?>
-			<?php echo $html->link('B', array('action'=>'delete', $afp['Afp']['id']), null, sprintf(__('Está seguro que desea borrar la AFP "%s"?', true), $afp['Afp']['nombre'])); ?>
+		<td class="actions">			
+			<?php echo $html->link(
+				$html->image('b_edit.png', array('title' => 'Editar')), 
+				array('action'=>'edit', $afp['Afp']['id']), null, null, false
+			); ?>
+			<?php echo $html->link(
+				$html->image('b_drop.png', array('title' => 'Borrar')), 
+				array('action'=>'delete', $afp['Afp']['id']), null, 
+				sprintf(__('Está seguro que desea borrar la AFP "%s"?', true), $afp['Afp']['nombre']), false
+			); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
