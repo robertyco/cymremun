@@ -278,6 +278,11 @@ table tr td {
 table tr.altrow td {
 	background: #eee;
 }
+table img {
+	border: 0px;
+	margin-left: 3px;
+	margin-right: 3px;
+}
 
 /* Paging */
 div.paging {

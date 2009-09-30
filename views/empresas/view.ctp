@@ -72,9 +72,17 @@
 </div>
 <div class="actions">
 	<ul>
+		<li><?php echo $html->link('Activar', 
+			array('action'=>'activar', $empresa['Empresa']['id'], $empresa['Empresa']['nombre'])); ?> </li>
+		<li><?php echo $html->link(
+				'Asignar haberes y descuentos', 
+				array('controller' => 'HaberesDescuentos', 'action'=>'addHdEmpresa', $empresa['Empresa']['id'])
+			); ?> </li>
+	</ul> <br /><br />
+	<ul>
 		<li><?php echo $html->link('Editar', array('action'=>'edit', $empresa['Empresa']['id'])); ?> </li>
-		<li><?php echo $html->link('Borrar', array('action'=>'delete', $empresa['Empresa']['id']), null, sprintf(__('¿Está seguro que desea borrar la empresa "%s"?', true), $empresa['Empresa']['nombre'])); ?> </li>
-		<li><?php echo $html->link('Listar empresas', array('action'=>'index')); ?> </li>
+		<li><?php echo $html->link('Borrar', array('action'=>'delete', $empresa['Empresa']['id']), null, 
+			sprintf('¿Está seguro que desea borrar la empresa "%s"?', $empresa['Empresa']['nombre'])); ?> </li>		
 		<li><?php echo $html->link('Agregar empresa', array('action'=>'add')); ?> </li>
 	</ul>
 </div>
