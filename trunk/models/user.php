@@ -6,17 +6,38 @@ class User extends AppModel {
 	
 	var $validate = array(
 		'username' => array(
-			'rule' => array('minLength', 1),
-			'message' => 'El nombre de usuario no ha sido ingresado'
+			'minlength' => array(
+				'rule' => array('minLength', 1),
+				'message' => 'El nombre de usuario no ha sido ingresado'
+			),
+			'isUnique' => array(
+				'rule' => 'isUnique',
+				'message' => 'El nombre de usuario ya existe'
+			)
 		),
 		'password' => array(
-			'rule' => array('validaPassword'),
-			'message' => 'La contraseña ha sido mal ingresada'
+			'validapwd' => array(
+				'rule' => array('validaPassword'),
+				'message' => 'Las contraseñas no son iguales'
+			),
+			'novacio' => array(
+				'rule' => 'notEmpty',
+				'message' => 'No se ha ingresado contraseña'
+			),
+			'minlength' => array(
+				'rule' => array('minLength', 1),
+				'message' => 'No se ha ingresado contraseña'
+			)
+		),
+		'email' => array(
+			'rule' => 'email',
+			'allowEmpty' => true,
+			'message' => 'El mail ingresado no es válido'
 		)
 	);
 
 	function validaPassword($data){
-		if ($this->data['User']['password'] == md5($this->data['User']['password_confirm'])) {
+		if ($this->data['User']['password'] === md5($this->data['User']['password_confirm'])) {
 			return true;
 		} else {
 			return false;
