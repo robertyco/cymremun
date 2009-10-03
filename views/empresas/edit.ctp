@@ -42,8 +42,8 @@
 	<fieldset>
  		<legend>Representante Legal</legend>
 	<?php		
-		echo $form->input('rep_legal_rut', array('label' => 'R.U.T.', 'div' => 'w25'));
-		echo $form->input('rep_legal_nombre', array('label' => 'Nombre', 'div' => 'w50'));
+		echo $form->input('rep_legal_rut', array('label' => 'R.U.T. *', 'div' => 'w25'));
+		echo $form->input('rep_legal_nombre', array('label' => 'Nombre *', 'div' => 'w50'));
 	?>
 	</fieldset>
 <?php echo $form->end('Guardar');?>

@@ -36,11 +36,6 @@ class Empresa extends AppModel {
 			'allowEmpty' => true,
 			'message' => 'El mail ingresado no es válido'
 		),
-		'rep_legal_rut' => array(
-			'rule' => 'validaRut',
-			'allowEmpty' => true,
-			'message' => 'El RUT ingresado no es válido'
-		),
 		'telefono' => array(
 			'rule' => 'numeric',
 			'allowEmpty' => true,
@@ -50,40 +45,23 @@ class Empresa extends AppModel {
 			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Fax debe ser de tipo numérico'
+		),
+		'rep_legal_rut' => array(
+			'validarut' => array(		
+				'rule' => 'validaRut',
+				'message' => 'El RUT ingresado no es válido'
+			),
+			'minlength' => array(
+				'rule' => array('minLength', 1),
+				'message' => 'El RUT no ha sido ingresado'
+			)
+		),
+		'rep_legal_nombre' => array(
+			'rule' => 'notEmpty',			
+			'message' => 'No ha ingresado nombre de Rep. Legal'
 		)
 	);
 
-	function validaRut($data){
-		$r = $this->data['Empresa']['rut'];
-		$r=strtoupper(ereg_replace('\.|,|-','',$r));
-		$sub_rut=substr($r,0,strlen($r)-1);
-		$sub_dv=substr($r,-1);
-		$x=2;
-		$s=0;
-		for ( $i=strlen($sub_rut)-1;$i>=0;$i-- ) {
-			if ( $x >7 )
-			{
-				$x=2;
-			}
-			$s += $sub_rut[$i]*$x;
-			$x++;
-		}
-		$dv=11-($s%11);
-		if ( $dv==10 ) {
-			$dv='K';
-		}
-		if ( $dv==11 ) {
-			$dv='0';
-		}
-		if ( $dv==$sub_dv ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $hasMany = array(
 			'Empleado' => array('className' => 'Empleado',
