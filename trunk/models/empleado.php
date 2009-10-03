@@ -47,38 +47,8 @@ class Empleado extends AppModel {
 			'allowEmpty' => true,
 			'message' => 'Celular debe ser de tipo numérico'
 		)
-	);	
+	);
 
-	function validaRut($data){
-		$r = $this->data['Empleado']['rut'];
-		$r=strtoupper(ereg_replace('\.|,|-','',$r));
-		$sub_rut=substr($r,0,strlen($r)-1);
-		$sub_dv=substr($r,-1);
-		$x=2;
-		$s=0;
-		for ( $i=strlen($sub_rut)-1;$i>=0;$i-- ) {
-			if ( $x >7 )
-			{
-				$x=2;
-			}
-			$s += $sub_rut[$i]*$x;
-			$x++;
-		}
-		$dv=11-($s%11);
-		if ( $dv==10 ) {
-			$dv='K';
-		}
-		if ( $dv==11 ) {
-			$dv='0';
-		}
-		if ( $dv==$sub_dv ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}	
-	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
 			'Empresa' => array('className' => 'Empresa',
