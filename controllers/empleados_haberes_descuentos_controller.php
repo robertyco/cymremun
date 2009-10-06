@@ -79,7 +79,7 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		}
 		if ($this->EmpleadosHaberesDescuento->del($id)) {
 			$this->Session->setFlash('El ítem ha sido eliminado.');
-			$this->redirect(array('action'=>'addHdEmpleado', $this->Session->read('Empleado.id')));
+			$this->redirect(array('action'=>'addHdEmpleado', $empleadoId));
 		}
 	}
 	
@@ -137,6 +137,18 @@ class EmpleadosHaberesDescuentosController extends AppController {
 			}
 		endforeach;
 		$this->redirect(array('action'=>'addHdEmpleado', $empleadoId));
+	}
+	
+	function addValorHD() {
+		if (!empty($this->data)) {			
+			if ($this->EmpleadosHaberesDescuento->saveAll($this->data['EmpleadosHaberesDescuento'])) {				
+				$this->Session->setFlash('Los valores se han asignado');
+				$empleadoId = $this->EmpleadosHaberesDescuento->field('empleado_id');				
+				$this->redirect(array('action'=>'addHdEmpleado', $empleadoId));
+			} else {
+				$this->Session->setFlash('Error, los valores no se han podido asignar', 'default', array('class' => 'messageError'));
+			}
+		}
 	}
 
 }
