@@ -7,13 +7,14 @@ $paginator->options(array('url' => $empleadoId));
 			$empleadoNombre['Empleado']['apell_materno']?></h3>
 <hr />
 <h3>Haberes</h3>
+<?php echo $form->create('EmpleadosHaberesDescuento', array('action' => 'addValorHd'));?>
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('fecha');?></th>
 	<th><?php echo $paginator->sort('Ítem', 'HaberesDescuento.nombre');?></th>
 	<th><?php echo $paginator->sort('Imponible', 'HaberesDescuento.tipo');?></th>
-	<th><?php echo $paginator->sort('valor');?></th>
-	<th class="actions">Acciones</th>
+	<th width="25%"><?php echo $paginator->sort('valor');?></th>
+	<th width="20px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;
@@ -40,13 +41,14 @@ foreach ($haberesEmpleado as $haberEmpleado):
 			?>
 		</td>
 		<td>
-			<?php echo $haberEmpleado['EmpleadosHaberesDescuento']['valor']; ?>
+			<?php
+			$valor = $haberEmpleado['EmpleadosHaberesDescuento']['valor'];
+			$im = $i - 1;
+			echo $form->hidden($im.'.id', array('value' => $haberEmpleado['EmpleadosHaberesDescuento']['id']));
+			echo $form->input($im.'.valor', array( 'label' => false , 'div' => 'w25', 'value' => $valor));
+			?>
 		</td>
 		<td class="actions">
-			<?php echo $html->link(
-				$html->image('b_edit.png', array('title' => 'Editar')), 
-				array('action'=>'edit', $haberEmpleado['EmpleadosHaberesDescuento']['id']), null, null, false
-			); ?>
 			<?php echo $html->link(
 				$html->image('b_drop.png', array('title' => 'Borrar')), 
 				array('action'=>'delete', $haberEmpleado['EmpleadosHaberesDescuento']['id'], $empleadoId), null, 
@@ -64,8 +66,8 @@ foreach ($haberesEmpleado as $haberEmpleado):
 <tr>
 	<th><?php echo $paginator->sort('fecha');?></th>
 	<th><?php echo $paginator->sort('Ítem', 'haberes_descuento_id');?></th>
-	<th><?php echo $paginator->sort('valor');?></th>
-	<th class="actions">Acciones</th>
+	<th width="25%"><?php echo $paginator->sort('valor');?></th>
+	<th width="20px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;
@@ -82,14 +84,15 @@ foreach ($descuentosEmpleado as $descuentoEmpleado):
 		<td>
 			<?php echo $descuentoEmpleado['HaberesDescuento']['nombre']; ?>
 		</td>
-		<td>
-			<?php echo $descuentoEmpleado['EmpleadosHaberesDescuento']['valor']; ?>
+		<td>		
+			<?php
+			$valor = $descuentoEmpleado['EmpleadosHaberesDescuento']['valor'];
+			$im++;
+			echo $form->hidden($im.'.id', array('value' => $descuentoEmpleado['EmpleadosHaberesDescuento']['id']));
+			echo $form->input($im.'.valor', array( 'label' => false , 'div' => 'w25', 'value' => $valor));
+			?>			
 		</td>
 		<td class="actions">
-			<?php echo $html->link(
-				$html->image('b_edit.png', array('title' => 'Editar')), 
-				array('action'=>'edit', $descuentoEmpleado['EmpleadosHaberesDescuento']['id']), null, null, false
-			); ?>
 			<?php echo $html->link(
 				$html->image('b_drop.png', array('title' => 'Borrar')), 
 				array('action'=>'delete', $descuentoEmpleado['EmpleadosHaberesDescuento']['id'], $empleadoId), null, 
@@ -99,6 +102,8 @@ foreach ($descuentosEmpleado as $descuentoEmpleado):
 	</tr>
 <?php endforeach; ?>
 </table>
+
+<?php echo $form->end('Asignar valores');?>
 
 <div class="actions">
 	<ul>
