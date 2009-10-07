@@ -105,6 +105,22 @@ foreach ($descuentosEmpleado as $descuentoEmpleado):
 
 <?php echo $form->end('Asignar valores');?>
 
+<fieldset>
+<legend>Agregar haber o descuento</legend>
+<?php 
+	echo $form->create('EmpleadosHaberesDescuento', array('action' => 'addHdEmpleadoForm'));
+		echo $form->input('HaberesDescuento.nombre', array('label' => 'Nombre *', 'div' => 'w50'));
+		echo $form->input('HaberesDescuento.tipo', array('options' => array(
+											'I'=>'Haber (Imp)',
+											'N'=>'Haber (No Imp)',
+											'D'=>'Descuento'
+										), 'label' => 'Tipo', 'div' => 'w25'));
+		echo $form->input('EmpleadosHaberesDescuento.valor', array('label' => 'Valor', 'div' => 'w25'));
+		echo $form->hidden('EmpleadosHaberesDescuento.empleado_id', array('value' => $empleadoId));
+	echo $form->end('Agregar');
+?>
+</fieldset>
+
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link('Cargar haberes y descuentos desde empresa', array('action'=>'cargarHd', $empresaId, $empleadoId));?></li>

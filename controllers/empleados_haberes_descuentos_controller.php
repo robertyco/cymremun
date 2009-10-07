@@ -150,6 +150,20 @@ class EmpleadosHaberesDescuentosController extends AppController {
 			}
 		}
 	}
+	
+	function addHdEmpleadoForm() {
+		$this->data['EmpleadosHaberesDescuento']['fecha'] = $this->Session->read('fecha');		
+		if (!empty($this->data)) {	
+			$this->EmpleadosHaberesDescuento->create();
+			if ($this->EmpleadosHaberesDescuento->saveAll($this->data)) {				
+				$this->Session->setFlash('El ítem se ha asignado');
+			} else {
+				$this->Session->setFlash('Error, el ítem no se ha podido asignar', 'default', array('class' => 'messageError'));
+			}
+			$empleadoId = $this->data['EmpleadosHaberesDescuento']['empleado_id'];
+			$this->redirect(array('action'=>'addHdEmpleado', $empleadoId));
+		}
+	}
 
 }
 ?>
