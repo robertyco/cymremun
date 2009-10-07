@@ -6,7 +6,8 @@ class EmpleadosHaberesDescuentosController extends AppController {
 	var $helpers = array('Html', 'Form');
 	
     function isAuthorized() {
-		if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete' || $this->action == 'cargarHd') {
+		if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete' || 
+			$this->action == 'cargarHd' || $this->action == 'addValorHd' || $this->action == 'addHdEmpleadoForm') {
             if ($this->Auth->user('tipo') == 'consultor') {
                 return false;
             }
@@ -139,7 +140,7 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		$this->redirect(array('action'=>'addHdEmpleado', $empleadoId));
 	}
 	
-	function addValorHD() {
+	function addValorHd() {
 		if (!empty($this->data)) {			
 			if ($this->EmpleadosHaberesDescuento->saveAll($this->data['EmpleadosHaberesDescuento'])) {				
 				$this->Session->setFlash('Los valores se han asignado');
