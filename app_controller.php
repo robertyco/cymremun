@@ -42,7 +42,9 @@ class AppController extends Controller {
 	function beforeFilter() {
 		//$this->Auth->allow('*');		
 		$this->Auth->authorize = 'controller';
-		$this->Auth->logoutRedirect = '/'; 
+		$this->Auth->logoutRedirect = '/';
+		$this->Auth->loginError = 'Error, nombre de usuario o contraseña inválidos.';
+		$this->Auth->authError = 'Usted no está autorizado para ejecutar esta acción.';
 		Security::setHash('md5');		
 		$this->set('Auth',$this->Auth->user()); 
 		if ($this->Auth->user('tipo') == 'consultor') {

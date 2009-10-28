@@ -1,5 +1,6 @@
 <?php
-    //if  ($session->check('Message.auth')) $session->flash('auth');
+	$session->flash();
+	$session->flash('auth');
     echo $form->create('User', array('action' => 'login'));
     echo $form->input('username', array('label' => 'Usuario:', 'div' => 'w25'));
 	echo '<br />';
