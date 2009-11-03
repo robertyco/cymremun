@@ -84,9 +84,6 @@
 				'Asignar haberes y descuentos', 
 				array('controller' => 'EmpleadosHaberesDescuentos', 'action'=>'addHdEmpleado', $empleado['Empleado']['id'])
 			); ?> </li>
-		<li><?php echo $html->link(
-			'Liquidación de sueldo', array('controller' => 'Liquidaciones', 'action'=>'add', $empleado['Empleado']['id'])
-		); ?> </li>
 	</ul> <br /><br />
 	<ul>
 		<li><?php echo $html->link('Editar', array('action'=>'edit', $empleado['Empleado']['id'])); ?> </li>

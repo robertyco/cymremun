@@ -3,7 +3,7 @@
 
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th width="88px"><?php echo $paginator->sort('RUT', 'rut');?></th>
+	<th><?php echo $paginator->sort('RUT', 'rut');?></th>
 	<th><?php echo $paginator->sort('nombre');?></th>
 	<th><?php echo $paginator->sort('actividad');?></th>
 	<th><?php echo $paginator->sort('Dirección','direccion');?></th>
