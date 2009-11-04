@@ -66,6 +66,7 @@
 	<li><?php echo $html->link('AFP', '/afps'); ?></li>
 	<li><?php echo $html->link('Isapre', '/isapres'); ?></li>
 	<li><?php echo $html->link('Asignación familiar', '/asignacion_familiars'); ?></li>
+	<li><?php echo $html->link('Impuesto unico', '/impuesto_unicos'); ?></li>
 	</ul>
 </div>
 
