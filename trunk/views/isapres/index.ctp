@@ -3,7 +3,7 @@
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('nombre');?></th>
-	<th class="actions">Acciones</th>
+	<th width="68px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;
