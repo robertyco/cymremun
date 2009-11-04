@@ -113,7 +113,6 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		));
 		
 		$this->EmpleadosHaberesDescuento->id = $empleadoId;
-		debug($this->EmpleadosHaberesDescuento->find('all'));
 		
 		$i = 0;
 		foreach ($haberesDescuentos as $haberDescuento):
