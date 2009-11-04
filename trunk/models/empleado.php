@@ -46,6 +46,11 @@ class Empleado extends AppModel {
 			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Celular debe ser de tipo numérico'
+		),
+		'cargas' => array(
+			'rule' => 'numeric',
+			'allowEmpty' => true,
+			'message' => 'El dato ingresado debe ser de numérico'
 		)
 	);
 
@@ -78,6 +83,18 @@ class Empleado extends AppModel {
 	
 	var $hasMany = array(
 			'EmpleadosHaberesDescuento' => array('className' => 'EmpleadosHaberesDescuento',
+								'foreignKey' => 'empleado_id',
+								'dependent' => true,
+								'conditions' => '',
+								'fields' => '',
+								'order' => '',
+								'limit' => '',
+								'offset' => '',
+								'exclusive' => '',
+								'finderQuery' => '',
+								'counterQuery' => ''
+			),
+			'Liquidacion' => array('className' => 'Liquidacion',
 								'foreignKey' => 'empleado_id',
 								'dependent' => true,
 								'conditions' => '',

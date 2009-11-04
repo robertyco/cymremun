@@ -12,6 +12,20 @@
 		echo $form->input('Empleado.apell_paterno', array('label' => 'Apell. Paterno *', 'div' => 'w25'));
 		echo $form->input('Empleado.apell_materno', array('label' => 'Apell. Materno', 'div' => 'w25'));
 		echo '<br />';
+		echo $form->input('Empleado.sexo', array(
+										'options' => array(
+											'M'=>'Masculino',
+											'f'=>'Femenino'
+										), 'div' => 'w25')
+		);
+		echo $form->input('Empleado.estado_civil', array(
+										'options' => array(
+											'C'=>'Casado',
+											'S'=>'Soltero',
+											'V'=>'Viudo'
+										), 'div' => 'w25')
+		);
+		echo '<br />';
 		echo $form->input('Empleado.direccion', array('label' => 'Dirección', 'div' => 'w50'));
 		echo '<br />';
 		echo $form->input('Empleado.comuna', array('div' => 'w25'));
@@ -33,6 +47,24 @@
 														'selected' => ' ', 'div' => 'w50'));
 		echo '<br />';
 		echo $form->input('Empleado.sueldo_base', array('label' => 'Sueldo Base *', 'div' => 'w25'));
+		echo $form->input('Empleado.cargo', array('div' => 'w50'));
+		echo '<br />';
+		
+		echo $form->input('Empleado.tipo_contrato', array(
+												'label' => 'Tipo de contrato', 
+												'options' => array(
+													'I'=>'Indefinido',
+													'B'=>'Plazo fijo'
+												), 'div' => 'w25'));		
+		echo $form->input('Empleado.grat_legal', array(
+												'label' => 'Gratificación legal', 
+												'options' => array(
+													'S'=>'Si',
+													'T'=>'Si (con tope)',
+													'N'=>'No'
+												), 'div' => 'w25'));
+		echo '<br />';
+		echo $form->input('Empleado.cargas', array('label' => 'Cargas familiares', 'div' => 'w25'));
 		?>
 	</fieldset>
 	<fieldset>
@@ -40,11 +72,16 @@
 		<?php
 		echo $form->input('Prevision.id');
 		echo $form->input('Prevision.afp_id', array('label' => 'A.F.P.', 'div' => 'w25'));
-		echo $form->input('Prevision.cotizacion_voluntaria', array('label' => 'Cotización Voluntaria', 'div' => 'w25'));
-		echo $form->input('Prevision.ahorro_voluntario', array('div' => 'w25'));
+		echo $form->input('Prevision.apv', array(
+												'label' => 'APV', 
+												'options' => array(
+													'S'=>'Si',
+													'N'=>'No'
+												), 'div' => 'w25'));
+		echo $form->input('Prevision.apv_monto', array('label' => 'Monto APV', 'div' => 'w25'));
 		echo '<br />';
 		echo $form->input('Salud.id');
-		echo $form->input('Salud.isapre_id', array('div' => 'w25'));
+		echo $form->input('Salud.isapre_id', array('label' => 'Isapre/Fonasa', 'div' => 'w25'));
 		echo $form->input('Salud.valor_plan', array('label' => 'Valor del plan', 'div' => 'w25'));
 		echo $form->input('Salud.valor_tipo', array(
 												'label' => 'UF/Pesos', 
