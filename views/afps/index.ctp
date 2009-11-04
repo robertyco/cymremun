@@ -4,7 +4,7 @@
 <tr>
 	<th><?php echo $paginator->sort('nombre');?></th>
 	<th><?php echo $paginator->sort('cotizacion');?></th>
-	<th class="actions">Acciones</th>
+	<th width="68px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;

@@ -6,7 +6,7 @@
 	<th><?php echo $paginator->sort('email');?></th>
 	<th><?php echo $paginator->sort('tipo');?></th>
 	<th><?php echo $paginator->sort('Empresa', 'empresa_id');?></th>
-	<th class="actions">Acciones</th>
+	<th width="68px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;

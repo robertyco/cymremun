@@ -10,7 +10,7 @@
 	<th><?php echo $paginator->sort('Dirección','direccion');?></th>
 	<th><?php echo $paginator->sort('ciudad');?></th>
 	<th><?php echo $paginator->sort('telefono');?></th>
-	<th class="actions">Acciones</th>
+	<th width="68px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;

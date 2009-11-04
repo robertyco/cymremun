@@ -273,7 +273,7 @@ table tr td {
 	border-right: 1px solid #ccc;
 	padding:4px 4px;
 	vertical-align:top;
-	text-align: center;
+	text-align: left;
 }
 table tr.altrow td {
 	background: #eee;
