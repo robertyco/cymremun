@@ -53,16 +53,6 @@
 			<?php echo $html->link($empleado['Prevision']['Afp']['nombre'], array('controller'=> 'afps', 'action'=>'view', $empleado['Prevision']['Afp']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>>Cotización voluntaria</dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $empleado['Prevision']['cotizacion_voluntaria']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>>Ahorro voluntario</dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $empleado['Prevision']['ahorro_voluntario']; ?>
-			&nbsp;
-		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>>Salud</dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $html->link($empleado['Salud']['Isapre']['nombre'], array('controller'=> 'isapres', 'action'=>'view', $empleado['Salud']['Isapre']['id'])); ?>
