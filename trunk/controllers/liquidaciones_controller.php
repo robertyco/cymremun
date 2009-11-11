@@ -19,10 +19,24 @@ class LiquidacionesController extends AppController {
 			$empleado['Empleado']['apell_paterno'].' '.
 			$empleado['Empleado']['apell_materno']
 		);
+		
+		// saca los datos que se necesitan de la liquidación (dias trab, horas extras), 
+		// si la liquidación no existe pone datos por defecto y crea un nuevo registro para el posterior guardado en bd.
 		$liquidacion = $this->Liquidacion->find('first', array(
 					'conditions' => array('fecha' => $this->Session->read('fecha'), 
-					'empleado_id' => $id)
+						'empleado_id' => $id), 
+					'recursive' => -1
 				));
+		if ($liquidacion) {
+			$this->Liquidacion->id = $liquidacion['Liquidacion']['id'];
+		} else {
+			$liquidacion['Liquidacion']['empleado_id'] = $id;
+			$liquidacion['Liquidacion']['fecha'] = $this->Session->read('fecha');
+			$liquidacion['Liquidacion']['dias_trabajados'] = 30;
+			$liquidacion['Liquidacion']['horas_extra_50'] = 0;
+			$liquidacion['Liquidacion']['horas_extra_100'] = 0;
+			$this->Liquidacion->create();
+		}
 
 		// cálculo de sueldo según días trabajados
 		$sueldoBase = round(($empleado['Empleado']['sueldo_base']/30) * $liquidacion['Liquidacion']['dias_trabajados']);
@@ -191,105 +205,22 @@ class LiquidacionesController extends AppController {
 				'fecha' => $this->Session->read('fecha'),
 				'HaberesDescuento.tipo' => 'D'
 		)));
-	}
-	
-	function deleteItem($id = null, $empleadoId = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for EmpleadosHaberesDescuento', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		if ($this->EmpleadosHaberesDescuento->del($id)) {
-			$this->Session->setFlash('El ítem ha sido eliminado.');
-			$this->redirect(array('action'=>'add', $empleadoId));
-		}
-	}
-
-	function editItemValor() {
-		$this->data = array_values($this->data);  // necesario, ya que el primer indice del arreglo tenía un valor distinto de 0
-		if (!empty($this->data)) {
-			if ($this->EmpleadosHaberesDescuento->saveAll($this->data)) {
-				$this->Session->setFlash('Los valores se han asignado');
-				$empleadoId = $this->EmpleadosHaberesDescuento->field('empleado_id');				
-				$this->redirect(array('action'=>'add', $empleadoId));
-			} else {
-				$this->Session->setFlash('Error, los valores no se han podido asignar', 'default', array('class' => 'messageError'));
-			}
-		}
-	}
-
-	function addDatosMes() {
-		$this->data['Liquidacion']['fecha'] = $this->Session->read('fecha');
-		if ($this->data['Liquidacion']['dias_trabajados'] < 1 || $this->data['Liquidacion']['dias_trabajados'] > 30) {
-			$this->data['Liquidacion']['dias_trabajados'] = 30;
-		}
-		$repetido = $this->Liquidacion->find('first', array(
-				'conditions' => array('fecha' => $this->Session->read('fecha'), 
-					'empleado_id' => $this->data['Liquidacion']['empleado_id'])
-				));
-		if ($repetido) {
-			$this->Liquidacion->id = $repetido['Liquidacion']['id'];
-		} else {
-			$this->Liquidacion->create();
-		}
 		
-		if ($this->Liquidacion->save($this->data)) {
-			$this->Session->setFlash('Se han guardado los datos.');
-			$this->redirect(array('action'=>'add', $this->data['Liquidacion']['empleado_id']));
+		// guardado de la liquidación en bd
+		$liquidacion['Liquidacion']['imponible'] = $totalImponible;
+		$liquidacion['Liquidacion']['no_imponible'] = $totalNoImponible;
+		$liquidacion['Liquidacion']['haber'] = $totalHaber;
+		$liquidacion['Liquidacion']['descuento'] = $totalDescuento;
+		$liquidacion['Liquidacion']['liquido'] = $alcanceLiquido;
+		if ($this->Liquidacion->save($liquidacion)) {
+			// $this->Session->setFlash('Se han guardado los datos.');
 		} else {
 			$this->Session->setFlash('Error, no se han podido guardar los datos.', 'default', array('class' => 'messageError'));
-		}	
-					
-		// debug($repetido);
-	}
-	
-	function addItem() {
-		$this->data['EmpleadosHaberesDescuento']['fecha'] = $this->Session->read('fecha');
-		if (!empty($this->data)) {	
-			$this->EmpleadosHaberesDescuento->create();
-			if ($this->EmpleadosHaberesDescuento->saveAll($this->data)) {				
-				$this->Session->setFlash('El ítem se ha asignado');
-			} else {
-				$this->Session->setFlash('Error, el ítem no se ha podido asignar', 'default', array('class' => 'messageError'));
-			}
-			$empleadoId = $this->data['EmpleadosHaberesDescuento']['empleado_id'];
-			$this->redirect(array('action'=>'add', $empleadoId));
 		}
 	}
 	
-	function cargarHd($empresaId = null, $empleadoId = null) {	
-		$haberesDescuentos = $this->paginate('HaberesDescuento', array(				
-				'Empresa.id' => $empresaId
-		));		
-		$empleado = $this->paginate('Empleado', array(		
-				'Empleado.id' => $empleadoId
-		));
-		
-		$this->EmpleadosHaberesDescuento->id = $empleadoId;
-		
-		$i = 0;
-		foreach ($haberesDescuentos as $haberDescuento):
-			$i++;
-			$repetido = $this->EmpleadosHaberesDescuento->find('first', array(
-				'conditions' => array('fecha' => $this->Session->read('fecha'), 
-					'empleado_id' => $empleadoId,
-					'haberes_descuento_id' => $haberDescuento['HaberesDescuento']['id']))
-					);
-			if ($repetido) {
-				$this->EmpleadosHaberesDescuento->id = $repetido['EmpleadosHaberesDescuento']['id'];
-			} else {
-				$this->EmpleadosHaberesDescuento->create();
-			}			
-			
-			if ($this->EmpleadosHaberesDescuento->saveField('fecha', $this->Session->read('fecha')) && 				
-				$this->EmpleadosHaberesDescuento->saveField('empleado_id', $empleadoId) &&
-				$this->EmpleadosHaberesDescuento->saveField('haberes_descuento_id', $haberDescuento['HaberesDescuento']['id'])) {
-					$this->Session->setFlash('Se han asignado los haberes y descuentos');
-			} else {
-				$this->Session->setFlash('Error, los datos no se han podido guardar.', 'default', array('class' => 'messageError'));
-			}
-		endforeach;
-		$this->redirect(array('action'=>'add', $empleadoId));
+	function imprimir($id = null) {
+	
 	}
-
 }
 ?>

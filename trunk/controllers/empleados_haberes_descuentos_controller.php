@@ -2,7 +2,7 @@
 class EmpleadosHaberesDescuentosController extends AppController {
 
 	var $name = 'EmpleadosHaberesDescuentos';
-	var $uses = array('EmpleadosHaberesDescuento', 'Empleado');
+	var $uses = array('EmpleadosHaberesDescuento', 'Empleado', 'Liquidacion');
 	var $helpers = array('Html', 'Form');
 	
     function isAuthorized() {
@@ -86,7 +86,47 @@ class EmpleadosHaberesDescuentosController extends AppController {
 	
 	function addHdEmpleado($id = null) {
 		$this->Empleado->id = $id;
-		$this->set('empleadoNombre', $this->Empleado->find());		
+		$empleado = $this->Empleado->find('first', array('recursive' => 0));
+		$this->set(
+			'empleadoNombre', $empleado['Empleado']['nombres'].' '.
+			$empleado['Empleado']['apell_paterno'].' '.
+			$empleado['Empleado']['apell_materno']
+		);
+		
+		// para los "datos mensuales"
+		$liquidacion = $this->Liquidacion->find('first', array(
+					'conditions' => array('fecha' => $this->Session->read('fecha'), 
+					'empleado_id' => $id)
+				));
+		$this->set('liquidacion', $liquidacion);
+
+		// pasando los imponibles como arreglo a la vista
+		$imponibles = $this->EmpleadosHaberesDescuento->find('all', array(
+				'conditions' => array('fecha' => $this->Session->read('fecha'), 
+					'empleado_id' => $id,
+					'HaberesDescuento.tipo' => 'I'
+				), 'order' => array('HaberesDescuento.nombre' => 'asc')
+			));
+		$this->set('imponibles', $imponibles);
+		
+		// pasando los no imponibles como arreglo a la vista
+		$noImponibles = $this->EmpleadosHaberesDescuento->find('all', array(
+				'conditions' => array('fecha' => $this->Session->read('fecha'), 
+					'empleado_id' => $id,
+					'HaberesDescuento.tipo' => 'N'
+				), 'order' => array('HaberesDescuento.nombre' => 'asc')
+			));
+		$this->set('noImponibles', $noImponibles);
+
+		// pasando los no imponibles como arreglo a la vista
+		$descuentos = $this->EmpleadosHaberesDescuento->find('all', array(
+				'conditions' => array('fecha' => $this->Session->read('fecha'), 
+					'empleado_id' => $id,
+					'HaberesDescuento.tipo' => 'D'
+				), 'order' => array('HaberesDescuento.nombre' => 'asc')
+			));
+		$this->set('descuentos', $descuentos);
+	
 		$this->set('empleadosHaberesDescuentos', $this->paginate(array('empleado_id' => $id, 'fecha' => $this->Session->read('fecha'))));
 		$this->set('haberesEmpleado', $this->paginate('EmpleadosHaberesDescuento', array(
 				'empleado_id' => $id, 
@@ -102,6 +142,29 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		$empleado = $this->Empleado->find();
 		$this->set('empresaId', $empleado['Empleado']['empresa_id']);
 		$this->set('empleadoId', $empleado['Empleado']['id']);
+	}
+
+	function addDatosMes() {
+		$this->data['Liquidacion']['fecha'] = $this->Session->read('fecha');
+		if ($this->data['Liquidacion']['dias_trabajados'] < 1 || $this->data['Liquidacion']['dias_trabajados'] > 30) {
+			$this->data['Liquidacion']['dias_trabajados'] = 30;
+		}
+		$repetido = $this->Liquidacion->find('first', array(
+				'conditions' => array('fecha' => $this->Session->read('fecha'), 
+					'empleado_id' => $this->data['Liquidacion']['empleado_id'])
+				));
+		if ($repetido) {
+			$this->Liquidacion->id = $repetido['Liquidacion']['id'];
+		} else {
+			$this->Liquidacion->create();
+		}
+		
+		if ($this->Liquidacion->save($this->data)) {
+			$this->Session->setFlash('Se han guardado los datos.');
+			$this->redirect(array('action'=>'addHdEmpleado', $this->data['Liquidacion']['empleado_id']));
+		} else {
+			$this->Session->setFlash('Error, no se han podido guardar los datos.', 'default', array('class' => 'messageError'));
+		}	
 	}
 	
 	function cargarHd($empresaId = null, $empleadoId = null) {	
@@ -138,7 +201,7 @@ class EmpleadosHaberesDescuentosController extends AppController {
 		endforeach;
 		$this->redirect(array('action'=>'addHdEmpleado', $empleadoId));
 	}
-	
+
 	function addValorHd() {
 		if (!empty($this->data)) {			
 			if ($this->EmpleadosHaberesDescuento->saveAll($this->data['EmpleadosHaberesDescuento'])) {				
