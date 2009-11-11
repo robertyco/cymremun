@@ -1,24 +1,46 @@
-<?php
-$paginator->options(array('url' => $empleadoId));
-?>
+<?php $paginator->options(array('url' => $empleadoId)); ?>
 <h2>Haberes y Descuentos</h2>
-<h3><?php echo $empleadoNombre['Empleado']['nombres'].' '.
-			$empleadoNombre['Empleado']['apell_paterno'].' '.
-			$empleadoNombre['Empleado']['apell_materno']?></h3>
+<h3>
+<?php echo $html->link(
+			$empleadoNombre, array('controller' => 'Empleados', 'action'=>'view', $empleadoId)
+		); ?>
+
+</h3>
+
 <hr />
-<h3>Haberes</h3>
+
+<fieldset>
+<legend>Datos mensuales</legend>
+<?php 
+	echo $form->create('EmpleadosHaberesDescuentos', array('action' => 'addDatosMes'));
+		echo $form->hidden('Liquidacion.empleado_id', array('value' => $empleadoId));
+		echo $form->input('Liquidacion.dias_trabajados', array(
+			'label' => 'Días Trabajados', 'div' => 'w25', 'value' => $liquidacion['Liquidacion']['dias_trabajados']
+		));
+		echo $form->input('Liquidacion.horas_extra_50', array(
+			'label' => 'Horas Extra 50%', 'div' => 'w25', 'value' => $liquidacion['Liquidacion']['horas_extra_50']
+		));
+		echo $form->input('Liquidacion.horas_extra_100', array(
+			'label' => 'Horas Extra 100%', 'div' => 'w25', 'value' => $liquidacion['Liquidacion']['horas_extra_100']
+		));
+		echo '<br />';
+	echo $form->end('Guardar');
+?>
+</fieldset>
+
 <?php echo $form->create('EmpleadosHaberesDescuento', array('action' => 'addValorHd'));?>
+
+<h3>Imponibles</h3>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('fecha');?></th>
 	<th><?php echo $paginator->sort('Ítem', 'HaberesDescuento.nombre');?></th>
-	<th><?php echo $paginator->sort('Imponible', 'HaberesDescuento.tipo');?></th>
 	<th width="25%"><?php echo $paginator->sort('valor');?></th>
 	<th width="20px" class="actions">Acciones</th>
 </tr>
 <?php
+if (empty($im)) $im = 0;
 $i = 0;
-foreach ($haberesEmpleado as $haberEmpleado):
+foreach ($imponibles as $imponible):
 	$class = null;
 	if ($i++ % 2 == 0) {
 		$class = ' class="altrow"';
@@ -26,52 +48,37 @@ foreach ($haberesEmpleado as $haberEmpleado):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $haberEmpleado['EmpleadosHaberesDescuento']['fecha']; ?>
-		</td>
-		<td>
-			<?php echo $haberEmpleado['HaberesDescuento']['nombre']; ?>
+			<?php echo $imponible['HaberesDescuento']['nombre']; ?>
 		</td>
 		<td>
 			<?php
-				if ($haberEmpleado['HaberesDescuento']['tipo'] == 'I') {
-					echo 'Si';
-				} else {
-					echo 'No';
-				}			
-			?>
-		</td>
-		<td>
-			<?php
-			$valor = $haberEmpleado['EmpleadosHaberesDescuento']['valor'];
+			$valor = $imponible['EmpleadosHaberesDescuento']['valor'];
 			$im = $i - 1;
-			echo $form->hidden($im.'.id', array('value' => $haberEmpleado['EmpleadosHaberesDescuento']['id']));
+			echo $form->hidden($im.'.id', array('value' => $imponible['EmpleadosHaberesDescuento']['id']));
 			echo $form->input($im.'.valor', array( 'label' => false , 'div' => 'w25', 'value' => $valor));
 			?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(
 				$html->image('b_drop.png', array('title' => 'Borrar')), 
-				array('action'=>'delete', $haberEmpleado['EmpleadosHaberesDescuento']['id'], $empleadoId), null, 
-				sprintf('¿Está seguro que desea borrar el ítem "%s"?', $haberEmpleado['HaberesDescuento']['nombre']), false
+				array('action'=>'delete', $imponible['EmpleadosHaberesDescuento']['id'], $empleadoId), null, 
+				sprintf('¿Está seguro que desea borrar el ítem "%s"?', $imponible['HaberesDescuento']['nombre']), false
 			); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
 </table>
 
-<hr />
-
-<h3>Descuentos</h3>
+<h3>No Imponibles</h3>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('fecha');?></th>
-	<th><?php echo $paginator->sort('Ítem', 'haberes_descuento_id');?></th>
+	<th><?php echo $paginator->sort('Ítem', 'HaberesDescuento.nombre');?></th>
 	<th width="25%"><?php echo $paginator->sort('valor');?></th>
 	<th width="20px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;
-foreach ($descuentosEmpleado as $descuentoEmpleado):
+foreach ($noImponibles as $noImponible):
 	$class = null;
 	if ($i++ % 2 == 0) {
 		$class = ' class="altrow"';
@@ -79,24 +86,62 @@ foreach ($descuentosEmpleado as $descuentoEmpleado):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $descuentoEmpleado['EmpleadosHaberesDescuento']['fecha']; ?>
+			<?php echo $noImponible['HaberesDescuento']['nombre']; ?>
 		</td>
 		<td>
-			<?php echo $descuentoEmpleado['HaberesDescuento']['nombre']; ?>
+			<?php
+			$valor = $noImponible['EmpleadosHaberesDescuento']['valor'];
+			$im++;
+			echo $form->hidden($im.'.id', array('value' => $noImponible['EmpleadosHaberesDescuento']['id']));
+			echo $form->input($im.'.valor', array( 'label' => false , 'div' => 'w25', 'value' => $valor));
+			?>
+		</td>
+		<td class="actions">
+			<?php echo $html->link(
+				$html->image('b_drop.png', array('title' => 'Borrar')), 
+				array('action'=>'delete', $noImponible['EmpleadosHaberesDescuento']['id'], $empleadoId), null, 
+				sprintf('¿Está seguro que desea borrar el ítem "%s"?', $noImponible['HaberesDescuento']['nombre']), false
+			); ?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+</table>
+
+
+<hr />
+
+<h3>Descuentos</h3>
+<table cellpadding="0" cellspacing="0">
+<tr>
+	<th><?php echo $paginator->sort('Ítem', 'haberes_descuento_id');?></th>
+	<th width="25%"><?php echo $paginator->sort('valor');?></th>
+	<th width="20px" class="actions">Acciones</th>
+</tr>
+<?php
+$i = 0;
+foreach ($descuentos as $descuento):
+	$class = null;
+	if ($i++ % 2 == 0) {
+		$class = ' class="altrow"';
+	}	
+?>
+	<tr<?php echo $class;?>>
+		<td>
+			<?php echo $descuento['HaberesDescuento']['nombre']; ?>
 		</td>
 		<td>		
 			<?php
-			$valor = $descuentoEmpleado['EmpleadosHaberesDescuento']['valor'];
+			$valor = $descuento['EmpleadosHaberesDescuento']['valor'];
 			$im++;
-			echo $form->hidden($im.'.id', array('value' => $descuentoEmpleado['EmpleadosHaberesDescuento']['id']));
+			echo $form->hidden($im.'.id', array('value' => $descuento['EmpleadosHaberesDescuento']['id']));
 			echo $form->input($im.'.valor', array( 'label' => false , 'div' => 'w25', 'value' => $valor));
 			?>			
 		</td>
 		<td class="actions">
 			<?php echo $html->link(
 				$html->image('b_drop.png', array('title' => 'Borrar')), 
-				array('action'=>'delete', $descuentoEmpleado['EmpleadosHaberesDescuento']['id'], $empleadoId), null, 
-				sprintf('¿Está seguro que desea borrar el ítem "%s"?', $descuentoEmpleado['HaberesDescuento']['nombre']), false
+				array('action'=>'delete', $descuento['EmpleadosHaberesDescuento']['id'], $empleadoId), null, 
+				sprintf('¿Está seguro que desea borrar el ítem "%s"?', $descuento['HaberesDescuento']['nombre']), false
 			); ?>
 		</td>
 	</tr>
@@ -124,5 +169,6 @@ foreach ($descuentosEmpleado as $descuentoEmpleado):
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link('Cargar haberes y descuentos desde empresa', array('action'=>'cargarHd', $empresaId, $empleadoId));?></li>
+		<li><?php echo $html->link('Calcular liquidación', array('controller' => 'Liquidaciones', 'action'=>'add', $empleadoId));?></li>
 	</ul>
 </div>
