@@ -126,9 +126,9 @@ class LiquidacionesController extends AppController {
 			}
 			if ($planIsapre > $salud) {
 				$salud = $planIsapre;
-				$this->set('msgSalud', 'Salud');
 			}
 		}
+		$this->set('msgSalud', 'Salud');
 		$this->set('salud', $salud);
 		
 		// seguro de cesantía
