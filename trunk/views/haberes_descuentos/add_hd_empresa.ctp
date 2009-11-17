@@ -1,4 +1,10 @@
 <?php
+	echo $javascript->link('jquery-1.3.2.js');
+	echo $javascript->link('jquery-validate/jquery.validate.js');
+	echo $javascript->link('jquery-validate/localization/messages_es.js');
+	echo $javascript->link('validacion.js');
+?>
+<?php
 $paginator->options(array('url' => $empresaId));
 ?>
 <h2>Haberes y Descuentos</h2>
