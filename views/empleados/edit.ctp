@@ -2,6 +2,7 @@
 	echo $javascript->link('jquery-1.3.2.js');
 	echo $javascript->link('jquery-validate/jquery.validate.js');
 	echo $javascript->link('jquery-validate/localization/messages_es.js');
+	echo $javascript->link('jquery.Rut.js');
 	echo $javascript->link('validacion.js');
 ?>
 <?php if ($session->check('Empresa.id')) { ?>
@@ -12,7 +13,7 @@
  		<legend>Datos Personales</legend>
 		<?php
 		echo $form->input('Empleado.id');
-		echo $form->input('Empleado.rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required'));
+		echo $form->input('Empleado.rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required rut'));
 		echo $form->input('Empleado.nombres', array('label' => 'Nombres *', 'div' => 'w50', 'class' => 'required'));
 		echo '<br />';
 		echo $form->input('Empleado.apell_paterno', array('label' => 'Apell. Paterno *', 'div' => 'w25', 'class' => 'required'));

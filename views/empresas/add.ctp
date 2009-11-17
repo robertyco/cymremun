@@ -2,6 +2,7 @@
 	echo $javascript->link('jquery-1.3.2.js');
 	echo $javascript->link('jquery-validate/jquery.validate.js');
 	echo $javascript->link('jquery-validate/localization/messages_es.js');
+	echo $javascript->link('jquery.Rut.js');
 	echo $javascript->link('validacion.js');
 ?>
 <div class="empresas form">
@@ -9,7 +10,7 @@
 	<fieldset>
  		<legend>Empresa</legend>
 	<?php
-		echo $form->input('rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required'));
+		echo $form->input('rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required rut'));
 		echo $form->input('nombre', array('label' => 'Nombre *', 'div' => 'w50', 'class' => 'required'));
 		echo '<br />';
 		echo $form->input('actividad', array('div' => 'w50'));
