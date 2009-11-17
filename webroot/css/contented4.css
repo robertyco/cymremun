@@ -369,6 +369,7 @@ label.error {
 	color: #f33;
 	font-size: 83%;
 	font-style:italic; 
+	margin: 0 0 0 0;
 /*	float: none; 
 	color: red; 
 	padding-left: .5em; 
