@@ -38,6 +38,7 @@
  */
 class AppController extends Controller {
 	var $components = array('Auth');
+	var $helpers = array('Ajax', 'Javascript');
 
 	function beforeFilter() {
 		//$this->Auth->allow('*');		
