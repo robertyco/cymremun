@@ -1,3 +1,9 @@
+<?php
+	echo $javascript->link('jquery-1.3.2.js');
+	echo $javascript->link('jquery-validate/jquery.validate.js');
+	echo $javascript->link('jquery-validate/localization/messages_es.js');
+	echo $javascript->link('validacion.js');
+?>
 <?php if ($session->check('Empresa.id')) { ?>
 
 <div class="empleados form">
@@ -5,10 +11,10 @@
 	<fieldset>
  		<legend>Datos Personales</legend>
 		<?php
-		echo $form->input('Empleado.rut', array('label' => 'R.U.T. *', 'div' => 'w25'));
-		echo $form->input('Empleado.nombres', array('label' => 'Nombres *', 'div' => 'w50'));
+		echo $form->input('Empleado.rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required'));
+		echo $form->input('Empleado.nombres', array('label' => 'Nombres *', 'div' => 'w50', 'class' => 'required'));
 		echo '<br />';
-		echo $form->input('Empleado.apell_paterno', array('label' => 'Apell. Paterno *', 'div' => 'w25'));
+		echo $form->input('Empleado.apell_paterno', array('label' => 'Apell. Paterno *', 'div' => 'w25', 'class' => 'required'));
 		echo $form->input('Empleado.apell_materno', array('label' => 'Apell. Materno', 'div' => 'w25'));
 		echo '<br />';
 		echo $form->input('Empleado.sexo', array(
@@ -30,9 +36,9 @@
 		echo $form->input('Empleado.comuna', array('div' => 'w25'));
 		echo $form->input('Empleado.ciudad', array('div' => 'w25'));
 		echo '<br />';
-		echo $form->input('Empleado.telefono', array('label' => 'Teléfono', 'div' => 'w25'));
+		echo $form->input('Empleado.telefono', array('label' => 'Teléfono', 'div' => 'w25', 'class' => 'number'));
 		echo '<br />';
-		echo $form->input('Empleado.celular', array('div' => 'w25'));
+		echo $form->input('Empleado.celular', array('div' => 'w25', 'class' => 'number'));
 		?>
 	</fieldset>
 	<fieldset>
@@ -45,7 +51,7 @@
 														'empty' => ' ',
 														'selected' => ' ', 'div' => 'w50'));
 		echo '<br />';
-		echo $form->input('Empleado.sueldo_base', array('label' => 'Sueldo Base *', 'div' => 'w25'));
+		echo $form->input('Empleado.sueldo_base', array('label' => 'Sueldo Base *', 'div' => 'w25', 'class' => 'required number'));
 		echo $form->input('Empleado.cargo', array('div' => 'w50'));
 		echo '<br />';
 		
@@ -63,7 +69,7 @@
 													'N'=>'No'
 												), 'div' => 'w25'));
 		echo '<br />';
-		echo $form->input('Empleado.cargas', array('label' => 'Cargas familiares', 'div' => 'w25'));
+		echo $form->input('Empleado.cargas', array('label' => 'Cargas familiares', 'div' => 'w25', 'class' => 'number'));
 		?>
 	</fieldset>
 	<fieldset>

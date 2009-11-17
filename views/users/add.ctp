@@ -1,3 +1,9 @@
+<?php
+	echo $javascript->link('jquery-1.3.2.js');
+	echo $javascript->link('jquery-validate/jquery.validate.js');
+	echo $javascript->link('jquery-validate/localization/messages_es.js');
+	echo $javascript->link('validacion.js');
+?>
 <div class="users form">
 <?php echo $form->create('User');?>
 	<fieldset>
