@@ -8,11 +8,15 @@
 	<?php
 		echo $html->meta('icon');		
 		echo $html->css('login');
-		//echo $html->css('cake.generic');
 		echo $scripts_for_layout;
 	?>
 </head>
 <body>
+
+<noscript>
+	<META HTTP-EQUIV="refresh" content="0;URL=/cymremun/noscript.php">
+</noscript>
+
 <div id="header">
 	<div id="title">CyMremun</div>
 	<div id="slogan">Sistema de remuneraciones</div>

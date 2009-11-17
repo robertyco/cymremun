@@ -12,6 +12,11 @@
 	?>
 </head>
 <body>
+
+<noscript>
+	<META HTTP-EQUIV="refresh" content="0;URL=/cymremun/noscript.php">
+</noscript>
+
 <div id="header">
 	<div id="contact"><a href="#">Contacto</a></div>
 	<div id="title">CyMremun</div>
