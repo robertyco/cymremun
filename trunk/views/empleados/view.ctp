@@ -70,10 +70,12 @@
 </div>
 <div class="actions">
 	<ul>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 		<li><?php echo $html->link(
 				'Haberes y descuentos', 
 				array('controller' => 'EmpleadosHaberesDescuentos', 'action'=>'addHdEmpleado', $empleado['Empleado']['id'])
 			); ?> </li>
+		<?php } ?>
 		<li><?php echo $html->link(
 			'Liquidación de sueldo', array('controller' => 'Liquidaciones', 'action'=>'add', $empleado['Empleado']['id'])
 		); ?> </li>
