@@ -47,4 +47,9 @@ $(document).ready(function(){
 			"data[HaberesDescuento][nombre]": "required"
 		}
 	});	
+	$("#AsignacionFamiliarEditForm").validate({
+		rules: {
+			"data[HaberesDescuento][nombre]": "required"
+		}
+	});	
 });
