@@ -7,7 +7,7 @@ class EmpleadosHaberesDescuentosController extends AppController {
 	
     function isAuthorized() {
 		if ($this->action == 'add' || $this->action == 'edit' || $this->action == 'delete' || 
-			$this->action == 'cargarHd' || $this->action == 'addValorHd' || $this->action == 'addHdEmpleadoForm') {
+			$this->action == 'cargarHd' || $this->action == 'addValorHd' || $this->action == 'addHdEmpleadoForm' || $this->action == 'addDatosMes') {
             if ($this->Auth->user('tipo') == 'consultor') {
                 return false;
             }

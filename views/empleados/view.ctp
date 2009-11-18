@@ -71,13 +71,14 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(
-				'Asignar haberes y descuentos', 
+				'Haberes y descuentos', 
 				array('controller' => 'EmpleadosHaberesDescuentos', 'action'=>'addHdEmpleado', $empleado['Empleado']['id'])
 			); ?> </li>
 		<li><?php echo $html->link(
 			'Liquidación de sueldo', array('controller' => 'Liquidaciones', 'action'=>'add', $empleado['Empleado']['id'])
 		); ?> </li>
 	</ul> <br /><br />
+	<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 	<ul>
 		<li><?php echo $html->link('Editar', array('action'=>'edit', $empleado['Empleado']['id'])); ?> </li>
 		<li><?php echo $html->link('Borrar', array('action'=>'delete', $empleado['Empleado']['id']), null, 
@@ -86,4 +87,5 @@
 			
 		<li><?php echo $html->link('Agregar empleado', array('action'=>'add')); ?> </li>
 	</ul>
+	<?php } ?>
 </div>

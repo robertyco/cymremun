@@ -5,11 +5,13 @@ class ImpuestoUnicosController extends AppController {
 	var $helpers = array('Html', 'Form');
 	
     function isAuthorized() {
-		if ($this->Auth->user('tipo') == 'consultor') {
-			return false;
-		} 
-		return true;
-    }	
+        if ($this->action == 'edit') {
+            if ($this->Auth->user('tipo') == 'consultor') {
+                return false;
+            }
+        }
+        return true;
+    }
 
 	function index() {
 		$this->ImpuestoUnico->recursive = 0;

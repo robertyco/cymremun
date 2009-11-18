@@ -30,7 +30,9 @@
 			'label' => 'Horas Extra 100%', 'div' => 'w25', 'value' => $liquidacion['Liquidacion']['horas_extra_100']
 		));
 		echo '<br />';
+	if ($Auth['User']['tipo'] != 'consultor') { 
 	echo $form->end('Guardar');
+	}
 ?>
 </fieldset>
 
@@ -154,8 +156,12 @@ foreach ($descuentos as $descuento):
 <?php endforeach; ?>
 </table>
 
-<?php echo $form->end('Asignar valores');?>
+<?php 
+if ($Auth['User']['tipo'] != 'consultor') { 
+echo $form->end('Asignar valores');
+} ?>
 
+<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 <fieldset>
 <legend>Agregar haber o descuento</legend>
 <?php 
@@ -171,10 +177,13 @@ foreach ($descuentos as $descuento):
 	echo $form->end('Agregar');
 ?>
 </fieldset>
+<?php } ?>
 
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link('Cargar haberes y descuentos desde empresa', array('action'=>'cargarHd', $empresaId, $empleadoId));?></li>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
+			<li><?php echo $html->link('Cargar haberes y descuentos desde empresa', array('action'=>'cargarHd', $empresaId, $empleadoId));?></li>
+		<?php } ?>
 		<li><?php echo $html->link('Calcular liquidación', array('controller' => 'Liquidaciones', 'action'=>'add', $empleadoId));?></li>
 	</ul>
 </div>

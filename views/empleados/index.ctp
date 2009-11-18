@@ -10,7 +10,9 @@
 	<th><?php echo $paginator->sort('Dirección','direccion');?></th>
 	<th><?php echo $paginator->sort('ciudad');?></th>
 	<th><?php echo $paginator->sort('telefono');?></th>
+	<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 	<th width="68px" class="actions">Acciones</th>
+	<?php } ?>
 </tr>
 <?php
 $i = 0;
@@ -39,6 +41,7 @@ foreach ($empleados as $empleado):
 		<td>
 			<?php echo $empleado['Empleado']['telefono']; ?>
 		</td>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 		<td class="actions">			
 			<?php 
 			echo $html->image(
@@ -51,6 +54,7 @@ foreach ($empleados as $empleado):
 					$empleado['Empleado']['nombres'].' '.$empleado['Empleado']['apell_paterno']), false
 			); ?>
 		</td>
+		<?php } ?>
 	</tr>
 <?php endforeach; ?>
 </table>
@@ -60,11 +64,14 @@ foreach ($empleados as $empleado):
  | 	<?php echo $paginator->numbers();?>
 	<?php echo $paginator->next(__('siguiente', true).' >>', array(), null, array('class'=>'disabled'));?>
 </div>
+
+<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link('Nuevo Empleado', array('action'=>'add')); ?></li>
 	</ul>
 </div>
+<?php } ?>
 
 <div id="buscar">
 <?php 

@@ -3,7 +3,9 @@
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('nombre');?></th>
+	<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 	<th width="68px" class="actions">Acciones</th>
+	<?php } ?>
 </tr>
 <?php
 $i = 0;
@@ -17,6 +19,7 @@ foreach ($isapres as $isapre):
 		<td>
 			<?php echo $isapre['Isapre']['nombre']; ?>
 		</td>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 		<td class="actions">			
 			<?php echo $html->link(
 				$html->image('b_edit.png', array('title' => 'Editar')), 
@@ -28,6 +31,7 @@ foreach ($isapres as $isapre):
 				sprintf(__('¿Está seguro que desea borrar "%s"?', true), $isapre['Isapre']['nombre']), false
 			); ?>
 		</td>
+		<?php } ?>
 	</tr>
 <?php endforeach; ?>
 </table>
@@ -37,8 +41,11 @@ foreach ($isapres as $isapre):
  | 	<?php echo $paginator->numbers();?>
 	<?php echo $paginator->next('siguiente >>', array(), null, array('class'=>'disabled'));?>
 </div>
+
+<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link('Nueva Isapre', array('action'=>'add')); ?></li>
 	</ul>
 </div>
+<?php } ?>
