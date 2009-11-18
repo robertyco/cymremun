@@ -16,8 +16,8 @@
 	<th width="25%"><?php echo $paginator->sort('valor');?></th>
 </tr>
 <tr>
-	<td>Sueldo Base</td>
-	<td><?php echo $sueldoBase; ?></td>
+	<td>Sueldo</td>
+	<td><?php echo $sueldo; ?></td>
 </tr>
 <tr>
 	<td>Horas Extra 50%</td>
