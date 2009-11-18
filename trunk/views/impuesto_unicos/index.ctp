@@ -6,7 +6,9 @@
 	<th><?php echo $paginator->sort('tasa');?></th>
 	<th><?php echo $paginator->sort('rebaja');?></th>
 	<th><?php echo $paginator->sort('requisito');?></th>
+	<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 	<th width="68px" class="actions">Acciones</th>
+	<?php } ?>
 </tr>
 <?php
 $i = 0;
@@ -29,12 +31,14 @@ foreach ($impuestosUnico as $impuestoUnico):
 		<td>
 			<?php echo $impuestoUnico['ImpuestoUnico']['requisito']; ?>
 		</td>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 		<td class="actions">			
 			<?php echo $html->link(
 				$html->image('b_edit.png', array('title' => 'Editar')), 
 				array('action'=>'edit', $impuestoUnico['ImpuestoUnico']['tramo']), null, null, false
 			); ?>
 		</td>
+		<?php } ?>
 	</tr>
 <?php endforeach; ?>
 </table>

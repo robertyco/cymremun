@@ -5,7 +5,9 @@
 	<th><?php echo $paginator->sort('tramo');?></th>
 	<th><?php echo $paginator->sort('monto');?></th>
 	<th><?php echo $paginator->sort('requisito');?></th>
+	<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 	<th width="68px" class="actions">Acciones</th>
+	<?php } ?>
 </tr>
 <?php
 $i = 0;
@@ -25,12 +27,14 @@ foreach ($asignacionesFamiliar as $asignacionFamiliar):
 		<td>
 			<?php echo $asignacionFamiliar['AsignacionFamiliar']['requisito']; ?>
 		</td>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 		<td class="actions">			
 			<?php echo $html->link(
 				$html->image('b_edit.png', array('title' => 'Editar')), 
 				array('action'=>'edit', $asignacionFamiliar['AsignacionFamiliar']['tramo']), null, null, false
 			); ?>
 		</td>
+		<?php } ?>
 	</tr>
 <?php endforeach; ?>
 </table>

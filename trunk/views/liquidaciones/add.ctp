@@ -177,6 +177,8 @@ foreach ($descuentos as $descuento):
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link('Imprimir', array('action'=>'imprimir', $empleadoId));?></li>
-		<li><?php echo $html->link('Modificar datos', array('controller' => 'EmpleadosHaberesDescuentos', 'action'=>'addHdEmpleado', $empleadoId));?></li>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
+			<li><?php echo $html->link('Modificar datos', array('controller' => 'EmpleadosHaberesDescuentos', 'action'=>'addHdEmpleado', $empleadoId));?></li>
+		<?php } ?>
 	</ul>
 </div>

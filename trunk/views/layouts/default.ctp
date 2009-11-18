@@ -65,8 +65,11 @@
 	<li><?php echo $html->link('Salir', array('controller' => 'users', 'action' => 'logout')); ?></li>
 	</ul>
 	
+<?php if ($Auth['User']['tipo'] != 'consultor') { ?>	
 	<h2>Mantención</h2>
-
+<?php } else { ?>
+	<h2>Consultar tablas</h2>
+<?php } ?>
 	<ul>
 	<li><?php echo $html->link('AFP', '/afps'); ?></li>
 	<li><?php echo $html->link('Isapre', '/isapres'); ?></li>

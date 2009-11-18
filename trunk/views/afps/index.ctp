@@ -4,7 +4,9 @@
 <tr>
 	<th><?php echo $paginator->sort('nombre');?></th>
 	<th><?php echo $paginator->sort('cotizacion');?></th>
+	<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 	<th width="68px" class="actions">Acciones</th>
+	<?php } ?>
 </tr>
 <?php
 $i = 0;
@@ -21,6 +23,7 @@ foreach ($afps as $afp):
 		<td>
 			<?php echo $afp['Afp']['cotizacion']; ?>
 		</td>
+		<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 		<td class="actions">			
 			<?php echo $html->link(
 				$html->image('b_edit.png', array('title' => 'Editar')), 
@@ -32,6 +35,7 @@ foreach ($afps as $afp):
 				sprintf(__('Está seguro que desea borrar la AFP "%s"?', true), $afp['Afp']['nombre']), false
 			); ?>
 		</td>
+		<?php } ?>
 	</tr>
 <?php endforeach; ?>
 </table>
@@ -41,8 +45,11 @@ foreach ($afps as $afp):
  | 	<?php echo $paginator->numbers();?>
 	<?php echo $paginator->next('siguiente >>', array(), null, array('class'=>'disabled'));?>
 </div>
+
+<?php if ($Auth['User']['tipo'] != 'consultor') { ?>
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link('Nueva A.F.P.', array('action'=>'add')); ?></li>
 	</ul>
 </div>
+<?php } ?>
