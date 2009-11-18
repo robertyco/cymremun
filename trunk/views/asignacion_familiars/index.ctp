@@ -1,16 +1,15 @@
-<div class="impuestoUnico index">
-<h2>Impuesto Unico</h2>
+<div class="asignacionFamiliar index">
+<h2>Asignación Familiar</h2>
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('tramo');?></th>
-	<th><?php echo $paginator->sort('tasa');?></th>
-	<th><?php echo $paginator->sort('rebaja');?></th>
+	<th><?php echo $paginator->sort('monto');?></th>
 	<th><?php echo $paginator->sort('requisito');?></th>
 	<th width="68px" class="actions">Acciones</th>
 </tr>
 <?php
 $i = 0;
-foreach ($impuestosUnico as $impuestoUnico):
+foreach ($asignacionesFamiliar as $asignacionFamiliar):
 	$class = null;
 	if ($i++ % 2 == 0) {
 		$class = ' class="altrow"';
@@ -18,21 +17,18 @@ foreach ($impuestosUnico as $impuestoUnico):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $impuestoUnico['ImpuestoUnico']['tramo']; ?>
+			<?php echo $asignacionFamiliar['AsignacionFamiliar']['tramo']; ?>
 		</td>
 		<td>
-			<?php echo $impuestoUnico['ImpuestoUnico']['tasa']; ?>
+			<?php echo $asignacionFamiliar['AsignacionFamiliar']['monto']; ?>
 		</td>
 		<td>
-			<?php echo $impuestoUnico['ImpuestoUnico']['rebaja']; ?>
-		</td>
-		<td>
-			<?php echo $impuestoUnico['ImpuestoUnico']['requisito']; ?>
+			<?php echo $asignacionFamiliar['AsignacionFamiliar']['requisito']; ?>
 		</td>
 		<td class="actions">			
 			<?php echo $html->link(
 				$html->image('b_edit.png', array('title' => 'Editar')), 
-				array('action'=>'edit', $impuestoUnico['ImpuestoUnico']['tramo']), null, null, false
+				array('action'=>'edit', $asignacionFamiliar['AsignacionFamiliar']['tramo']), null, null, false
 			); ?>
 		</td>
 	</tr>
