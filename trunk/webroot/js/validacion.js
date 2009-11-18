@@ -46,10 +46,7 @@ $(document).ready(function(){
 		rules: {
 			"data[HaberesDescuento][nombre]": "required"
 		}
-	});	
-	$("#AsignacionFamiliarEditForm").validate({
-		rules: {
-			"data[HaberesDescuento][nombre]": "required"
-		}
-	});	
+	});
+	$("#AsignacionFamiliarEditForm").validate();
+	$("#ImpuestoUnicoEditForm").validate();
 });
