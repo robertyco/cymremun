@@ -2,7 +2,8 @@
 class LiquidacionesController extends AppController {
 
 	var $name = 'Liquidaciones';
-	var $uses = array('Empleado', 'EmpleadosHaberesDescuento', 'HaberesDescuento', 'AsignacionFamiliar', 'Liquidacion', 'Afp', 'ImpuestoUnico');
+	var $uses = array('Empleado', 'EmpleadosHaberesDescuento', 'HaberesDescuento', 'AsignacionFamiliar', 'Liquidacion', 
+		'Afp', 'ImpuestoUnico', 'Otro', 'Uf');
 	var $paginate = array(
 		'EmpleadosHaberesDescuento' => array('order' => array('HaberesDescuento.nombre' => 'asc')),
 		'Empleado' => array('order' => array('Empleado.apell_paterno' => 'asc', 'Empleado.apell_materno' => 'asc')),
@@ -45,6 +46,13 @@ class LiquidacionesController extends AppController {
 	}
 
 	function add($id = null) {
+		$UF = $this->Uf->find('first', array(
+			'conditions' => array('fecha' => $this->Session->read('fecha')), 
+			'recursive' => -1
+		));
+		if ($UF) {
+		$UF = $UF['Uf']['valor'];
+		
 		$this->Empleado->id = $id;
 		$empleado = $this->Empleado->find('first', array('recursive' => 0));
 		$this->set(
@@ -103,7 +111,12 @@ class LiquidacionesController extends AppController {
 		if ($empleado['Empleado']['grat_legal'] == 'S') {
 			$gratificacion = round($subTotalImponibles * 0.25);
 		}
-		$sueldoMinimo = 165000;
+		$sueldoMinimo = 0;
+		$sueldoMinimo = $this->Otro->find('first', array(
+			'conditions' => array('nombre' => 'sueldo_minimo'), 
+			'recursive' => -1
+		));
+		$sueldoMinimo = $sueldoMinimo['Otro']['valor'];
 		if ($empleado['Empleado']['grat_legal'] == 'T') {
 			$gratificacion = round(($sueldoMinimo * 4.75)/12);
 		}
@@ -161,7 +174,6 @@ class LiquidacionesController extends AppController {
 		$this->set('apv', $apv);
 		
 		// salud
-		$UF = 20956.89;
 		$salud = round(($totalImponible * 7) / 100);
 		if ($empleado['Salud']['isapre_id'] == 1) {
 			$this->set('msgSalud', 'Salud 7%');
@@ -250,6 +262,10 @@ class LiquidacionesController extends AppController {
 		} else {
 			$this->Session->setFlash('Error, no se han podido guardar los datos.', 'default', array('class' => 'messageError'));
 		}
+		} else {
+			$this->Session->setFlash('Error, no existe valor de UF para este mes.', 'default', array('class' => 'messageError'));
+			$this->redirect(array('action'=>'index'));
+		}
 	}
 	
 	function delete($id = null) {
@@ -264,6 +280,13 @@ class LiquidacionesController extends AppController {
 	}
 	
 	function imprimir($ids = null) {
+		$UF = $this->Uf->find('first', array(
+			'conditions' => array('fecha' => $this->Session->read('fecha')), 
+			'recursive' => -1
+		));
+		if ($UF) {
+		$UF = $UF['Uf']['valor'];
+
 		$this->layout = 'pdf';
 		
 		if ($ids) {
@@ -319,8 +342,13 @@ class LiquidacionesController extends AppController {
 			$gratificacion[$i] = 0;
 			if ($empleado['Empleado']['grat_legal'] == 'S') {
 				$gratificacion[$i] = round($subTotalImponibles[$i] * 0.25);
-			}
-			$sueldoMinimo = 165000;
+			}			
+			$sueldoMinimo = 0;
+			$sueldoMinimo = $this->Otro->find('first', array(
+				'conditions' => array('nombre' => 'sueldo_minimo'), 
+				'recursive' => -1
+			));
+			$sueldoMinimo = $sueldoMinimo['Otro']['valor'];
 			if ($empleado['Empleado']['grat_legal'] == 'T') {
 				$gratificacion[$i] = round(($sueldoMinimo * 4.75)/12);
 			}
@@ -369,7 +397,6 @@ class LiquidacionesController extends AppController {
 			}
 			
 			// salud
-			$UF = 20956.89;
 			$msgSalud[$i] = 'Salud';
 			$salud[$i] = round(($totalImponible[$i] * 7) / 100);
 			if ($empleado['Salud']['isapre_id'] == 1) {
@@ -449,6 +476,10 @@ class LiquidacionesController extends AppController {
 		$this->set('impuestoUnico', $impuestoUnico);
 		$this->set('totalDescuento', $totalDescuento);
 		$this->set('alcanceLiquido', $alcanceLiquido);
+		} else {
+			$this->Session->setFlash('Error, no existe valor de UF para este mes.', 'default', array('class' => 'messageError'));
+			$this->redirect(array('action'=>'index'));
+		}
 	}
 }
 ?>
