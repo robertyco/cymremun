@@ -49,4 +49,6 @@ $(document).ready(function(){
 	});
 	$("#AsignacionFamiliarEditForm").validate();
 	$("#ImpuestoUnicoEditForm").validate();
+	$("#UfAddForm").validate();
+	$("#UfEditForm").validate();
 });
