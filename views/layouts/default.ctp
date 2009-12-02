@@ -56,6 +56,11 @@
 	<?php if ($session->check('Empresa.id')) { ?>
 		<li><?php echo $html->link('Empleados', '/empleados'); ?></li>
 	<?php } ?>
+	
+	<?php if ($session->check('Empresa.id')) { ?>
+		<li><?php echo $html->link('Liquidaciones', '/liquidaciones'); ?></li>
+	<?php } ?>
+	
 <!--	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li> -->
 	
 	<?php if ($Auth['User']['tipo'] == 'administrador') { ?>

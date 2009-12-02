@@ -1,108 +1,157 @@
-<table cellpadding="0" cellspacing="0">
-<tr><th COLSPAN="3">LIQUIDACION DE SUELDO
-<tr><td width="100px">Raz贸n Social:<td><?php echo $empleado['Empresa']['nombre'] ?><td STYLE="text-align:right"><?php echo $session->read('mes').' de '.$session->read('ano');?>
-<tr><td>R.U.T.:<td><?php echo $empleado['Empresa']['rut'] ?><td>
-<tr><td>Direcci贸n:<td><?php echo $empleado['Empresa']['direccion'] ?><td>
-</table>
-
-<hr>
-
-<table cellpadding="0" cellspacing="0">
-<tr><td width="100px">Nombre:<td><?php echo $empleado['Empleado']['apell_paterno'].' '.
-				$empleado['Empleado']['apell_materno'].' '.$empleado['Empleado']['nombres'] ?><td>
-<tr><td>R.U.T.:<td><?php echo $empleado['Empleado']['rut'] ?>
-</table>
-
-<hr>
-
-<table cellpadding="0" cellspacing="0">
-<tr><th colspan="4">HABERES
-<tr><th colspan="4" STYLE="text-align:left">IMPONIBLES
-<tr><td width="30px"><td width="170px">Sueldo:<td width="160px"><?php echo '$ '.$sueldo; ?><td>
-<tr><td><td>Horas Extra 50%:<td><?php echo '$ '.$horasExtra50; ?><td>
-<tr><td><td>Horas Extra 100%:<td><?php echo '$ '.$horasExtra100; ?><td>
-<tr><td><td>
 <?php
+include ('fpdf/fpdf.php');
+$pdf = new FPDF('P', 'mm', 'Letter');
+$pdf->SetMargins(20, 20);
+$alto = 5;
+$tamFuente = 11;
+
 $i = 0;
-foreach ($imponibles as $imponible):
-	echo $imponible['HaberesDescuento']['nombre']; ?>
-	<td> <?php echo '$ '.$imponible['EmpleadosHaberesDescuento']['valor']; ?><td>
-	<tr><td><td>
-<?php 
-endforeach; 
+foreach ($empleados as $empleado):
+	if ($empleado['Empleado']['liquida'] == 1) {
+	$pdf->AddPage();
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
+	$pdf->Cell(0, 10, 'LIQUIDACION DE SUELDO', 0, 0, 'C');
+	$pdf->Ln();
+	$pdf->SetFont('Helvetica', '', $tamFuente);
+	$pdf->Cell(30, $alto, 'Raz髇 Social:');	
+	$pdf->Cell(30, $alto, $empleado['Empresa']['nombre']);
+	$pdf->Cell(0, $alto, $session->read('mes').' de '.$session->read('ano'), 0, 0, 'R');
+	$pdf->Ln();
+	$pdf->Cell(30, $alto, 'R.U.T.:');
+	$pdf->Cell(30, $alto, $empleado['Empresa']['rut']);
+	$pdf->Ln();
+	$pdf->Cell(30, $alto, 'Direcci髇:');
+	$pdf->Cell(30, $alto, $empleado['Empresa']['direccion']);
+	$pdf->Ln();
+	$pdf->Ln(1);
+	$pdf->Cell(0, 0, '', 1);
+	$pdf->Ln(1);
+	$pdf->Cell(30, $alto, 'Nombre:');
+	$pdf->Cell(30, $alto, utf8_decode($empleado['Empleado']['apell_paterno'].' '.$empleado['Empleado']['apell_materno'].' '.$empleado['Empleado']['nombres']));
+	$pdf->Ln();
+	$pdf->Cell(30, $alto, 'R.U.T.:');
+	$pdf->Cell(30, $alto, $empleado['Empleado']['rut']);
+	$pdf->Ln();
+
+	// haberes
+	$pdf->Cell(0, 0, '', 1);
+	$pdf->Ln();
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
+	$pdf->Cell(0, 10, 'HABERES', 0, 0, 'C');
+	$pdf->Ln();
+
+	// imponibles
+	$pdf->Cell(0, $alto, 'IMPONIBLES');
+	$pdf->Ln();
+	$pdf->SetFont('Helvetica', '', $tamFuente);
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Sueldo:');
+	$pdf->Cell(0, $alto, '$ '.$sueldo[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Horas Extra 50%:');
+	$pdf->Cell(0, $alto, '$ '.$horasExtra50[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Horas Extra 100%:');
+	$pdf->Cell(0, $alto, '$ '.$horasExtra100[$i]);
+	$pdf->Ln();
+	foreach ($imponibles[$i] as $imponible):
+		$pdf->Cell(10);
+		$pdf->Cell(50, $alto, utf8_decode($imponible['HaberesDescuento']['nombre'].':'));
+		$pdf->Cell(0, $alto, '$ '.$imponible['EmpleadosHaberesDescuento']['valor']);
+		$pdf->Ln();
+	endforeach; 
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Subtotal:');
+	$pdf->Cell(0, $alto, '$ '.$subTotalImponibles[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Gratificaci髇:');
+	$pdf->Cell(0, $alto, '$ '.$gratificacion[$i]);
+	$pdf->Ln();
+	$pdf->Cell(60);
+	$pdf->Cell(40, $alto, 'Total Imponibles:');
+	$pdf->Cell(0, $alto, '$ '.$totalImponible[$i]);
+	$pdf->Ln();
+
+	// no imponibles
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
+	$pdf->Cell(0, $alto, 'NO IMPONIBLES');
+	$pdf->Ln();
+	$pdf->SetFont('Helvetica', '', $tamFuente);
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Asignaci髇 Familiar:');
+	$pdf->Cell(0, $alto, '$ '.$asignacionFamiliar[$i]);
+	$pdf->Ln();
+	foreach ($noImponibles[$i] as $noImponible):
+		$pdf->Cell(10);
+		$pdf->Cell(50, $alto, utf8_decode($noImponible['HaberesDescuento']['nombre'].':'));
+		$pdf->Cell(0, $alto, '$ '.$noImponible['EmpleadosHaberesDescuento']['valor']);
+		$pdf->Ln();
+	endforeach;
+	$pdf->Cell(60);
+	$pdf->Cell(40, $alto, 'Total No Imponibles:');
+	$pdf->Cell(0, $alto, '$ '.$totalNoImponible[$i]);
+	$pdf->Ln();
+	$pdf->Cell(60);
+	$pdf->Cell(40, $alto, 'Total Haberes:');
+	$pdf->Cell(0, $alto, '$ '.$totalHaber[$i]);
+	$pdf->Ln();
+
+	// descuentos
+	$pdf->Cell(0, 0, '', 1);
+	$pdf->Ln();
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
+	$pdf->Cell(0, 10, 'DESCUENTOS', 0, 0, 'C');
+	$pdf->Ln();
+	$pdf->SetFont('Helvetica', '', $tamFuente);
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Previsi髇 '.$cotizacion[$i].'%:');
+	$pdf->Cell(0, $alto, '$ '.$prevision[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'APV:');
+	$pdf->Cell(0, $alto, '$ '.$apv[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, $msgSalud[$i].':');
+	$pdf->Cell(0, $alto, '$ '.$salud[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Seguro de Cesant韆:');
+	$pdf->Cell(0, $alto, '$ '.$seguroCesantia[$i]);
+	$pdf->Ln();
+	foreach ($descuentos[$i] as $descuento):
+		$pdf->Cell(10);
+		$pdf->Cell(50, $alto, utf8_decode($descuento['HaberesDescuento']['nombre']));
+		$pdf->Cell(0, $alto, '$ '.$descuento['EmpleadosHaberesDescuento']['valor']);
+		$pdf->Ln();
+	endforeach; 
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Subtotal:');
+	$pdf->Cell(0, $alto, '$ '.$subTotalDescuentos[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Remuneraci髇 Neta:');
+	$pdf->Cell(0, $alto, '$ '.$remuneracionNeta[$i]);
+	$pdf->Ln();
+	$pdf->Cell(10);
+	$pdf->Cell(50, $alto, 'Impuesto Unico:');
+	$pdf->Cell(0, $alto, '$ '.$impuestoUnico[$i]);
+	$pdf->Ln();
+	$pdf->Cell(60);
+	$pdf->Cell(40, $alto, 'Total Descuentos:');
+	$pdf->Cell(0, $alto, '$ '.$totalDescuento[$i]);
+	$pdf->Ln();
+	$pdf->Cell(0, 0, '', 1);
+	$pdf->Ln(2);
+	$pdf->Cell(60);
+	$pdf->Cell(40, $alto, 'Total a Pagar:');
+	$pdf->Cell(0, $alto, '$ '.$alcanceLiquido[$i]);
+	$pdf->Ln();
+	}
+	$i++;
+endforeach;
+$pdf->Output();
 ?>
-<td><td>
-<tr><td><td>Subtotal:<td><?php echo '$ '.$subTotalImponibles; ?><td>
-<tr><td><td>Gratificaci贸n:<td><?php echo '$ '.$gratificacion; ?><td>
-<tr><td><td><td>Total Imponibles:<td><?php echo '$ '.$totalImponible; ?>
-
-<tr><th colspan="4" STYLE="text-align:left">NO IMPONIBLES
-<tr><td><td>Asignaci贸n Familiar:<td><?php echo '$ '.$asignacionFamiliar; ?><td>
-<tr><td><td>
-<?php
-$i = 0;
-$total = 0;
-foreach ($noImponibles as $noImponible):
-	echo $noImponible['HaberesDescuento']['nombre'];?>
-	<td> <?php echo '$ '.$noImponible['EmpleadosHaberesDescuento']['valor']; ?><td>
-	<tr><td><td>
-<?php 
-endforeach; 
-?>
-<td><td>
-<tr><td><td><td>Total No Imponibles:<td><?php echo '$ '.$totalNoImponible; ?>
-<tr><td><td><td>Total Haberes:<td><?php echo '$ '.$totalHaber; ?>
-</table>
-
-<hr>
-
-<?php $totalDescuentos = 0; ?>
-<table cellpadding="0" cellspacing="0">
-<tr><th colspan="4">DESCUENTOS
-<tr><td width="30px"><td width="170px">
-<?php echo 'Previsi贸n '.$cotizacion.'%';?>
-<td width="160px"><?php echo '$ '.$prevision; ?><td>
-<tr><td><td>
-<?php echo 'Ahorro Previsional Voluntario'; ?><td>
-<?php echo '$ '.$apv; ?><td>
-<tr><td><td>
-<?php echo $msgSalud; ?><td>
-<?php echo '$ '.$salud; ?><td>
-<tr><td><td>
-<?php echo 'Seguro de Cesant铆a';?><td>
-<?php echo '$ '.$seguroCesantia;
-?><td>
-<tr><td><td>
-
-<?php
-$i = 0;
-foreach ($descuentos as $descuento):
-	echo $descuento['HaberesDescuento']['nombre'];?>
-	<td> <?php echo '$ '.$descuento['EmpleadosHaberesDescuento']['valor']; ?><td>
-	<tr><td><td>
-<?php 
-endforeach; 
-?>
-<td><td>
-<tr><td><td>
-<?php echo 'Subtotal:';?><td>
-<?php echo '$ '.$subTotalDescuentos;
-?><td>
-<tr><td><td>
-<?php echo 'Remuneraci贸n Neta:';?><td>
-<?php echo '$ '.$remuneracionNeta;
-?><td>
-<tr><td><td>
-<?php echo 'Impuesto Unico:';?><td>
-<?php echo '$ '.$impuestoUnico;
-?><td>
-<tr><td><td><td>Total Descuentos:<td><?php echo '$ '.$totalDescuento; ?>
-</table>
-
-<hr>
-
-<table cellpadding="0" cellspacing="0">
-<tr><td width="30px"><td width="170px">
-<td width="160px">Total a Pagar:<td><?php echo $alcanceLiquido; ?>
-</table>
-
