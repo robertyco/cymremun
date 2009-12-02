@@ -12,7 +12,7 @@ class FechasController extends AppController {
 		$this->Session->write('fecha', $this->data['ano']['year'].'-'.$this->data['mes']['month'].'-00');
 		$this->Session->write('mes', $this->data['mes']['month']);
 		$this->Session->write('ano', $this->data['ano']['year']);
-		$this->redirect('/');
+		$this->redirect($this->referer());
 	}
 }
 ?>
