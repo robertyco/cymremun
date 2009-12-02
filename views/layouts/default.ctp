@@ -80,6 +80,8 @@
 	<li><?php echo $html->link('Isapre', '/isapres'); ?></li>
 	<li><?php echo $html->link('Asignación familiar', '/asignacion_familiars'); ?></li>
 	<li><?php echo $html->link('Impuesto unico', '/impuesto_unicos'); ?></li>
+	<li><?php echo $html->link('U.F.', '/ufs'); ?></li>
+	<li><?php echo $html->link('Otros datos', '/otros'); ?></li>
 	</ul>
 </div>
 
