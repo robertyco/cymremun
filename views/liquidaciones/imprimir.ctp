@@ -15,7 +15,45 @@ foreach ($empleados as $empleado):
 	$pdf->SetFont('Helvetica', '', $tamFuente);
 	$pdf->Cell(30, $alto, 'Razón Social:');	
 	$pdf->Cell(30, $alto, $empleado['Empresa']['nombre']);
-	$pdf->Cell(0, $alto, $session->read('mes').' de '.$session->read('ano'), 0, 0, 'R');
+	switch($session->read('mes')){
+		case 01:
+		$mes = 'Enero';
+		break;
+		case 02:
+		$mes = 'Febrero';
+		break;
+		case 03:
+		$mes = 'Marzo';
+		break;
+		case 04:
+		$mes = 'Abril';
+		break;
+		case 05:
+		$mes = 'Mayo';
+		break;
+		case 06:
+		$mes = 'Junio';
+		break;
+		case 07:
+		$mes = 'Julio';
+		break;
+		case 08:
+		$mes = 'Agosto';
+		break;
+		case 09:
+		$mes = 'Septiembre';
+		break;
+		case 10:
+		$mes = 'Octubre';
+		break;
+		case 11:
+		$mes = 'Noviembre';
+		break;
+		case 12:
+		$mes = 'Diciembre';
+		break;
+	}	
+	$pdf->Cell(0, $alto, $mes.' de '.$session->read('ano'), 0, 0, 'R');
 	$pdf->Ln();
 	$pdf->Cell(30, $alto, 'R.U.T.:');
 	$pdf->Cell(30, $alto, $empleado['Empresa']['rut']);
@@ -149,7 +187,11 @@ foreach ($empleados as $empleado):
 	$pdf->Cell(60);
 	$pdf->Cell(40, $alto, 'Total a Pagar:');
 	$pdf->Cell(0, $alto, '$ '.$alcanceLiquido[$i]);
-	$pdf->Ln();
+	$pdf->Ln(10);
+	$pdf->MultiCell(0, $alto, 'Recibí conforme el alcance líquido de la presente Liquidación, no teniendo cargo o cobro alguno que hacer por ningún concepto.');
+	$pdf->Ln(10);
+	$pdf->Cell(130);
+	$pdf->Cell(35, $alto, 'Firma Trabajador', 'T', 0, 'C');
 	}
 	$i++;
 endforeach;
