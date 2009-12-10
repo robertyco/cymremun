@@ -3,6 +3,7 @@
 	echo $javascript->link('jquery-validate/jquery.validate.js');
 	echo $javascript->link('jquery-validate/localization/messages_es.js');
 	echo $javascript->link('validacion.js');
+	echo $javascript->link('formularios.js');
 ?>
 <div class="users form">
 <?php echo $form->create('User');?>
@@ -21,9 +22,11 @@
 											'options' => array('consultor' => 'Consultor', 
 															'digitador' => 'Digitador', 
 															'administrador' => 'Administrador'), 
-																'div' => 'w25'));
+																'div' => 'w25', 'onChange' => 'bloqEmpresa();'
+															));
 		echo $form->input('empresa_id', array('empty' => '   ', 'label' => 'Empresa', 'div' => 'w50'));
 	?>
 	</fieldset>
 <?php echo $form->end('Guardar');?>
 </div>
+<script>bloqEmpresa();</script>
