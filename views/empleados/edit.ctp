@@ -4,6 +4,7 @@
 	echo $javascript->link('jquery-validate/localization/messages_es.js');
 	echo $javascript->link('jquery.Rut.js');
 	echo $javascript->link('validacion.js');
+	echo $javascript->link('formularios.js');
 ?>
 <?php if ($session->check('Empresa.id')) { ?>
 
@@ -78,17 +79,17 @@
  		<legend>Previsión y Salud</legend>
 		<?php
 		echo $form->input('Prevision.id');
-		echo $form->input('Prevision.afp_id', array('label' => 'A.F.P.', 'div' => 'w25'));
+		echo $form->input('Prevision.afp_id', array('label' => 'A.F.P.', 'div' => 'w25', 'onChange' => 'bloqApv();'));
 		echo $form->input('Prevision.apv', array(
 												'label' => 'APV', 
 												'options' => array(
 													'S'=>'Si',
 													'N'=>'No'
-												), 'div' => 'w25'));
+												), 'div' => 'w25', 'onChange' => 'bloqApvMonto();'));
 		echo $form->input('Prevision.apv_monto', array('label' => 'Monto APV', 'div' => 'w25'));
 		echo '<br />';
 		echo $form->input('Salud.id');
-		echo $form->input('Salud.isapre_id', array('label' => 'Isapre/Fonasa', 'div' => 'w25'));
+		echo $form->input('Salud.isapre_id', array('label' => 'Isapre/Fonasa', 'div' => 'w25', 'onChange' => 'bloqSalud();'));
 		echo $form->input('Salud.valor_plan', array('label' => 'Valor del plan', 'div' => 'w25'));
 		echo $form->input('Salud.valor_tipo', array(
 												'label' => 'UF/Pesos', 
@@ -106,5 +107,9 @@
 		<li><?php echo $html->link('Listar empleados', array('action'=>'index'));?></li>
 	</ul>
 </div>
-
 <?php } ?>
+<script>
+bloqApv();
+bloqApvMonto();
+bloqSalud();
+</script>
