@@ -6,3 +6,31 @@ function bloqEmpresa(){
 		document.getElementById('UserEmpresaId').disabled = false;
 	}
 }
+function bloqApv(){
+	if (document.getElementById('PrevisionAfpId').value == '16') {
+		document.getElementById('PrevisionApv').disabled = true;
+		document.getElementById('PrevisionApvMonto').disabled = true;
+		document.getElementById('PrevisionApvMonto').value = '';
+	} else {
+		document.getElementById('PrevisionApv').disabled = false;
+		document.getElementById('PrevisionApvMonto').disabled = false;
+	}
+}
+function bloqApvMonto(){
+	if (document.getElementById('PrevisionApv').value == 'N') {
+		document.getElementById('PrevisionApvMonto').disabled = true;
+		document.getElementById('PrevisionApvMonto').value = '';
+	} else {
+		document.getElementById('PrevisionApvMonto').disabled = false;
+	}
+}
+function bloqSalud(){
+	if (document.getElementById('SaludIsapreId').value == '1') {
+		document.getElementById('SaludValorPlan').disabled = true;
+		document.getElementById('SaludValorPlan').value = '';
+		document.getElementById('SaludValorTipo').disabled = true;
+	} else {
+		document.getElementById('SaludValorPlan').disabled = false;
+		document.getElementById('SaludValorTipo').disabled = false;
+	}
+}
