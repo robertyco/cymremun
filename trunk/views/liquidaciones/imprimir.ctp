@@ -1,7 +1,7 @@
 <?php
 include ('fpdf/fpdf.php');
 $pdf = new FPDF('P', 'mm', 'Letter');
-$pdf->SetMargins(20, 20);
+$pdf->SetMargins(20, 15);
 $alto = 5;
 $tamFuente = 11;
 
@@ -15,32 +15,33 @@ foreach ($empleados as $empleado):
 	$pdf->SetFont('Helvetica', '', $tamFuente);
 	$pdf->Cell(30, $alto, 'Razón Social:');	
 	$pdf->Cell(30, $alto, $empleado['Empresa']['nombre']);
-	switch($session->read('mes')){
-		case 01:
+	$mes = $session->read('mes');
+	switch($mes){
+		case 1:
 		$mes = 'Enero';
 		break;
-		case 02:
+		case 2:
 		$mes = 'Febrero';
 		break;
-		case 03:
+		case 3:
 		$mes = 'Marzo';
 		break;
-		case 04:
+		case 4:
 		$mes = 'Abril';
 		break;
-		case 05:
+		case 5:
 		$mes = 'Mayo';
 		break;
-		case 06:
+		case 6:
 		$mes = 'Junio';
 		break;
-		case 07:
+		case 7:
 		$mes = 'Julio';
 		break;
-		case 08:
+		case 8:
 		$mes = 'Agosto';
 		break;
-		case 09:
+		case 9:
 		$mes = 'Septiembre';
 		break;
 		case 10:
@@ -59,7 +60,7 @@ foreach ($empleados as $empleado):
 	$pdf->Cell(30, $alto, $empleado['Empresa']['rut']);
 	$pdf->Ln();
 	$pdf->Cell(30, $alto, 'Dirección:');
-	$pdf->Cell(30, $alto, $empleado['Empresa']['direccion']);
+	$pdf->Cell(30, $alto, $empleado['Empresa']['direccion'].', '.$empleado['Empresa']['ciudad']);
 	$pdf->Ln();
 	$pdf->Ln(1);
 	$pdf->Cell(0, 0, '', 1);
@@ -100,14 +101,17 @@ foreach ($empleados as $empleado):
 		$pdf->Cell(0, $alto, '$ '.$imponible['EmpleadosHaberesDescuento']['valor']);
 		$pdf->Ln();
 	endforeach; 
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
 	$pdf->Cell(10);
 	$pdf->Cell(50, $alto, 'Subtotal:');
 	$pdf->Cell(0, $alto, '$ '.$subTotalImponibles[$i]);
+	$pdf->SetFont('Helvetica', '', $tamFuente);
 	$pdf->Ln();
 	$pdf->Cell(10);
 	$pdf->Cell(50, $alto, 'Gratificación:');
 	$pdf->Cell(0, $alto, '$ '.$gratificacion[$i]);
 	$pdf->Ln();
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
 	$pdf->Cell(60);
 	$pdf->Cell(40, $alto, 'Total Imponibles:');
 	$pdf->Cell(0, $alto, '$ '.$totalImponible[$i]);
@@ -128,6 +132,7 @@ foreach ($empleados as $empleado):
 		$pdf->Cell(0, $alto, '$ '.$noImponible['EmpleadosHaberesDescuento']['valor']);
 		$pdf->Ln();
 	endforeach;
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
 	$pdf->Cell(60);
 	$pdf->Cell(40, $alto, 'Total No Imponibles:');
 	$pdf->Cell(0, $alto, '$ '.$totalNoImponible[$i]);
@@ -136,6 +141,7 @@ foreach ($empleados as $empleado):
 	$pdf->Cell(40, $alto, 'Total Haberes:');
 	$pdf->Cell(0, $alto, '$ '.$totalHaber[$i]);
 	$pdf->Ln();
+	$pdf->SetFont('Helvetica', '', $tamFuente);
 
 	// descuentos
 	$pdf->Cell(0, 0, '', 1);
@@ -166,10 +172,12 @@ foreach ($empleados as $empleado):
 		$pdf->Cell(0, $alto, '$ '.$descuento['EmpleadosHaberesDescuento']['valor']);
 		$pdf->Ln();
 	endforeach; 
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
 	$pdf->Cell(10);
 	$pdf->Cell(50, $alto, 'Subtotal:');
 	$pdf->Cell(0, $alto, '$ '.$subTotalDescuentos[$i]);
 	$pdf->Ln();
+	$pdf->SetFont('Helvetica', '', $tamFuente);
 	$pdf->Cell(10);
 	$pdf->Cell(50, $alto, 'Remuneración Neta:');
 	$pdf->Cell(0, $alto, '$ '.$remuneracionNeta[$i]);
@@ -178,6 +186,7 @@ foreach ($empleados as $empleado):
 	$pdf->Cell(50, $alto, 'Impuesto Unico:');
 	$pdf->Cell(0, $alto, '$ '.$impuestoUnico[$i]);
 	$pdf->Ln();
+	$pdf->SetFont('Helvetica', 'B', $tamFuente);
 	$pdf->Cell(60);
 	$pdf->Cell(40, $alto, 'Total Descuentos:');
 	$pdf->Cell(0, $alto, '$ '.$totalDescuento[$i]);
@@ -188,10 +197,17 @@ foreach ($empleados as $empleado):
 	$pdf->Cell(40, $alto, 'Total a Pagar:');
 	$pdf->Cell(0, $alto, '$ '.$alcanceLiquido[$i]);
 	$pdf->Ln(10);
-	$pdf->MultiCell(0, $alto, 'Recibí conforme el alcance líquido de la presente Liquidación, no teniendo cargo o cobro alguno que hacer por ningún concepto.');
-	$pdf->Ln(10);
+	
+	$pdf->SetFont('Helvetica', '', $tamFuente-1);
+	require_once 'Numbers/Words.php';
+	$nw = new Numbers_Words();
+	$pdf->MultiCell(0, $alto-1, 'Son: '.strtoupper($nw->toWords($alcanceLiquido[$i], 'es')).' PESOS.');
+	$pdf->Ln();
+
+	$pdf->MultiCell(0, $alto-1, 'Recibí conforme el alcance líquido de la presente Liquidación, no teniendo cargo o cobro alguno que hacer por ningún concepto.');
+	$pdf->Ln(15);
 	$pdf->Cell(130);
-	$pdf->Cell(35, $alto, 'Firma Trabajador', 'T', 0, 'C');
+	$pdf->Cell(35, $alto-1, 'Firma Trabajador', 'T', 0, 'C');
 	}
 	$i++;
 endforeach;
