@@ -60,7 +60,7 @@ foreach ($empleados as $empleado):
 	$pdf->Cell(30, $alto, $empleado['Empresa']['rut']);
 	$pdf->Ln();
 	$pdf->Cell(30, $alto, 'Dirección:');
-	$pdf->Cell(30, $alto, $empleado['Empresa']['direccion'].', '.$empleado['Empresa']['ciudad']);
+	$pdf->Cell(30, $alto, utf8_decode($empleado['Empresa']['direccion'].', '.$empleado['Empresa']['ciudad']));
 	$pdf->Ln();
 	$pdf->Ln(1);
 	$pdf->Cell(0, 0, '', 1);
