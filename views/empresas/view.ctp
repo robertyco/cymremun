@@ -72,8 +72,6 @@
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link('Activar', 
-			array('action'=>'activar', $empresa['Empresa']['id'], $empresa['Empresa']['nombre'])); ?> </li>
 		<li><?php echo $html->link(
 				'Asignar haberes y descuentos', 
 				array('controller' => 'HaberesDescuentos', 'action'=>'addHdEmpresa', $empresa['Empresa']['id'])

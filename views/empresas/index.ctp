@@ -22,10 +22,10 @@ foreach ($empresas as $empresa):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $html->link($empresa['Empresa']['rut'], array('action'=>'view', $empresa['Empresa']['id'])); ?>
+			<?php echo $empresa['Empresa']['rut']; ?>
 		</td>
 		<td>
-			<?php echo $empresa['Empresa']['nombre']; ?>
+			<?php echo $html->link($empresa['Empresa']['nombre'], array('action'=>'activar', $empresa['Empresa']['id'], $empresa['Empresa']['nombre'])); ?>
 		</td>
 		<td>
 			<?php echo $empresa['Empresa']['actividad']; ?>
