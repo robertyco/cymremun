@@ -38,12 +38,11 @@
 <?php echo $form->create('Fecha', array('action' => 'setFecha'));?>
 	<div id="fecha">
 	<?php
-		echo $form->month('mes', $session->read('mes'));
-		echo $form->year('ano', date('Y')-20, date('Y')+10, $session->read('ano'));
+		echo $form->month('mes', $session->read('mes'), array('onChange' => 'document.forms["FechaSetFechaForm"].submit();'), false);
+		echo $form->year('ano', date('Y')-20, date('Y')+5, $session->read('ano'), array('onChange' => 'document.forms["FechaSetFechaForm"].submit();'), false);
 	?>
 	</div>
-<?php echo $form->end('Ir');?>
-
+<?php echo $form->end();?>
 	<h2>Menú</h2>
 
 	<ul id="nav">
