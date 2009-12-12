@@ -13,7 +13,9 @@
 		echo $form->input('rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required rut'));
 		echo $form->input('nombre', array('label' => 'Nombre *', 'div' => 'w50', 'class' => 'required'));
 		echo '<br />';
-		echo $form->input('actividad', array('div' => 'w50'));
+		echo $form->input('giro', array('div' => 'w50'));
+		echo '<br />';
+		echo $form->input('actividad_id', array('label' => 'Actividad', 'div' => 'w100'));
 		echo '<br />';
 		echo $form->input('direccion', array('label' => 'Dirección *', 'div' => 'w50', 'class' => 'required'));
 		echo '<br />';

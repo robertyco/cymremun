@@ -101,5 +101,13 @@ class Empresa extends AppModel {
 								'counterQuery' => ''
 			)
 	);
+	var $belongsTo = array(
+			'Actividad' => array('className' => 'Actividad',
+								'foreignKey' => 'actividad_id',
+								'conditions' => '',
+								'fields' => '',
+								'order' => ''
+			)
+	);
 }
 ?>

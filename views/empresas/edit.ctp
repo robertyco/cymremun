@@ -14,7 +14,9 @@
 		echo $form->input('rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required rut'));
 		echo $form->input('nombre', array('label' => 'Nombre *', 'div' => 'w50', 'class' => 'required'));
 		echo '<br />';
-		echo $form->input('actividad', array('div' => 'w50'));
+		echo $form->input('giro', array('div' => 'w50'));
+		echo '<br />';
+		echo $form->input('actividad_id', array('label' => 'Actividad', 'div' => 'w100'));
 		echo '<br />';
 		echo $form->input('direccion', array('label' => 'Dirección *', 'div' => 'w50', 'class' => 'required'));
 		echo '<br />';
@@ -45,11 +47,13 @@
 		echo $form->input('fax', array('div' => 'w25', 'class' => 'number'));
 		echo '<br />';
 		echo $form->input('email', array('div' => 'w50', 'class' => 'email'));
+		echo '<br />';
+		echo $form->input('porc_seguro', array('label' => '% Seguro', 'div' => 'w25'));
 	?></fieldset>
 	<fieldset>
  		<legend>Representante Legal</legend>
 	<?php		
-		echo $form->input('rep_legal_rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required'));
+		echo $form->input('rep_legal_rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required rut'));
 		echo $form->input('rep_legal_nombre', array('label' => 'Nombre *', 'div' => 'w50', 'class' => 'required'));
 	?>
 	</fieldset>
