@@ -16,9 +16,9 @@
 			<?php echo $empresa['Empresa']['nombre']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Actividad'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>>Giro</dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $empresa['Empresa']['actividad']; ?>
+			<?php echo $empresa['Empresa']['giro']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Direccion'); ?></dt>

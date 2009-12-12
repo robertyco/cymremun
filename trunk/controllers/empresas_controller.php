@@ -26,8 +26,11 @@ class EmpresasController extends AppController {
 	}
 
 	function add() {
+		$acts = $this->Empresa->Actividad->find('all');
 		if (!empty($this->data)) {
 			$this->Empresa->create();
+			$seguro = $this->Empresa->Actividad->find('first', array('conditions' => array('Actividad.id' => $this->data['Empresa']['actividad_id'])));
+			$this->data['Empresa']['porc_seguro'] = $seguro['Actividad']['porcentaje'];
 			if ($this->Empresa->save($this->data)) {
 				$this->Session->setFlash('La empresa ha sido guardada');
 				$this->Session->write('Empresa.id', $this->Empresa->id);
@@ -36,10 +39,20 @@ class EmpresasController extends AppController {
 			} else {
 				$this->Session->setFlash('Error, no se ha podido guardar la empresa.', 'default', array('class' => 'messageError'));
 			}
-		}
+		}	
+		$actividads = $this->Empresa->Actividad->find('list', array('fields' => array('Actividad.id', 'Actividad.nombre')));		
+		$i = 0;
+		foreach ($actividads as $actividad):
+			$actividads[$acts[$i]['Actividad']['id']] = $acts[$i]['Actividad']['id'].' - '.$acts[$i]['Actividad']['nombre'];
+			$i++;
+		endforeach;
+
+		$this->set(compact('actividads'));
+
 	}
 
 	function edit($id = null) {
+		$acts = $this->Empresa->Actividad->find('all');
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash('Empresa no válida');
 			$this->redirect(array('action'=>'index'));
@@ -55,6 +68,14 @@ class EmpresasController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Empresa->read(null, $id);
 		}
+		$actividads = $this->Empresa->Actividad->find('list', array('fields' => array('Actividad.id', 'Actividad.nombre')));		
+		$i = 0;
+		foreach ($actividads as $actividad):
+			$actividads[$acts[$i]['Actividad']['id']] = $acts[$i]['Actividad']['id'].' - '.$acts[$i]['Actividad']['nombre'];
+			$i++;
+		endforeach;
+
+		$this->set(compact('actividads'));
 	}
 
 	function delete($id = null) {

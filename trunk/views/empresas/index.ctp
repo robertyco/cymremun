@@ -5,7 +5,7 @@
 <tr>
 	<th width="88px"><?php echo $paginator->sort('RUT', 'rut');?></th>
 	<th><?php echo $paginator->sort('nombre');?></th>
-	<th><?php echo $paginator->sort('actividad');?></th>
+	<th><?php echo $paginator->sort('giro');?></th>
 	<th><?php echo $paginator->sort('Dirección','direccion');?></th>
 	<th><?php echo $paginator->sort('ciudad');?></th>
 	<th><?php echo $paginator->sort('Teléfono','telefono');?></th>
@@ -28,7 +28,7 @@ foreach ($empresas as $empresa):
 			<?php echo $html->link($empresa['Empresa']['nombre'], array('action'=>'activar', $empresa['Empresa']['id'], $empresa['Empresa']['nombre'])); ?>
 		</td>
 		<td>
-			<?php echo $empresa['Empresa']['actividad']; ?>
+			<?php echo $empresa['Empresa']['giro']; ?>
 		</td>
 		<td>
 			<?php echo $empresa['Empresa']['direccion']; ?>
