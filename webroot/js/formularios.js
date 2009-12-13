@@ -45,3 +45,11 @@ function bloqRepLegal(){
 		document.getElementById('EmpresaRepLegalNombre').disabled = false;
 	}
 }
+function bloqNadherente(){
+	if (document.getElementById('EmpresaSeguridadId').value == '1') {
+		document.getElementById('EmpresaNadherente').disabled = true;
+		document.getElementById('EmpresaNadherente').value = '';
+	} else {
+		document.getElementById('EmpresaNadherente').disabled = false;
+	}
+}

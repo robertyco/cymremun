@@ -93,6 +93,18 @@ class Empresa extends AppModel {
 								'conditions' => '',
 								'fields' => '',
 								'order' => ''
+			),
+			'Compensacion' => array('className' => 'Compensacion',
+								'foreignKey' => 'compensacion_id',
+								'conditions' => '',
+								'fields' => '',
+								'order' => ''
+			),
+			'Seguridad' => array('className' => 'Seguridad',
+								'foreignKey' => 'seguridad_id',
+								'conditions' => '',
+								'fields' => '',
+								'order' => ''
 			)
 	);
 }
