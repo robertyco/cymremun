@@ -48,8 +48,6 @@
 		echo $form->input('fax', array('div' => 'w25', 'class' => 'number'));
 		echo '<br />';
 		echo $form->input('email', array('div' => 'w50', 'class' => 'email'));
-		echo '<br />';
-		echo $form->input('porc_seguro', array('label' => '% Seguro', 'div' => 'w25'));
 	?></fieldset>
 	<fieldset>
  		<legend>Representante Legal</legend>
@@ -63,6 +61,20 @@
 		echo $form->input('rep_legal_nombre', array('label' => 'Nombre *', 'div' => 'w50'));
 	?>
 	</fieldset>
+	<fieldset>
+ 		<legend>Caja de Compensación</legend>
+	<?php		
+		echo $form->input('compensacion_id', array('label' => 'Institución', 'div' => 'w50'));
+	?>
+	</fieldset>
+	<fieldset>
+ 		<legend>Accidente del Trabajo</legend>
+	<?php		
+		echo $form->input('seguridad_id', array('label' => 'Institución', 'div' => 'w25', 'onChange' => 'bloqNadherente();'));
+		echo $form->input('nadherente', array('label' => 'Nº Adherente', 'div' => 'w25'));
+		echo $form->input('porc_seguro', array('label' => '% Seguro', 'div' => 'w25'));
+	?>
+	</fieldset>
 <?php echo $form->end('Guardar');?>
 </div>
 <div class="actions">
@@ -73,4 +85,5 @@
 </div>
 <script>
 bloqRepLegal();
+bloqNadherente();
 </script>

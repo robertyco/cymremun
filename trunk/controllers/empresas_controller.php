@@ -31,6 +31,13 @@ class EmpresasController extends AppController {
 			$this->Empresa->create();
 			$seguro = $this->Empresa->Actividad->find('first', array('conditions' => array('Actividad.id' => $this->data['Empresa']['actividad_id'])));
 			$this->data['Empresa']['porc_seguro'] = $seguro['Actividad']['porcentaje'];
+			if ($this->data['Empresa']['rep_legal'] == 'N') {
+				$this->data['Empresa']['rep_legal_rut'] = '';
+				$this->data['Empresa']['rep_legal_nombre'] = '';
+			}
+			if ($this->data['Empresa']['seguridad_id'] == '1') {
+				$this->data['Empresa']['nadherente'] = '';
+			}
 			if ($this->Empresa->save($this->data)) {
 				$this->Session->setFlash('La empresa ha sido guardada');
 				$this->Session->write('Empresa.id', $this->Empresa->id);
@@ -46,9 +53,9 @@ class EmpresasController extends AppController {
 			$actividads[$acts[$i]['Actividad']['id']] = $acts[$i]['Actividad']['id'].' - '.$acts[$i]['Actividad']['nombre'];
 			$i++;
 		endforeach;
-
-		$this->set(compact('actividads'));
-
+		$compensacions = $this->Empresa->Compensacion->find('list');
+		$seguridads = $this->Empresa->Seguridad->find('list');
+		$this->set(compact('actividads', 'compensacions', 'seguridads'));
 	}
 
 	function edit($id = null) {
@@ -58,6 +65,13 @@ class EmpresasController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+			if ($this->data['Empresa']['rep_legal'] == 'N') {
+				$this->data['Empresa']['rep_legal_rut'] = '';
+				$this->data['Empresa']['rep_legal_nombre'] = '';
+			}
+			if ($this->data['Empresa']['seguridad_id'] == '1') {
+				$this->data['Empresa']['nadherente'] = '';
+			}
 			if ($this->Empresa->save($this->data)) {
 				$this->Session->setFlash('La empresa ha sido modificada.');
 				$this->redirect(array('action'=>'index'));
@@ -74,8 +88,9 @@ class EmpresasController extends AppController {
 			$actividads[$acts[$i]['Actividad']['id']] = $acts[$i]['Actividad']['id'].' - '.$acts[$i]['Actividad']['nombre'];
 			$i++;
 		endforeach;
-
-		$this->set(compact('actividads'));
+		$compensacions = $this->Empresa->Compensacion->find('list');
+		$seguridads = $this->Empresa->Seguridad->find('list');
+		$this->set(compact('actividads', 'compensacions', 'seguridads'));
 	}
 
 	function delete($id = null) {
