@@ -45,20 +45,6 @@ class Empresa extends AppModel {
 			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Fax debe ser de tipo numérico'
-		),
-		'rep_legal_rut' => array(
-			'validarut' => array(		
-				'rule' => 'validaRut',
-				'message' => 'El RUT ingresado no es válido'
-			),
-			'minlength' => array(
-				'rule' => array('minLength', 1),
-				'message' => 'El RUT no ha sido ingresado'
-			)
-		),
-		'rep_legal_nombre' => array(
-			'rule' => 'notEmpty',			
-			'message' => 'No ha ingresado nombre de Rep. Legal'
 		)
 	);
 

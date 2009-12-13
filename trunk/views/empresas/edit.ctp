@@ -4,6 +4,7 @@
 	echo $javascript->link('jquery-validate/localization/messages_es.js');
 	echo $javascript->link('jquery.Rut.js');
 	echo $javascript->link('validacion.js');
+	echo $javascript->link('formularios.js');
 ?>
 <div class="empresas form">
 <?php echo $form->create('Empresa');?>
@@ -53,8 +54,13 @@
 	<fieldset>
  		<legend>Representante Legal</legend>
 	<?php		
-		echo $form->input('rep_legal_rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'required rut'));
-		echo $form->input('rep_legal_nombre', array('label' => 'Nombre *', 'div' => 'w50', 'class' => 'required'));
+		echo $form->input('rep_legal', array('label' => 'Rep. Legal', 
+												'options' => array(
+													'S'=>'Si',
+													'N'=>'No'
+												),'div' => 'w25', 'onChange' => 'bloqRepLegal();'));
+		echo $form->input('rep_legal_rut', array('label' => 'R.U.T. *', 'div' => 'w25', 'class' => 'rut'));
+		echo $form->input('rep_legal_nombre', array('label' => 'Nombre *', 'div' => 'w50'));
 	?>
 	</fieldset>
 <?php echo $form->end('Guardar');?>
@@ -65,3 +71,6 @@
 		<li><?php echo $html->link('Listar empresas', array('action'=>'index'));?></li>
 	</ul>
 </div>
+<script>
+bloqRepLegal();
+</script>
