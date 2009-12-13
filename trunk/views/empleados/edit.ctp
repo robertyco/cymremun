@@ -71,6 +71,12 @@
 													'T'=>'Si (con tope)',
 													'N'=>'No'
 												), 'div' => 'w25'));
+		echo $form->input('Empleado.seg_cesantia', array(
+												'label' => 'Seg. Cesantía', 
+												'options' => array(
+													'S'=>'Si',
+													'N'=>'No'
+												), 'div' => 'w25'));
 		echo '<br />';
 		echo $form->input('Empleado.cargas', array('label' => 'Cargas familiares', 'div' => 'w25', 'class' => 'number'));
 		?>
