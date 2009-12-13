@@ -193,10 +193,17 @@ class LiquidacionesController extends AppController {
 			$this->set('salud', $salud);
 			
 			// seguro de cesantía
-			if ($empleado['Empleado']['tipo_contrato'] == 'I') {
-				$seguroCesantia = round($totalImponible * 0.06);
+			if ($empleado['Empleado']['seg_cesantia'] == 'S') {
+				if ($empleado['Empleado']['tipo_contrato'] == 'I') {
+					$seguroCesantia = round($totalImponible * 0.006);
+					$seguroEmpl = round($totalImponible * 0.024);
+				} else {
+					$seguroCesantia = 0;
+					$seguroEmpl = round($totalImponible * 0.03);
+				}
 			} else {
 				$seguroCesantia = 0;
+				$seguroEmpl = 0;
 			}
 			$this->set('seguroCesantia', $seguroCesantia);
 			
@@ -254,6 +261,10 @@ class LiquidacionesController extends AppController {
 			)));
 			
 			// guardado de la liquidación en bd
+			$liquidacion['Liquidacion']['seg_afil'] = $seguroCesantia;
+			$liquidacion['Liquidacion']['seg_empl'] = $seguroEmpl;
+			$liquidacion['Liquidacion']['apv'] = $apv;
+			$liquidacion['Liquidacion']['cotiz_oblig'] = $prevision;
 			$liquidacion['Liquidacion']['imponible'] = $totalImponible;
 			$liquidacion['Liquidacion']['no_imponible'] = $totalNoImponible;
 			$liquidacion['Liquidacion']['haber'] = $totalHaber;
@@ -391,14 +402,11 @@ class LiquidacionesController extends AppController {
 				$afp = $this->Afp->find('first', array(
 							'conditions' => array('id' => $empleado['Prevision']['afp_id']), 'recursive' => 0
 						));
-				$prevision[$i] = round(($totalImponible[$i] * $afp['Afp']['cotizacion']) / 100);
+				$prevision[$i] = $liquidacion['Liquidacion']['cotiz_oblig'];
 				$cotizacion[$i] = $afp['Afp']['cotizacion'];
 				
 				// apv
-				$apv[$i] = 0;
-				if ($empleado['Prevision']['apv'] == 'S') {
-					$apv[$i] = $empleado['Prevision']['apv_monto'];
-				}
+				$apv[$i] = $liquidacion['Liquidacion']['apv'];
 				
 				// salud
 				$msgSalud[$i] = 'Salud';
@@ -417,11 +425,7 @@ class LiquidacionesController extends AppController {
 				}
 				
 				// seguro de cesantía
-				if ($empleado['Empleado']['tipo_contrato'] == 'I') {
-					$seguroCesantia[$i] = round($totalImponible[$i] * 0.06);
-				} else {
-					$seguroCesantia[$i] = 0;
-				}
+				$seguroCesantia[$i] = $liquidacion['Liquidacion']['seg_afil'];
 				
 				// subtotal descuentos
 				

@@ -166,6 +166,23 @@ ul#nav {
 	border-bottom:1px solid #72A372;
 }
 
+ul#nav ul{
+	width:180px;
+	list-style: none;
+}
+ul#nav ul li{
+	width:180px;
+}
+ul#nav li a {
+	border:1px solid #CFE6CF;
+	display: block;
+	font-size: small;
+	font-weight: normal;
+	text-decoration: none;
+	padding:0px 0px 0px 20px;
+	margin:0px 0px 0px 0px;
+}
+
 ul#nav li {
 	padding:2px 0px 2px 0px;
 	margin:0px 0px 0px 0px;

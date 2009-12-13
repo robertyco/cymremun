@@ -60,6 +60,11 @@
 		<li><?php echo $html->link('Liquidaciones', '/liquidaciones'); ?></li>
 	<?php } ?>
 	
+		<li><?php echo $html->link('Planillas:', ''); ?></li>
+		<ul>
+		<li><?php echo $html->link('A.F.P.', array('controller' => 'Planillas', 'action' => 'afp')); ?></li>
+		</ul>
+	
 <!--	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li> -->
 	
 	<?php if ($Auth['User']['tipo'] == 'administrador') { ?>
