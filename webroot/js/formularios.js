@@ -34,3 +34,14 @@ function bloqSalud(){
 		document.getElementById('SaludValorTipo').disabled = false;
 	}
 }
+function bloqRepLegal(){
+	if (document.getElementById('EmpresaRepLegal').value == 'N') {
+		document.getElementById('EmpresaRepLegalRut').disabled = true;
+		document.getElementById('EmpresaRepLegalRut').value = '';
+		document.getElementById('EmpresaRepLegalNombre').disabled = true;
+		document.getElementById('EmpresaRepLegalNombre').value = '';
+	} else {
+		document.getElementById('EmpresaRepLegalRut').disabled = false;
+		document.getElementById('EmpresaRepLegalNombre').disabled = false;
+	}
+}
