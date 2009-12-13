@@ -23,7 +23,7 @@
 		echo $form->input('Empleado.sexo', array(
 										'options' => array(
 											'M'=>'Masculino',
-											'f'=>'Femenino'
+											'F'=>'Femenino'
 										), 'div' => 'w25')
 		);
 		echo $form->input('Empleado.estado_civil', array(
@@ -62,7 +62,7 @@
 												'label' => 'Tipo de contrato', 
 												'options' => array(
 													'I'=>'Indefinido',
-													'B'=>'Plazo fijo'
+													'F'=>'Plazo fijo'
 												), 'div' => 'w25'));		
 		echo $form->input('Empleado.grat_legal', array(
 												'label' => 'Gratificación legal', 
