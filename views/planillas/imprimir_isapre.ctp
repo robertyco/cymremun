@@ -9,6 +9,7 @@ $bor = 0;
 
 $i = 0;
 foreach ($isapres as $isapre):
+if ($empleados[$i]) {
 	$pdf->AddPage();
 	
 	// encabezado
@@ -206,6 +207,7 @@ foreach ($isapres as $isapre):
 	$pdf->Cell(30);
 	$pdf->Cell(45, $alto, 'VºBº y Timbre Cajero', 'T', 0, 'C');
 	
+}
 	$i++;
 endforeach;
 $pdf->Output();

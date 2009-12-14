@@ -7,6 +7,7 @@ $alto = 3;
 $tamFuente = 8;
 $bor = 0;
 
+if ($empresa['Seguridad']['id'] != 1) {
 $pdf->AddPage();
 
 $pdf->SetFont('Courier', 'B', $tamFuente);
@@ -164,7 +165,7 @@ $pdf->ln();
 	$pdf->SetFont('Courier', 'B', $tamFuente);
 	$pdf->SetXY(157, 22); $pdf->Cell(23, $alto, $totalImponible, $bor);
 
-
+}
 
 $pdf->Output();
 ?>

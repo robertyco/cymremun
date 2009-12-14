@@ -9,6 +9,7 @@ $bor = 0;
 
 $i = 0;
 foreach ($afps as $afp):
+if ($empleados[$i]) {
 	$pdf->AddPage();
 	// debug($afp);
 	// encabezado
@@ -376,7 +377,7 @@ foreach ($afps as $afp):
 	$pdf->Cell(45, $alto, 'VºBº Recepción y Cálculo', 'T', 0, 'C');
 	$pdf->Cell(30);
 	$pdf->Cell(45, $alto, 'VºBº y Timbre Cajero', 'T', 0, 'C');
-	
+}
 	$i++;
 endforeach;
 $pdf->Output();

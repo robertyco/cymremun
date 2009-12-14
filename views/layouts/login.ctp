@@ -19,7 +19,7 @@
 
 <div id="header">
 	<div id="title">CyMremun</div>
-	<div id="slogan">Sistema de remuneraciones</div>
+	<div id="slogan"></div>
 </div>
 
 <div id="maincontent">
