@@ -158,10 +158,25 @@ foreach ($empleados as $empleado):
 	$pdf->Cell(50, $alto, 'APV:');
 	$pdf->Cell(0, $alto, '$ '.$apv[$i]);
 	$pdf->Ln();
+	
 	$pdf->Cell(10);
-	$pdf->Cell(50, $alto, $msgSalud[$i].':');
-	$pdf->Cell(0, $alto, '$ '.$salud[$i]);
+	$pdf->Cell(50, $alto, 'Salud 7%:');
+	$pdf->Cell(0, $alto, '$ '.$saludLegal[$i]);
 	$pdf->Ln();
+	
+	if ($saludAdicional[$i] > 0) {
+		$pdf->Cell(10);
+		$pdf->Cell(50, $alto, 'Salud (Cot. Adicional):');
+		$pdf->Cell(0, $alto, '$ '.$saludAdicional[$i]);
+		$pdf->Ln();
+	}
+	if ($ley18566[$i] > 0) {
+		$pdf->Cell(10);
+		$pdf->Cell(50, $alto, 'Salud (Ley 18566):');
+		$pdf->Cell(0, $alto, '$ '.$ley18566[$i]);
+		$pdf->Ln();
+	}
+	
 	$pdf->Cell(10);
 	$pdf->Cell(50, $alto, 'Seguro de Cesantía:');
 	$pdf->Cell(0, $alto, '$ '.$seguroCesantia[$i]);

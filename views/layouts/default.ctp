@@ -63,6 +63,7 @@
 		<li><?php echo $html->link('Planillas:', ''); ?></li>
 		<ul>
 		<li><?php echo $html->link('A.F.P.', array('controller' => 'Planillas', 'action' => 'afp')); ?></li>
+		<li><?php echo $html->link('Isapre', array('controller' => 'Planillas', 'action' => 'isapre')); ?></li>
 		</ul>
 	
 <!--	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li> -->
