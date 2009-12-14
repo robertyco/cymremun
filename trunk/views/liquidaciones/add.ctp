@@ -117,9 +117,24 @@ foreach ($noImponibles as $noImponible):
 	<td><?php echo $apv; ?></td>
 </tr>
 <tr>
-	<td><?php echo $msgSalud; ?></td>
-	<td><?php echo $salud; ?></td>
+	<td>Salud 7%</td>
+	<td><?php echo $saludLegal; ?></td>
 </tr>
+
+<?php if ($saludAdicional > 0) { ?>
+<tr>
+	<td>Salud (Cot. Adicional)</td>
+	<td><?php echo $saludAdicional; ?></td>
+</tr>
+<?php } ?>
+
+<?php if ($ley18566 > 0) { ?>
+<tr>
+	<td>Salud (Ley 18566)</td>
+	<td><?php echo $ley18566; ?></td>
+</tr>
+<?php } ?>
+
 <tr>
 	<td>Seguro de Cesantía</td>
 	<td><?php echo $seguroCesantia; ?></td>

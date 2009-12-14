@@ -177,6 +177,11 @@ class LiquidacionesController extends AppController {
 			
 			// salud
 			$salud = round(($totalImponible * 7) / 100);
+			$saludLegal = $salud;
+			$saludAdicional = 0;
+			$planIsapre = 0;
+			$ley18566 = 0;
+			$ley18566Porc = 0;
 			if ($empleado['Salud']['isapre_id'] == 1) {
 				$this->set('msgSalud', 'Salud 7%');
 			} else {
@@ -187,10 +192,19 @@ class LiquidacionesController extends AppController {
 				}
 				if ($planIsapre > $salud) {
 					$salud = $planIsapre;
+					$saludAdicional = $planIsapre - $saludLegal;
 				}
+			}
+			if ($empleado['Salud']['ley18566'] > 0) {
+				$ley18566 = round(($totalImponible * $empleado['Salud']['ley18566']) / 100);
+				$salud += $ley18566;
+				$ley18566Porc = $empleado['Salud']['ley18566'];
 			}
 			$this->set('msgSalud', 'Salud');
 			$this->set('salud', $salud);
+			$this->set('saludLegal', $saludLegal);
+			$this->set('saludAdicional', $saludAdicional);
+			$this->set('ley18566', $ley18566);
 			
 			// seguro de cesantía
 			if ($empleado['Empleado']['seg_cesantia'] == 'S') {
@@ -261,6 +275,12 @@ class LiquidacionesController extends AppController {
 			)));
 			
 			// guardado de la liquidación en bd
+			$liquidacion['Liquidacion']['salud_ley18566_porc'] = $ley18566Porc;
+			$liquidacion['Liquidacion']['salud_ley18566_valor'] = $ley18566;
+			$liquidacion['Liquidacion']['salud_plan'] = $planIsapre;
+			$liquidacion['Liquidacion']['salud_adicional'] = $saludAdicional;
+			$liquidacion['Liquidacion']['salud_legal'] = $saludLegal;
+			$liquidacion['Liquidacion']['salud'] = $salud;
 			$liquidacion['Liquidacion']['seg_afil'] = $seguroCesantia;
 			$liquidacion['Liquidacion']['seg_empl'] = $seguroEmpl;
 			$liquidacion['Liquidacion']['apv'] = $apv;
@@ -410,19 +430,13 @@ class LiquidacionesController extends AppController {
 				
 				// salud
 				$msgSalud[$i] = 'Salud';
-				$salud[$i] = round(($totalImponible[$i] * 7) / 100);
+				$salud[$i] = $liquidacion['Liquidacion']['salud'];
+				$saludLegal[$i] = $liquidacion['Liquidacion']['salud_legal'];
+				$saludAdicional[$i] = $liquidacion['Liquidacion']['salud_adicional'];
+				$ley18566[$i] = $liquidacion['Liquidacion']['salud_ley18566_valor'];
 				if ($empleado['Salud']['isapre_id'] == 1) {
 					$msgSalud[$i] = 'Salud 7%';
-				} else {
-					if ($empleado['Salud']['valor_tipo'] == 'U') {
-						$planIsapre = round($empleado['Salud']['valor_plan'] * $UF);
-					} else {
-						$planIsapre = $empleado['Salud']['valor_plan'];
-					}
-					if ($planIsapre > $salud[$i]) {
-						$salud[$i] = $planIsapre;
-					}
-				}
+				} 
 				
 				// seguro de cesantía
 				$seguroCesantia[$i] = $liquidacion['Liquidacion']['seg_afil'];
@@ -477,6 +491,9 @@ class LiquidacionesController extends AppController {
 			$this->set('apv', $apv);
 			$this->set('msgSalud', $msgSalud);
 			$this->set('salud', $salud);
+			$this->set('saludLegal', $saludLegal);
+			$this->set('saludAdicional', $saludAdicional);
+			$this->set('ley18566', $ley18566);
 			$this->set('seguroCesantia', $seguroCesantia);
 			$this->set('descuentos', $descuentos);
 			$this->set('subTotalDescuentos', $subTotalDescuentos);
