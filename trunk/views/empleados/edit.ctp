@@ -103,6 +103,8 @@
 													'U'=>'UF',
 													'P'=>'Pesos'
 												), 'div' => 'w25'));
+		echo '<br />';
+		echo $form->input('Salud.ley18566', array('label' => 'Ley 18566 (%)', 'div' => 'w25'));
 		?>
 	</fieldset>	
 <?php echo $form->end('Guardar');?>
