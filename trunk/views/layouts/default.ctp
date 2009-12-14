@@ -20,7 +20,7 @@
 <div id="header">
 	<div id="contact"><a href="#">Contacto</a></div>
 	<div id="title">CyMremun</div>
-	<div id="slogan">Sistema de remuneraciones</div>
+	<div id="slogan"></div>
 </div>
 
 <div id="headinfo">
@@ -58,15 +58,15 @@
 	
 	<?php if ($session->check('Empresa.id')) { ?>
 		<li><?php echo $html->link('Liquidaciones', '/liquidaciones'); ?></li>
-	<?php } ?>
 	
 		<li><?php echo $html->link('Planillas:', ''); ?></li>
 		<ul>
-		<li><?php echo $html->link('A.F.P.', array('controller' => 'Planillas', 'action' => 'afp')); ?></li>
-		<li><?php echo $html->link('Isapre', array('controller' => 'Planillas', 'action' => 'isapre')); ?></li>
+		<li><?php echo $html->link('A.F.P.', array('controller' => 'Planillas', 'action' => 'imprimirAfp')); ?></li>
+		<li><?php echo $html->link('Isapre', array('controller' => 'Planillas', 'action' => 'imprimirIsapre')); ?></li>
 		<li><?php echo $html->link('Mutual de Seguridad', array('controller' => 'Planillas', 'action' => 'imprimirMutual')); ?></li>
 		</ul>
 	
+	<?php } ?>
 <!--	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li> -->
 	
 	<?php if ($Auth['User']['tipo'] == 'administrador') { ?>
