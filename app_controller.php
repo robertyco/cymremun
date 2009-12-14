@@ -39,6 +39,7 @@
 class AppController extends Controller {
 	var $components = array('Auth');
 	var $helpers = array('Ajax', 'Javascript');
+	var $uses = array('Empresa');
 
 	function beforeFilter() {
 		//$this->Auth->allow('*');		
@@ -48,11 +49,19 @@ class AppController extends Controller {
 		$this->set('Auth',$this->Auth->user()); 
 		if ($this->Auth->user('tipo') == 'consultor') {
 			$this->Session->write('Empresa.id', $this->Auth->user('empresa_id'));
-			$this->Session->write('Empresa.nombre', $this->Auth->user('empresa_id'));
 		}
 		if (!$this->Session->check('mes')) $this->Session->write('mes', date('m'));
 		if (!$this->Session->check('ano')) $this->Session->write('ano', date('Y'));
 		if (!$this->Session->check('fecha')) $this->Session->write('fecha', date('Y').'-'.date('m').'-00');
+		
+		if ($this->Session->check('Empresa.id')) {
+			$empr = $this->Empresa->find('first', array(
+				'conditions' => array('Empresa.id' => $this->Session->read('Empresa.id')),
+				'recursive' => 0
+			));
+			$this->Session->write('Empresa.nombre', $empr['Empresa']['nombre']);
+			$this->Session->write('Empresa.seguridad_id', $empr['Empresa']['seguridad_id']);
+		}
 	}
 }
 ?>

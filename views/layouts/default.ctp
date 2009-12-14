@@ -63,7 +63,9 @@
 		<ul>
 		<li><?php echo $html->link('A.F.P.', array('controller' => 'Planillas', 'action' => 'imprimirAfp')); ?></li>
 		<li><?php echo $html->link('Isapre', array('controller' => 'Planillas', 'action' => 'imprimirIsapre')); ?></li>
-		<li><?php echo $html->link('Mutual de Seguridad', array('controller' => 'Planillas', 'action' => 'imprimirMutual')); ?></li>
+		<?php if ($session->read('Empresa.seguridad_id') != 1) { ?>
+			<li><?php echo $html->link('Mutual de Seguridad', array('controller' => 'Planillas', 'action' => 'imprimirMutual')); ?></li>
+		<?php } ?>
 		</ul>
 	
 	<?php } ?>
