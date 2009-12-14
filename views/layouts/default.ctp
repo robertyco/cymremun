@@ -64,6 +64,7 @@
 		<ul>
 		<li><?php echo $html->link('A.F.P.', array('controller' => 'Planillas', 'action' => 'afp')); ?></li>
 		<li><?php echo $html->link('Isapre', array('controller' => 'Planillas', 'action' => 'isapre')); ?></li>
+		<li><?php echo $html->link('Mutual de Seguridad', array('controller' => 'Planillas', 'action' => 'imprimirMutual')); ?></li>
 		</ul>
 	
 <!--	<li><?php echo $html->link('Haberes y descuentos', '/haberes_descuentos'); ?></li> -->

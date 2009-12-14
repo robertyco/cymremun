@@ -116,5 +116,35 @@ class PlanillasController extends AppController {
 		$this->set('empresa', $empresa);
 		$this->set('empleados', $empleados);
 	}
+	
+	function imprimirMutual() {
+		$this->layout = 'pdf';
+		
+		$empresa = $this->Empresa->find('first', array(
+			'conditions' => array('Empresa.id' => $this->Session->read('Empresa.id')),
+			'recursive' => 0
+		));
+		$ntrab = $this->Empleado->find('count', array('conditions' => array('Empleado.empresa_id' => $this->Session->read('Empresa.id'))));
+		$empleados = $this->Empresa->Empleado->find('all', array(
+			'conditions' => array('Empleado.empresa_id' => $this->Session->read('Empresa.id')),
+			'order' => array('apell_paterno' => 'asc'),
+			'recursive' => 0
+		));
+		
+			$i = 0;
+			foreach ($empleados as $empleado):
+				$hola = $this->Liquidacion->find('first', array(
+					'conditions' => array('empleado_id' => $empleado['Empleado']['id'], 
+					'fecha' => $this->Session->read('fecha')), 
+					'recursive' => -1));
+				$empleados[$i]['Liquidacion'] = $hola['Liquidacion'];
+				$i++;
+			endforeach;
+		
+		
+		$this->set('empresa', $empresa);
+		$this->set('ntrab', $ntrab);
+		$this->set('empleados', $empleados);
+	}
 }
 ?>
